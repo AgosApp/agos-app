@@ -1,11 +1,8 @@
 package UFC.Agos.services;
 
-import UFC.Agos.models.Department;
 import UFC.Agos.models.Formation;
-import UFC.Agos.models.Student;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IFormationService {
 

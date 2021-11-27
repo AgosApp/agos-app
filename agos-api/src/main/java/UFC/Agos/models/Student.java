@@ -1,7 +1,6 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class Student {

@@ -3,19 +3,13 @@ package UFC.Agos.configurations;
 import UFC.Agos.models.Department;
 import UFC.Agos.models.Formation;
 import UFC.Agos.models.Student;
-import UFC.Agos.repositories.DepartmentRepository;
-import UFC.Agos.repositories.FormationRepository;
 import UFC.Agos.repositories.StudentRepository;
-import UFC.Agos.services.imp.DepartmentService;
-import UFC.Agos.services.imp.FormationService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
-import java.util.Optional;
+
 
 @Configuration
 public class StudentConfiguration {

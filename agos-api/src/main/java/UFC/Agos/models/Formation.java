@@ -1,8 +1,7 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Optional;
+
 
 @Entity
 public class Formation {
