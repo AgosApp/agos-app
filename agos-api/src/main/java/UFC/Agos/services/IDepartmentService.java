@@ -13,7 +13,7 @@ public interface IDepartmentService {
 
     public void addDepartment(Department department);
 
-    public void deleteDepartment(Long departmentId);
+    public void deleteDepartment(Long departmentId) throws Exception;
 
     public void updateDepartment(Long departmentId,
                                 String name,

@@ -52,6 +52,10 @@ public class FormationService implements IFormationService {
 
     @Override
     public void deleteFormation(Long formationId) throws Exception {
+        boolean exists = formationRepository.existsById(formationId);
+        if(!exists){
+            throw new IllegalStateException("The formation with id "+ formationId + " does not exist");
+        }
         Formation formation = formationRepository.getById(formationId);
         List<Student> students =  studentRepository.getStudentByFormation(formation);
             if(!students.isEmpty()){

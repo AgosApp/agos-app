@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/department")
+@RequestMapping(path = "/api/departments")
 public class DepartmentController {
 
     @Autowired
@@ -29,12 +29,12 @@ public class DepartmentController {
         departmentService.addDepartment(department);
     }
 
-    @DeleteMapping(path = "{departmentId}")
-    public  void deleteDepartment(@PathVariable("departmentId") Long departmentId){
+    @DeleteMapping(path = "/{departmentId}")
+    public  void deleteDepartment(@PathVariable("departmentId") Long departmentId) throws Exception {
         departmentService.deleteDepartment(departmentId);
     }
 
-    @PutMapping(path = "{departmentId}")
+    @PutMapping(path = "/{departmentId}")
     public void updateDepartment(@PathVariable("departmentId") Long departmentId,
                                  @RequestParam(required = false) String name,
                                  @RequestParam(required = false) String description){

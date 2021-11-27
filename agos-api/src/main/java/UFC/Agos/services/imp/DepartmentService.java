@@ -1,7 +1,9 @@
 package UFC.Agos.services.imp;
 
 import UFC.Agos.models.Department;
+import UFC.Agos.models.Formation;
 import UFC.Agos.repositories.DepartmentRepository;
+import UFC.Agos.repositories.FormationRepository;
 import UFC.Agos.services.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class DepartmentService implements IDepartmentService {
 
     @Autowired
     DepartmentRepository departmentRepository;
+
+    @Autowired
+    FormationRepository formationRepository;
 
     @Override
     public List<Department> getDepartments() {
@@ -34,11 +39,17 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public void deleteDepartment(Long departmentId) {
-        boolean exists = departmentRepository.existsById(departmentId);
+    public void deleteDepartment(Long departmentId) throws Exception {
 
+        boolean exists = departmentRepository.existsById(departmentId);
         if(!exists){
-            throw new IllegalStateException("The student with id "+ departmentId + " does not exist");
+            throw new IllegalStateException("The department with id "+ departmentId + " does not exist");
+        }
+
+        Department department = departmentRepository.getById(departmentId);
+        List<Formation> formations = formationRepository.getFormationsByDepartment(department);
+        if(!formations.isEmpty()){
+            throw new Exception("the department with id "+ departmentId +" can't be removed because it contains formations");
         }
         departmentRepository.deleteById(departmentId);
     }
