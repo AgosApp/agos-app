@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class DepartmentService implements IDepartmentService {
@@ -23,8 +22,10 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Optional<Department> getDepartment(Long departmentId) {
-        return departmentRepository.findById(departmentId);
+    public Department getDepartment(Long departmentId) {
+        return departmentRepository.findById(departmentId).orElseThrow(
+                ()-> new IllegalStateException("The department with id "+ departmentId + " does not exist")
+        );
     }
 
     @Override
