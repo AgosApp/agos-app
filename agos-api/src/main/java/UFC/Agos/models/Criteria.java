@@ -3,18 +3,18 @@ package UFC.Agos.models;
 import javax.persistence.*;
 
 @Entity
-public class Criterion {
+public class Criteria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="criterion_seq")
-    @SequenceGenerator(name="criterion_seq",sequenceName="criterion_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="criteria_seq")
+    @SequenceGenerator(name="criteria_seq",sequenceName="criteria_seq", allocationSize=1)
     private Long id;
     private String title;
 
-    public Criterion() {
+    public Criteria() {
     }
 
-    public Criterion(String title) {
+    public Criteria(String title) {
         this.title = title;
     }
 

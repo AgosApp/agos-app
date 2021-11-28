@@ -12,8 +12,8 @@ public class Notation {
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "criterion_id")
-    private Criterion criterion;
+    @JoinColumn(name = "criteria_id")
+    private Criteria criteria;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "notationGroup_id")
@@ -22,8 +22,8 @@ public class Notation {
     public Notation() {
     }
 
-    public Notation(Criterion criterion, NotationGroup notationGroup) {
-        this.criterion = criterion;
+    public Notation(Criteria criteria, NotationGroup notationGroup) {
+        this.criteria = criteria;
         this.notationGroup = notationGroup;
     }
 
@@ -35,12 +35,12 @@ public class Notation {
         this.id = id;
     }
 
-    public Criterion getCriterion() {
-        return criterion;
+    public Criteria getCriteria() {
+        return criteria;
     }
 
-    public void setCriterion(Criterion criterion) {
-        this.criterion = criterion;
+    public void setCriteria(Criteria criteria) {
+        this.criteria = criteria;
     }
 
     public NotationGroup getNotationGroup() {
@@ -55,7 +55,7 @@ public class Notation {
     public String toString() {
         return "Notation{" +
                 "id=" + id +
-                ", criterion=" + criterion +
+                ", criterion=" + criteria +
                 ", notationGroup=" + notationGroup +
                 '}';
     }
