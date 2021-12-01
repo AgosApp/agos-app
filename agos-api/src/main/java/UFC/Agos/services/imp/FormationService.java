@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class FormationService implements IFormationService {
@@ -57,7 +56,7 @@ public class FormationService implements IFormationService {
             throw new IllegalStateException("The formation with id "+ formationId + " does not exist");
         }
         Formation formation = formationRepository.getById(formationId);
-        List<Student> students =  studentRepository.getStudentByFormation(formation);
+        List<Student> students =  studentRepository.getStudentsByFormation(formation);
             if(!students.isEmpty()){
                 throw new Exception("th formation with id "+ formationId +" can't be removed because it contains students");
             }
