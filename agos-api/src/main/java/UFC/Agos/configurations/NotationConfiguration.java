@@ -29,12 +29,9 @@ public class NotationConfiguration {
             Criteria criteria = new Criteria("criteria1");
 
             NotationGroup notationGroup = new NotationGroup("group1");
-
             Notation notation = new Notation(criteria, notationGroup, 5);
 
             notationGroup.addNotation(notation);
-
-
             notationRepository.save(notation);
 
 
