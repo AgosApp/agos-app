@@ -11,6 +11,8 @@ public class Notation {
     @SequenceGenerator(name="notation_seq",sequenceName="notation_seq", allocationSize=1)
     private Long id;
 
+    private int bareme;
+
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "criteria_id")
     private Criteria criteria;
@@ -20,20 +22,17 @@ public class Notation {
     private NotationGroup notationGroup;
 
     public Notation() {
+
     }
 
-    public Notation(Criteria criteria, NotationGroup notationGroup) {
+    public Notation(Criteria criteria, NotationGroup notationGroup, int bareme) {
         this.criteria = criteria;
         this.notationGroup = notationGroup;
+        this.bareme = bareme;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public Criteria getCriteria() {
         return criteria;
@@ -51,12 +50,21 @@ public class Notation {
         this.notationGroup = notationGroup;
     }
 
+    public int getBareme() {
+        return bareme;
+    }
+
+    public void setBareme(int bareme) {
+        this.bareme = bareme;
+    }
+
     @Override
     public String toString() {
         return "Notation{" +
                 "id=" + id +
                 ", criterion=" + criteria +
                 ", notationGroup=" + notationGroup +
+                ", bareme=" + bareme +
                 '}';
     }
 }
