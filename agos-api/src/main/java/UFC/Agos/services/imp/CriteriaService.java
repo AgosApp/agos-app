@@ -1,9 +1,9 @@
 package UFC.Agos.services.imp;
 
-import UFC.Agos.models.Criteria;
-import UFC.Agos.models.Department;
-import UFC.Agos.models.Formation;
+import UFC.Agos.models.*;
+import UFC.Agos.repositories.CriteriaEvaluationRepository;
 import UFC.Agos.repositories.CriteriaRepository;
+import UFC.Agos.repositories.NotationRepository;
 import UFC.Agos.services.ICriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,11 @@ public class CriteriaService implements ICriteriaService {
     @Autowired
     CriteriaRepository criteriaRepository;
 
+    @Autowired
+    NotationRepository notationRepository;
+
+    @Autowired
+    CriteriaEvaluationRepository criteriaEvaluationRepository;
 
     @Override
     public List<Criteria> getCriterias() {
@@ -44,6 +49,13 @@ public class CriteriaService implements ICriteriaService {
         }
 
         Criteria criteria = criteriaRepository.getById(criteriaId);
+        List<Notation> notations = notationRepository.getNotationsByCriteria(criteria);
+        List<CriteriaEvaluation> criteriaEvaluations = criteriaEvaluationRepository.getCriteriaEvaluationsByCriteria(criteria);
+
+        if(!notations.isEmpty() || !criteriaEvaluations.isEmpty()){
+            throw new Exception("the criteria with id "+ criteriaId +" can't be removed because it contains relationships");
+        }
+
         criteriaRepository.deleteById(criteriaId);
     }
 
