@@ -24,7 +24,6 @@ public class Criteria {
     }
 
 
-
     public String getTitle() {
         return title;
     }
