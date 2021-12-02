@@ -1,7 +1,6 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,8 +12,6 @@ public class Criteria {
     private Long id;
     private String title;
 
-    @OneToMany(mappedBy = "criteria", cascade = CascadeType.ALL)
-    private Set<Notation> notations = new HashSet<>();
 
     public Criteria() {
     }
@@ -32,17 +29,10 @@ public class Criteria {
         this.title = title;
     }
 
-    public Set<Notation> getNotations() {
-        return notations;
-    }
-
-    public void setNotations(Set<Notation> notations) {
-        this.notations = notations;
-    }
 
     @Override
     public String toString() {
-        return "Criterion{" +
+        return "Criteria{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';
