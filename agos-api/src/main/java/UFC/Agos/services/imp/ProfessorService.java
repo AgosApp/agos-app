@@ -57,7 +57,7 @@ public class ProfessorService implements IProfessorService {
         List<CriteriaEvaluation> criteriaEvaluations =  criteriaEvaluationRepository.getCriteriaEvaluationsByProfessor(professor);
         Evaluation evaluation = evaluationRepository.getEvaluationByProfessor(professor);
         if(!criteriaEvaluations.isEmpty() || evaluation != null){
-            throw new Exception("th professor with id "+ professor +" can't be removed because he has evaluation or criteriaEvaluations ");
+            throw new Exception("th professor with id "+ professorId +" can't be removed because he has evaluation or criteriaEvaluations ");
         }
         professorRepository.deleteById(professorId);
 

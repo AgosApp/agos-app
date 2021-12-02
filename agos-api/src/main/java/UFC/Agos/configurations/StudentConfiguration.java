@@ -18,13 +18,16 @@ import java.util.List;
 public class StudentConfiguration {
 
     @Bean
-    CommandLineRunner studentCommandLineRunner(StudentRepository studentRepository, ProfessorRepository professorRepository, ProfessorService professorService){
+    CommandLineRunner studentCommandLineRunner(StudentRepository studentRepository){
         Department ufrST = new Department("Info", "Département en UFR ST");
               Formation formation = new Formation(
-               "M2 ISL",
-               "Master 2 Info",
-               ufrST);
-       Formation formation1 = new Formation("M2 Big data", "Master 2 Info", ufrST);
+                       "M2 ISL",
+                       "Master 2 Info",
+                       ufrST);
+              Formation formation1 = new Formation(
+                      "M2 Big data",
+                      "Master 2 Info",
+                      ufrST);
 
         return args -> {
             Student mourtada = new Student(
@@ -47,18 +50,7 @@ public class StudentConfiguration {
                     false,
                     ufrST
             );
-            Professor professor1 = new Professor(
-                    "Jean François",
-                    "Couchot",
-                    "fcouchot",
-                    "JFC",
-                    true,
-                    ufrST
-            );
-
             studentRepository.saveAll(List.of(mourtada,nossair));
-            //professorRepository.saveAll(List.of(professor,professor1));
-            //professorService.addProfessor(professor,ufrST.getId());
         };
 
     }
