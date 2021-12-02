@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CriteriaRepository   extends JpaRepository<Criteria, Long> {
-    Criteria findById(long criteriaId);
 }
