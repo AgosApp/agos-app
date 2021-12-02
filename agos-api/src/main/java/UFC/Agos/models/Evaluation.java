@@ -18,12 +18,12 @@ public class Evaluation {
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "professor_id")
-    private Thesis professor;
+    private Professor professor;
 
     public Evaluation() {
     }
 
-    public Evaluation(String remark, Float thesisNote, Thesis thesis, Thesis professor) {
+    public Evaluation(String remark, Float thesisNote, Thesis thesis, Professor professor) {
         this.remark = remark;
         this.thesisNote = thesisNote;
         this.thesis = thesis;
@@ -62,11 +62,11 @@ public class Evaluation {
         this.thesis = thesis;
     }
 
-    public Thesis getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 
-    public void setProfessor(Thesis professor) {
+    public void setProfessor(Professor professor) {
         this.professor = professor;
     }
 
