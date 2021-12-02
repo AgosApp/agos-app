@@ -5,12 +5,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
-import { ClassroomsComponent } from './classrooms/classrooms.component';
-import { NotationComponent } from './notation/notation.component';
-import { SessionsComponent } from './sessions/sessions.component';
-import { StudentsComponent } from './students/students.component';
-import { ProfessorsComponent } from './professors/professors.component';
+import { ClassroomsComponent } from './components/classrooms/classrooms.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotationComponent } from './components/notation/notation.component';
+import { SessionsComponent } from './components/sessions/sessions.component';
+import { StudentsComponent } from './components/students/students.component';
+import { ProfessorsComponent } from './components/professors/professors.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProfessorsComponent } from './professors/professors.component';
     NotationComponent,
     SessionsComponent,
     StudentsComponent,
-    ProfessorsComponent
+    ProfessorsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
