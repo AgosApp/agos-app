@@ -2,8 +2,10 @@ package UFC.Agos.services.imp;
 
 import UFC.Agos.models.Department;
 import UFC.Agos.models.Formation;
+import UFC.Agos.models.Professor;
 import UFC.Agos.repositories.DepartmentRepository;
 import UFC.Agos.repositories.FormationRepository;
+import UFC.Agos.repositories.ProfessorRepository;
 import UFC.Agos.services.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class DepartmentService implements IDepartmentService {
 
     @Autowired
     FormationRepository formationRepository;
+
+    @Autowired
+    ProfessorRepository professorRepository;
 
     @Override
     public List<Department> getDepartments() {
@@ -48,8 +53,9 @@ public class DepartmentService implements IDepartmentService {
 
         Department department = departmentRepository.getById(departmentId);
         List<Formation> formations = formationRepository.getFormationsByDepartment(department);
-        if(!formations.isEmpty()){
-            throw new Exception("the department with id "+ departmentId +" can't be removed because it contains formations");
+        List<Professor> professors = professorRepository.getProfessorsByDepartment(department);
+        if(!formations.isEmpty() || !professors.isEmpty()){
+            throw new Exception("the department with id "+ departmentId +" can't be removed because it contains formations or professors");
         }
         departmentRepository.deleteById(departmentId);
     }
