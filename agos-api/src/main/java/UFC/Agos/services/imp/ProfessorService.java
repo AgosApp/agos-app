@@ -60,7 +60,6 @@ public class ProfessorService implements IProfessorService {
             throw new Exception("th professor with id "+ professorId +" can't be removed because he has evaluation or criteriaEvaluations ");
         }
         professorRepository.deleteById(professorId);
-
     }
 
     @Override

@@ -2,7 +2,6 @@ package UFC.Agos.configurations;
 
 
 import UFC.Agos.models.Department;
-import UFC.Agos.models.Formation;
 import UFC.Agos.models.Professor;
 import UFC.Agos.repositories.ProfessorRepository;
 import org.springframework.boot.CommandLineRunner;
