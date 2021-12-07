@@ -1,6 +1,7 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Criteria {
@@ -11,6 +12,7 @@ public class Criteria {
     private Long id;
     private String title;
 
+
     public Criteria() {
     }
 
@@ -18,13 +20,6 @@ public class Criteria {
         this.title = title;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -34,9 +29,10 @@ public class Criteria {
         this.title = title;
     }
 
+
     @Override
     public String toString() {
-        return "Criterion{" +
+        return "Criteria{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';

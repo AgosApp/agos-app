@@ -2,6 +2,7 @@ package UFC.Agos.configurations;
 
 import UFC.Agos.models.Department;
 import UFC.Agos.models.Formation;
+import UFC.Agos.models.Professor;
 import UFC.Agos.models.Student;
 import UFC.Agos.repositories.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -18,10 +19,13 @@ public class StudentConfiguration {
     CommandLineRunner studentCommandLineRunner(StudentRepository studentRepository){
         Department ufrST = new Department("Info", "Département en UFR ST");
               Formation formation = new Formation(
-               "M2 ISL",
-               "Master 2 Info",
-               ufrST);
-       Formation formation1 = new Formation("M2 Big data", "Master 2 Info", ufrST);
+                       "M2 ISL",
+                       "Master 2 Info",
+                       ufrST);
+              Formation formation1 = new Formation(
+                      "M2 Big data",
+                      "Master 2 Info",
+                      ufrST);
 
         return args -> {
             Student mourtada = new Student(
@@ -36,7 +40,14 @@ public class StudentConfiguration {
                     "nsbaibi",
                     formation1
             );
-
+            Professor professor = new Professor(
+                    "Maurilleaud",
+                    "Nicolas",
+                    "mnicolas",
+                    "NM",
+                    false,
+                    ufrST
+            );
             studentRepository.saveAll(List.of(mourtada,nossair));
         };
 
