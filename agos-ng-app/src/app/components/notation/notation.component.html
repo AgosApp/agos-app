@@ -1,1 +1,24 @@
-<p>notation works!</p>
+
+<!-- <mat-card>
+<mat-form-field appearance="outline">
+    <mat-label>Outline form field</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+</mat-card> -->
+<div class="grid-container">  
+    <mat-grid-list cols="2" rowHeight="350px">  
+      <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">  
+        <mat-card class="dashboard-card">  
+          <mat-card-header>  
+            <mat-card-title style="color: '#066D80';">  
+              {{card.title}} 
+            </mat-card-title>  
+          </mat-card-header>  
+          <mat-card-content class="dashboard-card-content">  
+            <div>Card Content Here</div>  
+          </mat-card-content>  
+        </mat-card>  
+      </mat-grid-tile>  
+    </mat-grid-list>  
+  </div> 
