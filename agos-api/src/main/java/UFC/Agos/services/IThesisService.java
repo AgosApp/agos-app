@@ -11,11 +11,11 @@ public interface IThesisService {
 
     public Thesis getThesisBySession(Long thesisId, Long sessionId);
 
-    public List<Thesis> getThesesByStudentThesis(Long studentThesisId);
+    public List<Thesis> getThesesByStudent(Long studentId);
 
-    public Thesis getThesisByStudentThesis(Long thesisId, Long studentThesisId);
+    public Thesis getThesisByStudent(Long thesisId, Long studentThesisId);
 
-    public void addThesis(Thesis thesis, Long sessionId, Long studentThesisId);
+    public void addThesis(Thesis thesis, Long sessionId, Long roomId, Long professorId);
 
     public void deleteThesis(Long thesisId) throws Exception;
 

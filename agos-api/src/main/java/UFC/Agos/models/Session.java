@@ -11,7 +11,7 @@ public class Session {
     @SequenceGenerator(name="session_seq",sequenceName="session_seq", allocationSize=1)
     private Long id;
     private String title;
-    private int duration;
+    private Integer duration;
     private LocalDate alertDelay;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
@@ -24,7 +24,7 @@ public class Session {
 
     public Session() {}
 
-    public Session(String title, int duration, LocalDate alertDelay, Formation formation, NotationGroup notationGroup) {
+    public Session(String title, Integer duration, LocalDate alertDelay, Formation formation, NotationGroup notationGroup) {
         this.title = title;
         this.duration = duration;
         this.alertDelay = alertDelay;
@@ -36,10 +36,6 @@ public class Session {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -48,11 +44,11 @@ public class Session {
         this.title = title;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
