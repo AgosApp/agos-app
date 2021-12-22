@@ -14,11 +14,19 @@ export interface Tile {
 })
 export class NotationComponent implements OnInit {
 
-  cards = [  
-    { title: 'Critères', cols: 1, rows: 1 },  
-    { title: 'Créer Groupe de Notation', cols: 1, rows: 2 },  
-    { title: 'Groupes de Notation', cols: 1, rows: 1 }
-  ]; 
+  criterias = [  
+    { title: 'Forme'},  
+    { title: 'Mise en avant des principales fonctionnalités '},  
+    { title: "Qualité de l'expression orale" },
+    { title: 'Justification des méthodes et outils'},  
+  ];
+
+  notation_groups = [  
+    { title: 'Projets Tuteurés' },  
+    { title: 'PFE Informatique' },  
+    { title: 'Projets PAM' },
+    { title: 'PFE Mécanique' }
+  ];
 
   constructor() { }
 

@@ -1,1 +1,47 @@
-<p>professors works!</p>
+<div class="mat-elevation-z8">
+    <mat-form-field appearance="standard" style="background-color: gainsboro;">
+      <mat-label>Rechercher Professeur</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. JFC" #input>
+    </mat-form-field>
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="background-color: gainsboro;">
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="prenom">
+        <th mat-header-cell *matHeaderCellDef> Prenom </th>
+        <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="abv">
+        <th mat-header-cell *matHeaderCellDef> Formation </th>
+        <td mat-cell *matCellDef="let element"> {{element.abv}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="is_admin">
+        <th mat-header-cell *matHeaderCellDef> Formation </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_admin}} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator style="background-color: gainsboro;" [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons 
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
+  </div>
