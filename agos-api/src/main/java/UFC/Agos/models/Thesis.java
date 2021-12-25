@@ -11,6 +11,7 @@ public class Thesis {
     @SequenceGenerator(name="thesis_seq",sequenceName="thesis_seq", allocationSize=1)
     private Long id;
     private String title;
+    private String type;
     private LocalDate time;
     private Float finalNote;
     private String summary;
@@ -26,8 +27,9 @@ public class Thesis {
     public Thesis() {
     }
 
-    public Thesis(String title, LocalDate time, Float finalNote, String summary, Session session, Room room) {
+    public Thesis(String title, String type, LocalDate time, Float finalNote, String summary, Session session, Room room) {
         this.title = title;
+        this.type = type;
         this.time = time;
         this.finalNote = finalNote;
         this.summary = summary;
@@ -50,6 +52,10 @@ public class Thesis {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 
     public LocalDate getTime() {
         return time;
@@ -96,6 +102,7 @@ public class Thesis {
         return "Thesis{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", type='" + type + '\'' +
                 ", time=" + time +
                 ", finalNote=" + finalNote +
                 ", summary='" + summary + '\'' +

@@ -18,7 +18,6 @@ public interface IProfessorService {
                                 String firstName,
                                 String lastName,
                                 String login,
-                                String abbreviation,
                                 boolean isAdmin,
                                 Long departmentId
     );
