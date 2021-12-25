@@ -3,7 +3,7 @@
 # agos-Back
 
 About the project : 
-It's a REST API developped using Spring Boot 2.5.6 Framework and Spring MVC Core.
+It's a REST API developed using Spring Boot 2.5.6 Framework and Spring MVC Core.
 This API offers many end-points that will be consumed by th frontend Application.
 
 Prerequisites 
@@ -12,13 +12,14 @@ Prerequisites
 - XXAMP 
 
 Usage
-- Open agos-app directory in a text editor (Intellij IDEA is recommmanded)
+- Open agos-app directory in a text editor (Intellij IDEA is recommended)
 - open agos-api which contains api code spring project
 - Reload your maven dependencies
 - Run MySQL and Apache servers using XXAMP Control Panel v3.3.0
-- Create a data base in MySQL with the name agos
-- Checkout your application.properties file and up to date if neccessary 
+- Create a database in MySQL with the name agos
+- Checkout your application.properties file and up to date if necessary 
 - Run your application
+- You can visualize all existing endPoints by a Swagger using the link http://localhost:8080/swagger-ui.html 
 
 Contributing 
 Fork the repo and create a pull request. 
