@@ -64,7 +64,7 @@ public class ProfessorService implements IProfessorService {
 
     @Override
     @Transactional
-    public void updateProfessor(Long professorId, String firstName, String lastName, String login, String abbreviation, boolean isAdmin, Long departmentId) {
+    public void updateProfessor(Long professorId, String firstName, String lastName, String login, boolean isAdmin, Long departmentId) {
 
         Professor professor = professorRepository.findById(professorId).orElseThrow(
                 () -> new IllegalStateException("The professor with id " + professorId + " does not exist")
@@ -80,10 +80,6 @@ public class ProfessorService implements IProfessorService {
 
         if(login != null && login.length()>0 && !Objects.equals(login, professor.getLogin())){
             professor.setLogin(login);
-        }
-
-        if(abbreviation != null && abbreviation.length()>0 && !Objects.equals(abbreviation, professor.getAbbreviation())){
-            professor.setAbbreviation(abbreviation);
         }
 
         if(!Objects.equals(isAdmin, professor.isAdmin())){
