@@ -52,10 +52,9 @@ public class ProfessorController {
                        @PathVariable Long professorId,
                        @RequestParam(required = false) String firstName,
                        @RequestParam(required = false) String lastName,
-                       @RequestParam(required = false) String abbreviation,
                        @RequestParam(required = false) String login,
                        @RequestParam(required = false) boolean isAdmin
                        ){
-        professorService.updateProfessor(professorId, firstName, lastName, login, abbreviation, isAdmin, departmentId);
+        professorService.updateProfessor(professorId, firstName, lastName, login, isAdmin, departmentId);
     }
 }
