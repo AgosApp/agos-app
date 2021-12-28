@@ -6,8 +6,7 @@ import javax.persistence.*;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="room_seq")
-    @SequenceGenerator(name="room_seq",sequenceName="room_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;

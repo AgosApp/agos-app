@@ -1,18 +1,21 @@
 package UFC.Agos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Thesis {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="thesis_seq")
-    @SequenceGenerator(name="thesis_seq",sequenceName="thesis_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String type;
-    private LocalDate time;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime time;
     private Float finalNote;
     private String summary;
 
@@ -24,10 +27,11 @@ public class Thesis {
     @JoinColumn(name = "room_id")
     private Room room;
 
+
     public Thesis() {
     }
 
-    public Thesis(String title, String type, LocalDate time, Float finalNote, String summary, Session session, Room room) {
+    public Thesis(String title, String type, LocalDateTime time, Float finalNote, String summary, Session session, Room room) {
         this.title = title;
         this.type = type;
         this.time = time;
@@ -57,11 +61,11 @@ public class Thesis {
 
     public void setType(String type) { this.type = type; }
 
-    public LocalDate getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

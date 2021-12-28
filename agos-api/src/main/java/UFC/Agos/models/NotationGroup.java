@@ -1,5 +1,7 @@
 package UFC.Agos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,13 +10,13 @@ import java.util.Set;
 public class NotationGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="notationGroup_seq")
-    @SequenceGenerator(name="notationGroup_seq",sequenceName="notationGroup_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String notationGroupTitle;
 
     @OneToMany(mappedBy = "notationGroup", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Notation> notations = new HashSet<>();
 
     public NotationGroup() {
