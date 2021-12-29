@@ -1,20 +1,24 @@
 package UFC.Agos.services.imp;
 
 import UFC.Agos.models.*;
-import UFC.Agos.repositories.CriteriaEvaluationRepository;
-import UFC.Agos.repositories.DepartmentRepository;
-import UFC.Agos.repositories.EvaluationRepository;
-import UFC.Agos.repositories.ProfessorRepository;
+import UFC.Agos.repositories.*;
 import UFC.Agos.services.IProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ProfessorService implements IProfessorService {
+public class ProfessorService implements IProfessorService, UserDetailsService {
 
     @Autowired
     ProfessorRepository professorRepository;
@@ -27,6 +31,35 @@ public class ProfessorService implements IProfessorService {
 
     @Autowired
     CriteriaEvaluationRepository criteriaEvaluationRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Professor professor = professorRepository.findByUsername(username);
+        if(professor == null) {
+            throw new UsernameNotFoundException("username not found !");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        professor.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return new User(professor.getUsername(), professor.getPassword(), authorities);
+    }
+
+    @Override
+    public void addRoleToProfessor(String username, String roleName) {
+        Professor professor = professorRepository.findByUsername(username);
+        System.out.println(professor);
+        Role role = roleRepository.findByName(roleName);
+
+        System.out.println(role.toString());
+        //professor.setRole(new Role("ROLE_PROFESSOR"));
+        professor.getRoles().add(role);
+
+    }
 
     @Override
     public List<Professor> getProfessorsByDepartment(Long departmentId) {
@@ -64,7 +97,7 @@ public class ProfessorService implements IProfessorService {
 
     @Override
     @Transactional
-    public void updateProfessor(Long professorId, String firstName, String lastName, String login, boolean isAdmin, Long departmentId) {
+    public void updateProfessor(Long professorId, String firstName, String lastName, String username, String password, boolean isAdmin, Long departmentId) {
 
         Professor professor = professorRepository.findById(professorId).orElseThrow(
                 () -> new IllegalStateException("The professor with id " + professorId + " does not exist")
@@ -78,8 +111,8 @@ public class ProfessorService implements IProfessorService {
             professor.setFirstName(firstName);
         }
 
-        if(login != null && login.length()>0 && !Objects.equals(login, professor.getLogin())){
-            professor.setLogin(login);
+        if(username != null && username.length()>0 && !Objects.equals(username, professor.getUsername())){
+            professor.setUsername(username);
         }
 
         if(!Objects.equals(isAdmin, professor.isAdmin())){
@@ -91,4 +124,5 @@ public class ProfessorService implements IProfessorService {
             professor.setDepartment(department);
         }
     }
+
 }

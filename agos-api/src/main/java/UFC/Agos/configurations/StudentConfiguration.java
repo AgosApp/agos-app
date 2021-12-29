@@ -44,6 +44,7 @@ public class StudentConfiguration {
                     "Maurilleaud",
                     "Nicolas",
                     "mnicolas",
+                    "123",
                     false,
                     ufrST
             );

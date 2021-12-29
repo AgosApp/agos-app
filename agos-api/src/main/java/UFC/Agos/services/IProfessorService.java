@@ -17,8 +17,12 @@ public interface IProfessorService {
     public void updateProfessor(Long professorId,
                                 String firstName,
                                 String lastName,
-                                String login,
+                                String username,
+                                String password,
                                 boolean isAdmin,
                                 Long departmentId
     );
+
+    void addRoleToProfessor(String username, String roleName);
+
 }

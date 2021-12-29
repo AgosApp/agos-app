@@ -1,11 +1,14 @@
 package UFC.Agos.controlers;
 
 import UFC.Agos.models.Professor;
+import UFC.Agos.Dto.RoleToProfessorForm;
 import UFC.Agos.services.IDepartmentService;
 import UFC.Agos.services.IProfessorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,9 +55,20 @@ public class ProfessorController {
                        @PathVariable Long professorId,
                        @RequestParam(required = false) String firstName,
                        @RequestParam(required = false) String lastName,
-                       @RequestParam(required = false) String login,
+                       @RequestParam(required = false) String username,
+                       @RequestParam(required = false) String password,
                        @RequestParam(required = false) boolean isAdmin
                        ){
-        professorService.updateProfessor(professorId, firstName, lastName, login, isAdmin, departmentId);
+        professorService.updateProfessor(professorId, firstName, lastName, username, password, isAdmin, departmentId);
     }
+
+    @ApiOperation(value = "Add role to professor")
+    @PostMapping(path = "/addRole")
+    public ResponseEntity<?> addRoleToProfessor(@RequestBody RoleToProfessorForm form)  {
+        professorService.addRoleToProfessor(form.getUsername(), form.getRoleName());
+        return ResponseEntity.ok().build();
+    }
+
+
 }
+
