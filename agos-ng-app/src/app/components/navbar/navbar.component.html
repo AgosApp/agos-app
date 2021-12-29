@@ -1,13 +1,70 @@
-<mat-toolbar class="navbar">
-    <span class="title">AGOS</span>
-    <span class="title">
-      <a mat-button routerLink='classrooms'>Salles</a>
-      <a mat-button routerLink='notation'>Notation</a>
-      <a mat-button routerLink='sessions'>Sessions</a>
-      <a mat-button routerLink='students'>Etudiants</a>
-      <a mat-button routerLink='professors'>Professeurs</a>
-    </span>
-    <span class="navbar-right">
-       <a mat-button >Se déconnecter</a>
-    </span>
+<div *ngFor="let data of roles" [ngSwitch]="data.type">
+  <div *ngSwitchCase="'admin'">
+    <mat-toolbar class="navbar">
+      <span class="title">AGOS</span>
+      <span class="title">
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="classrooms"
+          >Salles</a
+        >
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="notation"
+          >Notation</a
+        >
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="sessions"
+          >Sessions</a
+        >
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="students"
+          >Etudiants</a
+        >
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="professors"
+          >Professeurs</a
+        >
+      </span>
+      <span class="navbar-right">
+        <a mat-button>Se déconnecter</a>
+      </span>
     </mat-toolbar>
+  </div>
+  <div *ngSwitchCase="'professor'">
+    <mat-toolbar class="navbar">
+      <span class="title">AGOS</span>
+      <span class="title">
+        <a
+          routerLink="/user/bob"
+          routerLinkActive="active-link"
+          class="navbar-item"
+          mat-button
+          routerLink="notation"
+          >Mes Soutenances</a
+        >
+      </span>
+      <span class="navbar-right">
+        <a mat-button>Se déconnecter</a>
+      </span>
+    </mat-toolbar>
+  </div>
+</div>

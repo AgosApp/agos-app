@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  roles = [  
+    { type: 'admin' },  
+    // { type: 'professor' },  
+    // { type: 'student' },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

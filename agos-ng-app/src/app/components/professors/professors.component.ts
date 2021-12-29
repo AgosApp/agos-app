@@ -8,16 +8,16 @@ import { MatTableDataSource } from '@angular/material/table';
 export interface Professor {
   nom: string;
   prenom: string;
-  abr: string;
+  login: string;
   is_admin: boolean;
 }
 
 
 const professors: Professor[] = [  
-  { nom: 'Jounaid', prenom:'Youssef',abr:'YJO', is_admin: false},
-  { nom: 'Boufelja', prenom:'Mourtada',abr:'MBF', is_admin: false},
-  { nom: 'Sbaibi', prenom:'Nossair',abr:'NSB', is_admin: true},
-  { nom: 'Boutahir', prenom:'Mounia',abr:'MBT', is_admin: false},
+  { nom: 'Jounaid', prenom:'Youssef',login:'YJO', is_admin: false},
+  { nom: 'Boufelja', prenom:'Mourtada',login:'MBF', is_admin: false},
+  { nom: 'Sbaibi', prenom:'Nossair',login:'NSB', is_admin: true},
+  { nom: 'Boutahir', prenom:'Mounia',login:'MBT', is_admin: false},
 ];
 
 
@@ -32,19 +32,12 @@ export class ProfessorsComponent implements OnInit {
 
   ];
 
-  displayedColumns: string[] = ['nom', 'prenom', 'abv','is_admin'];
+  displayedColumns: string[] = ['nom', 'prenom', 'login','is_admin'];
   dataSource = new MatTableDataSource(professors);
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   constructor() { }

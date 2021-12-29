@@ -1,4 +1,3 @@
-
 <!-- <mat-card>
 <mat-form-field appearance="outline">
     <mat-label>Outline form field</mat-label>
@@ -6,65 +5,63 @@
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 </mat-card> -->
-<div class="grid-container">  
-    <mat-grid-list cols="2" rowHeight="350px">
-        <!--Criteria List  -->
-      <mat-grid-tile [colspan]=1 [rowspan]=1>  
-        <mat-card class="dashboard-card">
-          <mat-card-header>  
-            <mat-card-title style="color: '#066D80';">  
-              Critères
-            </mat-card-title>  
-          </mat-card-header>  
-          <mat-card-content class="dashboard-card-content">  
-            <div style="flex: 1" >
-              <div style="float: left;width: 80%;">
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <!--Criteria List  -->
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title style="color: '#066D80'"> Critères </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div style="flex: 1">
+            <div style="float: left; width: 80%">
               <form class="example-form">
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Créer un nouveau critère</mat-label>
-                <input matInput #message >
-              </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Créer un nouveau critère</mat-label>
+                  <input matInput #message />
+                </mat-form-field>
               </form>
             </div>
-            <div style="float: right;width: 10%;">
-              <button mat-mini-fab color='#066D80' >
-              <mat-icon>add</mat-icon>
+            <div style="float: right; width: 10%">
+              <button mat-mini-fab color="#066D80">
+                <mat-icon>add</mat-icon>
               </button>
             </div>
-            </div>
-            <div>
-              <ul>
-                <li *ngFor='let data of criterias'>{{ data.title }}</li>
-              </ul>
-            </div>  
-          </mat-card-content>  
-        </mat-card>  
-      </mat-grid-tile>  
-      <!-- Notation Group Creation -->
-      <mat-grid-tile [colspan]=1 [rowspan]=2>  
-        <mat-card class="dashboard-card">
-          <mat-card-header>  
-            <mat-card-title style="color: '#066D80';">  
-              Créer Groupe de Notation
-            </mat-card-title>  
-          </mat-card-header>  
-          <mat-card-content class="dashboard-card-content">  
-            <div>Card Content Here</div>  
-          </mat-card-content>  
-        </mat-card>  
-      </mat-grid-tile>  
-      <!-- Notation Groups List -->
-      <mat-grid-tile [colspan]=1 [rowspan]=1>  
-        <mat-card class="dashboard-card">
-          <mat-card-header>  
-            <mat-card-title style="color: '#066D80';">  
-              Groupes de Notation
-            </mat-card-title>  
-          </mat-card-header>  
-          <mat-card-content class="dashboard-card-content">  
-            <div>Card Content Here</div>  
-          </mat-card-content>  
-        </mat-card>  
-      </mat-grid-tile>  
-    </mat-grid-list>  
-  </div> 
+          </div>
+          <div>
+            <ul>
+              <li *ngFor="let data of criterias">{{ data.title }}</li>
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <!-- Notation Group Creation -->
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title style="color: '#066D80'">
+            Créer Groupe de Notation
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <!-- Notation Groups List -->
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title style="color: '#066D80'">
+            Groupes de Notation
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
