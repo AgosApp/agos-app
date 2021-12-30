@@ -1,7 +1,9 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,14 +16,21 @@ public class NotationGroup {
 
     private String notation_group_title;
 
-    @OneToMany(mappedBy = "notationGroup", cascade = CascadeType.ALL)
-    private Set<Notation> notations = new HashSet<>();
+    @OneToMany(mappedBy = "notationGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Notation> notations = new ArrayList<>();
 
     public NotationGroup() {
     }
 
-    public NotationGroup(String notation_group_title) {
+    public NotationGroup(String notation_group_title
+            //, List<Notation> notations
+                         ) {
         this.notation_group_title = notation_group_title;
+        //this.notations = notations;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNotation_group_title() {
@@ -34,11 +43,11 @@ public class NotationGroup {
 
 
 
-    public Set<Notation> getNotations() {
+   public List<Notation> getNotations() {
         return notations;
     }
 
-    public void setNotations(Set<Notation> notations) {
+    public void setNotations(List<Notation> notations) {
         this.notations = notations;
     }
 
