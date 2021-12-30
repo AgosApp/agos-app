@@ -1,8 +1,12 @@
 package UFC.Agos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,19 +17,27 @@ public class Crenel {
     private Long id;
 
     private LocalDate day;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime startTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime endTime;
 
-    @ManyToMany
+    @ManyToOne(cascade = CascadeType.ALL)
+    Session session;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Collection<Room> rooms= new ArrayList<>();
 
     public Crenel() {
     }
 
-    public Crenel(LocalDate day, LocalTime startTime, LocalTime endTime, Collection<Room> rooms) {
+    public Crenel(LocalDate day, LocalTime startTime, LocalTime endTime, Session session, Collection<Room> rooms) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.session = session;
         this.rooms = rooms;
     }
 
@@ -57,6 +69,14 @@ public class Crenel {
         this.endTime = endTime;
     }
 
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
     public Collection<Room> getRooms() {
         return rooms;
     }
@@ -76,6 +96,7 @@ public class Crenel {
                 ", day=" + day +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", session=" + session +
                 ", rooms=" + rooms +
                 '}';
     }
