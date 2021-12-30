@@ -5,6 +5,7 @@ import { NotationComponent } from './components/notation/notation.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { StudentsComponent } from './components/students/students.component';
+import { DepartmentComponent } from './components/department/department.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path:'notation', component: NotationComponent},
   {path:'sessions', component: SessionsComponent},
   {path:'students', component: StudentsComponent},
-  {path:'professors', component: ProfessorsComponent}
+  {path:'professors', component: ProfessorsComponent},
+  {path:'department', component: DepartmentComponent}
 ];
 
 @NgModule({
