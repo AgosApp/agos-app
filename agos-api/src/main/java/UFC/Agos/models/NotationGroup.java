@@ -14,7 +14,7 @@ public class NotationGroup {
     @SequenceGenerator(name="notationGroup_seq",sequenceName="notationGroup_seq", allocationSize=1)
     private Long id;
 
-    private String notation_group_title;
+    private String notationGroupTitle;
 
     @OneToMany(mappedBy = "notationGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Notation> notations = new ArrayList<>();
@@ -22,26 +22,30 @@ public class NotationGroup {
     public NotationGroup() {
     }
 
-    public NotationGroup(String notation_group_title
+
+    /*public NotationGroup(String notation_group_title
             //, List<Notation> notations
                          ) {
-        this.notation_group_title = notation_group_title;
+        this.notationGroupTitle = notation_group_title;
         //this.notations = notations;
-    }
+    }*/
 
     public Long getId() {
         return id;
     }
+    public NotationGroup(String notationGroupTitle) {
+        this.notationGroupTitle = notationGroupTitle;
 
-    public String getNotation_group_title() {
-        return notation_group_title;
-    }
-
-    public void setNotation_group_title(String notation_group_title) {
-        this.notation_group_title = notation_group_title;
     }
 
 
+    public String getNotationGroupTitle() {
+        return notationGroupTitle;
+    }
+
+    public void setNotationGroupTitle(String notationGroupTitle) {
+        this.notationGroupTitle = notationGroupTitle;
+    }
 
    public List<Notation> getNotations() {
         return notations;
@@ -58,7 +62,7 @@ public class NotationGroup {
     public String toString() {
         return "NotationGroup{" +
                 "id=" + id +
-                ", notation_group_title='" + notation_group_title + '\'' +
+                ", notationGroupTitle='" + notationGroupTitle + '\'' +
                 '}';
     }
 }

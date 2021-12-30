@@ -22,7 +22,6 @@ public class ProfessorConfiguration {
                     "Maria",
                     "Alberti",
                     "malberti",
-                    "mAl",
                     false,
                     ufrL
             );
@@ -30,7 +29,6 @@ public class ProfessorConfiguration {
                     "Jean François",
                     "Couchot",
                     "fcouchot",
-                    "JFC",
                     true,
                     ufrL
             );

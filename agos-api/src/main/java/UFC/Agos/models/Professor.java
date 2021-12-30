@@ -12,7 +12,6 @@ public class Professor {
     private String firstName;
     private String lastName;
     private String login;
-    private String abbreviation;
     private boolean isAdmin;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "department_id")
@@ -21,11 +20,10 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(String firstName, String lastName, String login, String abbreviation, boolean isAdmin, Department department) {
+    public Professor(String firstName, String lastName, String login, boolean isAdmin, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
-        this.abbreviation = abbreviation;
         this.isAdmin = isAdmin;
         this.department = department;
     }
@@ -62,14 +60,6 @@ public class Professor {
         this.login = login;
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -93,7 +83,6 @@ public class Professor {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
-                ", abbreviation='" + abbreviation + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", department=" + department +
                 '}';

@@ -1,10 +1,7 @@
 package UFC.Agos.services.imp;
 
 import UFC.Agos.models.*;
-import UFC.Agos.repositories.CriteriaEvaluationRepository;
-import UFC.Agos.repositories.CriteriaRepository;
-import UFC.Agos.repositories.NotationGroupRepository;
-import UFC.Agos.repositories.NotationRepository;
+import UFC.Agos.repositories.*;
 import UFC.Agos.services.INotationGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +18,9 @@ public class NotationGroupService implements INotationGroupService {
 
     @Autowired
     NotationRepository notationRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
 
     @Autowired
     NotationService notationService;
@@ -68,29 +68,6 @@ public class NotationGroupService implements INotationGroupService {
         notationGroup = notationGroupRepository.save(notationGroup);
 
         System.out.println(notations);
-        //create first notation
-        /*Notation notation1 = new Notation();
-        notation1.setBareme(9);
-
-        //create second notation
-        Notation notation2 = new Notation();
-        notation2.setBareme(6);
-
-        //create third notation
-        /*Notation notation3 = new Notation();
-        notation3.setBareme(7);*/
-
-        //add all nottation into notationGroup. Till here we have prepared data for OneToMany
-        /*notations.add(notation1);
-        notations.add(notation2);
-        //notations.add(notation3);
-
-        //Prepare data for ManyToOne
-        notation1.setNotationGroup(notationGroup);
-        notation2.setNotationGroup(notationGroup);*/
-        //notation3.setNotationGroup(notationGroup);
-
-
 
     }
 
@@ -104,12 +81,10 @@ public class NotationGroupService implements INotationGroupService {
 
         NotationGroup notationGroup = notationGroupRepository.getById(notationGroupId);
         List<Notation> notations = notationRepository.getNotationsByNotationGroup(notationGroup);
-
-        /* import session repo after pulling and add same logic for relationship with session
         List<Session> sessions = sessionRepository.getSessionsByNotationGroup(notationGroup);
-        */
 
-        if(!notations.isEmpty() ){
+
+        if(!notations.isEmpty() || !sessions.isEmpty()){
             throw new Exception("the notation group with id "+ notationGroupId +" can't be removed because it contains relationships");
         }
 
@@ -125,9 +100,9 @@ public class NotationGroupService implements INotationGroupService {
         System.out.println("notationGroup updated is"+notationGroup);
         System.out.println("notationGroup to update is"+notationGroupToUpdate);
 
-        notationGroupToUpdate.setNotation_group_title(notationGroup.getNotation_group_title());
+        notationGroupToUpdate.setNotationGroupTitle(notationGroup.getNotationGroupTitle());
 
-        System.out.println("notationGroup title updated"+notationGroup.getNotation_group_title());
+        System.out.println("notationGroup title updated"+notationGroup.getNotationGroupTitle());
 
         //List<Notation> notations = notationGroup.getNotations();
             List<Notation> notations = notationRepository.getNotationsByNotationGroup(notationGroupToUpdate);

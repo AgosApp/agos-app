@@ -1,5 +1,6 @@
 package UFC.Agos.controlers;
 
+
 import UFC.Agos.models.Criteria;
 import UFC.Agos.models.Notation;
 import UFC.Agos.models.NotationGroup;
@@ -15,6 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@Api(tags = {"API for NotationGroup CRUD operations."})
 @RestController
 @RequestMapping(path="api/notationGroups")
 public class NotationGroupController {
