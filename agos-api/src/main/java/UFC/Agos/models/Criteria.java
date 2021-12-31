@@ -6,6 +6,7 @@ import java.util.Set;
 @Entity
 public class Criteria {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +20,9 @@ public class Criteria {
         this.title = title;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

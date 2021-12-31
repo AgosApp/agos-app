@@ -1,6 +1,8 @@
 package UFC.Agos.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,11 +14,12 @@ public class Notation {
 
     private int bareme;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "criteria_id")
     private Criteria criteria;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch =  FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "notationGroup_id")
     private NotationGroup notationGroup;
 
@@ -24,14 +27,17 @@ public class Notation {
 
     }
 
-    public Notation(Criteria criteria, NotationGroup notationGroup, int bareme) {
+    public Notation(Criteria criteria,
+                    NotationGroup notationGroup,
+                    int bareme) {
         this.criteria = criteria;
         this.notationGroup = notationGroup;
         this.bareme = bareme;
     }
 
-
-
+    public Long getId() {
+        return id;
+    }
 
     public Criteria getCriteria() {
         return criteria;
@@ -66,4 +72,5 @@ public class Notation {
                 ", bareme=" + bareme +
                 '}';
     }
+
 }

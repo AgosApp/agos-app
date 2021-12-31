@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Api(tags = {"API for Sessions CRUD operations."})
@@ -52,14 +54,27 @@ public class SessionController {
 
     @ApiOperation(value = "Update Session")
     @PutMapping(path = "/{sessionId}")
-    public void update(@PathVariable Long sessionId,
-                       @PathVariable Long formationId,
-                       @RequestParam(required = false) String title,
-                       @RequestParam(required = false) Integer duration,
-                       @RequestParam(required = false) String alertDelay,
-                       @RequestParam(required = false) Long notationGroupId
+    public Session update(@PathVariable Long sessionId,
+                          @PathVariable Long formationId,
+                          @RequestParam(required = false) String title,
+                          @RequestParam(required = false) Integer duration,
+                          @RequestParam(required = false) Integer thesisDuration,
+                          @RequestParam(required = false) Integer deliberationDuration,
+                          @RequestParam(required = false) String alertDelay,
+                          @RequestParam(required = false) Long notationGroupId
                        ) {
-        sessionService.updateSession(sessionId, title, duration, alertDelay, notationGroupId ,formationId);
+        sessionService.updateSession(sessionId, title, duration, thesisDuration, deliberationDuration, alertDelay, notationGroupId ,formationId);
+        return sessionService.getSessionByFormation(sessionId, formationId);
+    }
+
+    @ApiOperation(value = "Update Session")
+    @PatchMapping(path = "/{sessionId}")
+    public Session update(@PathVariable Long sessionId,
+                         @PathVariable Long formationId,
+                         @RequestBody Map<String, Object> request,
+                         @RequestParam(required = false) Long notationGroupId)  {
+        sessionService.updateSession(sessionId, request, formationId, notationGroupId);
+        return sessionService.getSessionByFormation(sessionId, formationId);
     }
 
 }
