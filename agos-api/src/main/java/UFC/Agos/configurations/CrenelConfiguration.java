@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -27,7 +28,7 @@ public class CrenelConfiguration {
 
         Session session = new Session(
                 "Projets PAM",
-                20,
+                Duration.ofMinutes(20),
                 LocalDate.of(2022, 01, 21),
                 formation,
                 notationGroup
@@ -35,7 +36,7 @@ public class CrenelConfiguration {
 
         Session sessionM2 = new Session(
                 "Soutenances M2 ISL",
-                20,
+                Duration.ofMinutes(20),
                 LocalDate.of(2022, 07, 25),
                 formation,
                 notationGroup
