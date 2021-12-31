@@ -188,10 +188,10 @@ public class ThesisService implements IThesisService {
 
         List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(crenel.getSession().getId());
         for(Criteria criteria : criteriaList) {
-            //Delete old jury
-            criteriaEvaluationRepository.deleteByThesis(thesisId);
-            evaluationRepository.deleteByThesis(thesisId);
             if(professorIds != null) {
+                //Delete old jury
+                criteriaEvaluationRepository.deleteByThesis(thesisId);
+                evaluationRepository.deleteByThesis(thesisId);
                 for (Long id : professorIds) {
                     Professor professor = professorRepository.findById(id).orElseThrow(
                             () -> new IllegalStateException("The professor with id " + id + " does not exist")
@@ -204,8 +204,8 @@ public class ThesisService implements IThesisService {
         }
 
         //delete old students of the thesis
-        studentThesisRepository.deleteByThesis(thesisId);
         if(studentIds != null) {
+            studentThesisRepository.deleteByThesis(thesisId);
             for (Long id : studentIds) {
                 Student student = studentRepository.findById(id).orElseThrow(
                         () -> new IllegalStateException("The student with id " + id + " does not exist")
@@ -251,10 +251,10 @@ public class ThesisService implements IThesisService {
 
         List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(crenel.getSession().getId());
         for(Criteria criteria : criteriaList) {
-            //Delete old jury
-            criteriaEvaluationRepository.deleteByThesis(thesisId);
-            evaluationRepository.deleteByThesis(thesisId);
             if(professorIds != null) {
+                //Delete old jury
+                criteriaEvaluationRepository.deleteByThesis(thesisId);
+                evaluationRepository.deleteByThesis(thesisId);
                 for (Long id : professorIds) {
                     Professor professor = professorRepository.findById(id).orElseThrow(
                             () -> new IllegalStateException("The professor with id " + id + " does not exist")
@@ -265,9 +265,9 @@ public class ThesisService implements IThesisService {
             }
         }
 
-        //delete old students of the thesis
-        studentThesisRepository.deleteByThesis(thesisId);
         if(studentIds != null){
+            //delete old students of the thesis
+            studentThesisRepository.deleteByThesis(thesisId);
         for (Long id: studentIds ) {
             Student student = studentRepository.findById(id).orElseThrow(
                     () -> new IllegalStateException("The student with id " + id + " does not exist")
