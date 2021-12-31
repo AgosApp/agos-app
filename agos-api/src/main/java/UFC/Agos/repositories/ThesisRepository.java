@@ -1,5 +1,6 @@
 package UFC.Agos.repositories;
 
+import UFC.Agos.models.Crenel;
 import UFC.Agos.models.Session;
 import UFC.Agos.models.Thesis;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,9 +12,9 @@ import java.util.List;
 @Repository
 public interface ThesisRepository extends JpaRepository<Thesis, Long> {
 
-     List<Thesis> getThesesBySession(Session session);
+     List<Thesis> getThesesByCrenel(Crenel crenel);
 
-     Thesis getThesisByIdAndSession(Long thesisId, Session session);
+     Thesis getThesisByIdAndCrenel(Long thesisId, Crenel crenel);
 
     @Query(value = "SELECT * FROM Thesis t WHERE id IN  (SELECT thesis_id FROM student_thesis WHERE student_id =?)", nativeQuery = true)
     List<Thesis> findThesesByStudent(Long studentId);

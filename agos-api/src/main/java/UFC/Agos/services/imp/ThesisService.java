@@ -3,6 +3,7 @@ package UFC.Agos.services.imp;
 import UFC.Agos.models.*;
 import UFC.Agos.repositories.*;
 import UFC.Agos.services.IThesisService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,17 +48,19 @@ public class ThesisService implements IThesisService {
     @Autowired
     CriteriaEvaluationRepository criteriaEvaluationRepository;
 
+    @Autowired
+    CrenelRepository crenelRepository;
 
     @Override
-    public List<Thesis> getThesesBySession(Long sessionId) {
-        Session session = sessionRepository.getById(sessionId);
-        return thesisRepository.getThesesBySession(session);
+    public List<Thesis> getThesesByCrenel(Long crenelId) {
+        Crenel crenel = crenelRepository.getById(crenelId);
+        return thesisRepository.getThesesByCrenel(crenel);
     }
 
     @Override
-    public Thesis getThesisBySession(Long thesisId, Long sessionId) {
-        Session session = sessionRepository.getById(sessionId);
-        return thesisRepository.getThesisByIdAndSession(thesisId, session);
+    public Thesis getThesisByCrenel(Long thesisId, Long crenelId) {
+        Crenel crenel = crenelRepository.getById(crenelId);
+        return thesisRepository.getThesisByIdAndCrenel(thesisId, crenel);
     }
 
     @Override
@@ -81,7 +84,7 @@ public class ThesisService implements IThesisService {
     }
 
     @Override
-    public void addThesis(Thesis thesis, Long sessionId, Long roomId, List<Long> professorIds, List<Long> studentIds){
+    public void addThesis(Thesis thesis, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
 
         for (Long id: professorIds
              ) {
@@ -92,15 +95,17 @@ public class ThesisService implements IThesisService {
             evaluationRepository.save(evaluation);
         }
 
-        Session session = sessionRepository.findById(sessionId).orElseThrow(
-                () -> new IllegalStateException("The session with id " + sessionId + " does not exist")
+        Crenel crenel = crenelRepository.findById(crenelId).orElseThrow(
+                () -> new IllegalStateException("The crenel with id " + crenelId + " does not exist")
         );
-        thesis.setSession(session);
+        thesis.setCrenel(crenel);
 
         Room room = roomRepository.findById(roomId).orElseThrow(
                 () -> new IllegalStateException("The room with id " + roomId + " does not exist")
         );
-        thesis.setRoom(room);
+        if(crenel.getRooms().contains(room)){
+            thesis.setRoom(room);
+        }else throw new NotFoundException("The room with id " + roomId + " does not exist in crenel with id " + crenelId);
 
         for (Long id : studentIds
              ) {
@@ -111,10 +116,8 @@ public class ThesisService implements IThesisService {
         }
 
         //fill in CriteriaEvaluation Table
-        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(sessionId);
-
+        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(crenel.getSession().getId());
         for (Criteria criteria : criteriaList ) {
-
             for (Long id: professorIds ) {
                 Professor professor = professorRepository.findById(id).orElseThrow(
                         () -> new IllegalStateException("The professor with id " + id + " does not exist")
@@ -144,7 +147,7 @@ public class ThesisService implements IThesisService {
 
     @Override
     @Transactional
-    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long sessionId, Long roomId, List<Long> professorIds, List<Long> studentIds) {
+    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
         Thesis thesis = thesisRepository.findById(thesisId).orElseThrow(
                 () -> new IllegalStateException("The thesis with id " + thesisId + " does not exist")
         );
@@ -171,44 +174,50 @@ public class ThesisService implements IThesisService {
             if(!thesisTime.isBefore(LocalDateTime.now()))     thesis.setTime(thesisTime);
         }
 
-        if(sessionId != null && !Objects.equals(sessionId, thesis.getSession().getId())){
-            Session session = sessionRepository.getById(sessionId);
-            thesis.setSession(session);
+        Crenel crenel = crenelRepository.getById(crenelId);
+        if(crenelId != null && !Objects.equals(crenelId, thesis.getCrenel().getId())){
+            thesis.setCrenel(crenel);
         }
 
         if(roomId != null && !Objects.equals(roomId, thesis.getRoom().getId())){
             Room room = roomRepository.getById(roomId);
-            thesis.setRoom(room);
+            if(crenelRepository.getById(crenelId).getRooms().contains(room)){
+                thesis.setRoom(room);
+            }else throw new NotFoundException("The room with id " + roomId + " does not exist in crenel with id " + crenelId);
         }
 
-        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(sessionId);
+        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(crenel.getSession().getId());
         for(Criteria criteria : criteriaList) {
             //Delete old jury
             criteriaEvaluationRepository.deleteByThesis(thesisId);
             evaluationRepository.deleteByThesis(thesisId);
-            for (Long id : professorIds) {
-                Professor professor = professorRepository.findById(id).orElseThrow(
-                        () -> new IllegalStateException("The professor with id " + id + " does not exist")
-                );
-                evaluationRepository.save(new Evaluation(null, null, thesis, professor));
-                criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
+            if(professorIds != null) {
+                for (Long id : professorIds) {
+                    Professor professor = professorRepository.findById(id).orElseThrow(
+                            () -> new IllegalStateException("The professor with id " + id + " does not exist")
+                    );
+                    evaluationRepository.save(new Evaluation(null, null, thesis, professor));
+                    criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
 
+                }
             }
         }
 
         //delete old students of the thesis
         studentThesisRepository.deleteByThesis(thesisId);
-        for (Long id: studentIds ) {
-            Student student = studentRepository.findById(id).orElseThrow(
-                    () -> new IllegalStateException("The student with id " + id + " does not exist")
-            );
-            studentThesisRepository.save(new StudentThesis(student, thesis));
+        if(studentIds != null) {
+            for (Long id : studentIds) {
+                Student student = studentRepository.findById(id).orElseThrow(
+                        () -> new IllegalStateException("The student with id " + id + " does not exist")
+                );
+                studentThesisRepository.save(new StudentThesis(student, thesis));
+            }
         }
     }
 
     @Override
     @Transactional
-    public void update(Long thesisId, Map<String, Object> request, Long sessionId, Long roomId, List<Long> professorIds, List<Long> studentIds){
+    public void update(Long thesisId, Map<String, Object> request, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
         Thesis thesis = thesisRepository.findById(thesisId).orElseThrow(
                 () -> { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "thesis not found");
                 }
@@ -227,39 +236,45 @@ public class ThesisService implements IThesisService {
             ReflectionUtils.setField(field, thesis, value);
         });
 
-        if(sessionId != null && !Objects.equals(sessionId, thesis.getSession().getId())){
-            Session session = sessionRepository.getById(sessionId);
-            thesis.setSession(session);
+        Crenel crenel = crenelRepository.getById(crenelId);
+
+        if(crenelId != null && !Objects.equals(crenelId, thesis.getCrenel().getId())){
+            thesis.setCrenel(crenel);
         }
 
         if(roomId != null && !Objects.equals(roomId, thesis.getRoom().getId())){
             Room room = roomRepository.getById(roomId);
-            thesis.setRoom(room);
+            if(crenelRepository.getById(crenelId).getRooms().contains(room)){
+                thesis.setRoom(room);
+            }else throw new NotFoundException("The room with id " + roomId + " does not exist in crenel with id " + crenelId);
         }
 
-        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(sessionId);
+        List<Criteria> criteriaList = criteriaRepository.getCriteriasBySession(crenel.getSession().getId());
         for(Criteria criteria : criteriaList) {
             //Delete old jury
             criteriaEvaluationRepository.deleteByThesis(thesisId);
             evaluationRepository.deleteByThesis(thesisId);
-            for (Long id : professorIds) {
-                Professor professor = professorRepository.findById(id).orElseThrow(
-                        () -> new IllegalStateException("The professor with id " + id + " does not exist")
-                );
-                criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
-                evaluationRepository.save(new Evaluation(null, null, thesis, professor));
+            if(professorIds != null) {
+                for (Long id : professorIds) {
+                    Professor professor = professorRepository.findById(id).orElseThrow(
+                            () -> new IllegalStateException("The professor with id " + id + " does not exist")
+                    );
+                    criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
+                    evaluationRepository.save(new Evaluation(null, null, thesis, professor));
+                }
             }
         }
 
         //delete old students of the thesis
         studentThesisRepository.deleteByThesis(thesisId);
+        if(studentIds != null){
         for (Long id: studentIds ) {
             Student student = studentRepository.findById(id).orElseThrow(
                     () -> new IllegalStateException("The student with id " + id + " does not exist")
             );
             studentThesisRepository.save(new StudentThesis(student, thesis));
         }
-
+        }
         thesisRepository.save(thesis);
     }
 

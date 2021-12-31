@@ -4,6 +4,7 @@ import UFC.Agos.models.Thesis;
 import UFC.Agos.services.IThesisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +19,16 @@ public class ThesisController {
     @Autowired
     IThesisService thesisService;
 
-    @ApiOperation(value = "Get Theses by Session")
-    @GetMapping(path="sessions/{sessionId}/theses")
-    public List<Thesis> getThesesBySession(@PathVariable Long sessionId){
-        return thesisService.getThesesBySession(sessionId);
+    @ApiOperation(value = "Get Theses by Crenel")
+    @GetMapping(path="creneaux/{crenelId}/theses")
+    public List<Thesis> getThesesByCrenel(@PathVariable Long crenelId){
+        return thesisService.getThesesByCrenel(crenelId);
     }
 
-    @ApiOperation(value = "Get Thesis by Session")
-    @GetMapping(path="sessions/{sessionId}/theses/{thesisId}")
-    public Thesis getThesisBySession(@PathVariable Long thesisId,@PathVariable Long sessionId){
-        return thesisService.getThesisBySession(thesisId, sessionId);
+    @ApiOperation(value = "Get Thesis by Crenel")
+    @GetMapping(path="creneaux/{crenelId}/theses/{thesisId}")
+    public Thesis getThesisByCrenel(@PathVariable Long thesisId,@PathVariable Long crenelId){
+        return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 
     @ApiOperation(value = "Get Theses by Student")
@@ -55,26 +56,26 @@ public class ThesisController {
     }
 
     @ApiOperation(value = "Add Thesis")
-    @PostMapping(path ="sessions/{sessionId}/theses")
-    public Thesis save(@PathVariable Long sessionId,
+    @PostMapping(path ="creneaux/{crenelId}/theses")
+    public Thesis save(@PathVariable Long crenelId,
                      @RequestParam Long roomId,
                      @RequestParam List<Long> professors,
                      @RequestParam List<Long> students,
-                     @RequestBody Thesis thesis){
-        thesisService.addThesis(thesis, sessionId, roomId, professors, students);
+                     @RequestBody Thesis thesis) throws Exception {
+        thesisService.addThesis(thesis, crenelId, roomId, professors, students);
         return thesis;
     }
 
-    @ApiOperation(value = "Delete Thesis from a Session")
-    @DeleteMapping(path = "sessions/{sessionId}/theses/{thesisId}")
-    public void delete(@PathVariable Long sessionId, @PathVariable Long thesisId) throws Exception {
+    @ApiOperation(value = "Delete Thesis from a Crenel")
+    @DeleteMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
+    public void delete(@PathVariable Long crenelId, @PathVariable Long thesisId) throws Exception {
         thesisService.deleteThesis(thesisId);
     }
 
     @ApiOperation(value = "Update Thesis")
-    @PutMapping(path = "sessions/{sessionId}/theses/{thesisId}")
+    @PutMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
     public Thesis update(@PathVariable Long thesisId,
-                       @PathVariable Long sessionId,
+                       @PathVariable Long crenelId,
                        @RequestParam(required = false) String title,
                        @RequestParam(required = false) String type,
                        @RequestParam(required = false) String summary,
@@ -83,21 +84,21 @@ public class ThesisController {
                        @RequestParam(required = false) Long roomId,
                        @RequestParam(required = false) List<Long> students,
                        @RequestParam(required = false) List<Long> professors
-                       ){
-        thesisService.updateThesis(thesisId, title, type, time, finalNote, summary, sessionId, roomId, professors, students);
-        return thesisService.getThesisBySession(thesisId, sessionId);
+                       ) throws Exception {
+        thesisService.updateThesis(thesisId, title, type, time, finalNote, summary, crenelId, roomId, professors, students);
+        return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 
     @ApiOperation(value = "Update Thesis")
-    @PatchMapping(path = "sessions/{sessionId}/theses/{thesisId}")
+    @PatchMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
     public Thesis update(@PathVariable Long thesisId,
-                         @PathVariable Long sessionId,
+                         @PathVariable Long crenelId,
                          @RequestParam(required = false) Long roomId,
                          @RequestParam(required = false) List<Long> professors,
                          @RequestParam(required = false) List<Long> students,
-                         @RequestBody Map<String, Object> request){
-        thesisService.update(thesisId,  request, sessionId, roomId, professors, students);
-        return thesisService.getThesisBySession(thesisId, sessionId);
+                         @RequestBody Map<String, Object> request) throws Exception {
+        thesisService.update(thesisId,  request, crenelId, roomId, professors, students);
+        return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 
 }

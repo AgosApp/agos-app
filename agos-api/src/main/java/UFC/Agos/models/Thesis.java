@@ -20,8 +20,8 @@ public class Thesis {
     private String summary;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "session_id")
-    private Session session;
+    @JoinColumn(name = "crenel_id")
+    private Crenel crenel;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "room_id")
@@ -31,13 +31,13 @@ public class Thesis {
     public Thesis() {
     }
 
-    public Thesis(String title, String type, LocalDateTime time, Float finalNote, String summary, Session session, Room room) {
+    public Thesis(String title, String type, LocalDateTime time, Float finalNote, String summary, Crenel crenel, Room room) {
         this.title = title;
         this.type = type;
         this.time = time;
         this.finalNote = finalNote;
         this.summary = summary;
-        this.session = session;
+        this.crenel = crenel;
         this.room = room;
     }
 
@@ -85,12 +85,12 @@ public class Thesis {
         this.summary = summary;
     }
 
-    public Session getSession() {
-        return session;
+    public Crenel getCrenel() {
+        return crenel;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public void setCrenel(Crenel crenel) {
+        this.crenel = crenel;
     }
 
     public Room getRoom() {
@@ -110,7 +110,7 @@ public class Thesis {
                 ", time=" + time +
                 ", finalNote=" + finalNote +
                 ", summary='" + summary + '\'' +
-                ", session=" + session +
+                ", crenel=" + crenel +
                 ", room=" + room +
                 '}';
     }
