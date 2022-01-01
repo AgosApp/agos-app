@@ -16,8 +16,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
-
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatGridListModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

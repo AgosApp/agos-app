@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,14 +27,14 @@ public class SessionConfiguration {
         return args -> {
             Session session = new Session(
                     "Soutenance Fin d'études",
-                    20,
+                    Duration.ofMinutes(20),
                     LocalDate.of(2022, 02, 10),
                     formation,
                     notationGroup
             );
             Session sessionProjet = new Session(
                     "Soutenance Projet mécanique de solide",
-                    15,
+                    Duration.ofMinutes(15),
                     LocalDate.of(2021, 12, 13),
                     formation,
                     notationGroup

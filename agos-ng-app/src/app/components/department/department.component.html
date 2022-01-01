@@ -2,10 +2,11 @@
 
 <div class="container" *ngIf="Departments.length >0">
     <mat-grid-list  cols = "3"  rowHeight = "3:1" > 
-       <mat-grid-tile *ngFor="let department of Departments"><button mat-button class="departmentItem">{{department.nom}} </button>
+       <mat-grid-tile *ngFor="let department of Departments"><button mat-button routerLink='/sessions' class="departmentItem">{{department.nom}} </button>
          </mat-grid-tile > 
         
   </mat-grid-list >
+
 
 </div>
 <div class="FormContainer">
