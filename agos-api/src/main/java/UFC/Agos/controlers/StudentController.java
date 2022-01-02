@@ -32,7 +32,7 @@ public class StudentController {
     @ApiOperation(value = "Add Student in a Formation")
     @PostMapping
     public void save(@PathVariable(required = false) Long formationId,
-                     @RequestBody Student student){
+                     @RequestBody Student student) throws Exception {
         studentService.addStudent(student, formationId);
     }
 
@@ -48,9 +48,10 @@ public class StudentController {
                        @PathVariable(required = false) Long formationId,
                        @RequestParam(required = false) String lastName,
                        @RequestParam(required = false) String firstName,
-                       @RequestParam(required = false) String login
+                       @RequestParam(required = false) String username,
+                       @RequestParam(required = false) String password
 
-                       ){
-        studentService.updateStudent(studentId, firstName, lastName, login, formationId);
+                       ) throws Exception {
+        studentService.updateStudent(studentId, firstName, lastName, username, password, formationId);
     }
 }

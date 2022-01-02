@@ -39,7 +39,7 @@ public class ProfessorController {
     @ApiOperation(value = "Add Professors in a Department")
     @PostMapping
     public void save(@PathVariable(required = false) Long departmentId,
-                     @RequestBody Professor professor){
+                     @RequestBody Professor professor) throws Exception {
         professorService.addProfessor(professor, departmentId);
     }
 
@@ -58,17 +58,8 @@ public class ProfessorController {
                        @RequestParam(required = false) String username,
                        @RequestParam(required = false) String password,
                        @RequestParam(required = false) boolean isAdmin
-                       ){
+                       ) throws Exception {
         professorService.updateProfessor(professorId, firstName, lastName, username, password, isAdmin, departmentId);
     }
-
-    @ApiOperation(value = "Add role to professor")
-    @PostMapping(path = "/addRole")
-    public ResponseEntity<?> addRoleToProfessor(@RequestBody RoleToProfessorForm form)  {
-        professorService.addRoleToProfessor(form.getUsername(), form.getRoleName());
-        return ResponseEntity.ok().build();
-    }
-
-
 }
 

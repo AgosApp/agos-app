@@ -11,6 +11,7 @@ import UFC.Agos.services.imp.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,22 +30,24 @@ public class ProfessorConfiguration {
             Role ADMIN_ROLE = new Role("ADMIN_ROLE");
            //roleService.addRol(PROF_ROLE);
             //roleService.addRole(new Role("ADMIN_ROLE"));
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
             Professor professor = new Professor(
                     "Maria",
                     "Alberti",
                     "malberti",
-                    "123",
+                    passwordEncoder.encode("1234"),
                     false,
                     ufrL,
                     new ArrayList<Role>()
             );
             professor.setRole(PROF_ROLE);
+
             Professor admin = new Professor(
                     "Jean François",
                     "Couchot",
                     "fcouchot",
-                    "123",
+                    passwordEncoder.encode("1234"),
                     true,
                     ufrL,
                     new ArrayList<Role>()

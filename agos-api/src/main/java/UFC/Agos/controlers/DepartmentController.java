@@ -5,12 +5,14 @@ import UFC.Agos.services.IDepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @Api(tags = {"API for Departments CRUD operations."})
+@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path = "/api/departments")
 public class DepartmentController {
 

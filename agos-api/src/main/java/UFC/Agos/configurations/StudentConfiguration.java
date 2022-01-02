@@ -1,13 +1,11 @@
 package UFC.Agos.configurations;
 
-import UFC.Agos.models.Department;
-import UFC.Agos.models.Formation;
-import UFC.Agos.models.Professor;
-import UFC.Agos.models.Student;
+import UFC.Agos.models.*;
 import UFC.Agos.repositories.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -27,26 +25,35 @@ public class StudentConfiguration {
                       "Master 2 Info",
                       ufrST);
 
+
         return args -> {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            Role role = new Role("STUDENT_ROLE");
             Student mourtada = new Student(
                     "Mourtada",
                     "BOUFELJA",
                     "mboufelj",
+                    passwordEncoder.encode("1234"),
                     formation
                     );
+            mourtada.setRole(role);
             Student nossair = new Student(
                     "Nossair",
                     "Sbaibi",
                     "nsbaibi",
+                    passwordEncoder.encode("1234"),
                     formation1
             );
+            nossair.setRole(role);
             Professor professor = new Professor(
                     "Maurilleaud",
                     "Nicolas",
                     "mnicolas",
-                    "123",
+                    passwordEncoder.encode("1234"),
                     false,
-                    ufrST
+                    ufrST,
+                    List.of(new Role("PROFESSOR_ROLE"))
             );
             studentRepository.saveAll(List.of(mourtada,nossair));
         };

@@ -13,6 +13,7 @@ public class Professor {
     private Long id;
     private String firstName;
     private String lastName;
+    @Column(unique=true)
     private String username;
     private String password;
     private boolean isAdmin;
@@ -43,8 +44,6 @@ public class Professor {
         this.department = department;
         this.roles = roles;
     }
-
-
 
     public Long getId() {
         return id;

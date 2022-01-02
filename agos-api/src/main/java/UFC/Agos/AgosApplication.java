@@ -34,7 +34,7 @@ public class AgosApplication {
 	}
 
 	@Bean
-	BCryptPasswordEncoder passwordEncoder(){
+	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 }
