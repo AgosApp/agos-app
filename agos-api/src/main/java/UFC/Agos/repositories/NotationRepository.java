@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NotationRepository extends JpaRepository<Notation, Long> {
     public List<Notation> getNotationsByCriteria(Criteria criteria);
+    public List<Notation> getNotationsByNotationGroup(NotationGroup notationGroup);
 }

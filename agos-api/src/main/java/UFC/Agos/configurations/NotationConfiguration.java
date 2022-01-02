@@ -27,12 +27,17 @@ public class NotationConfiguration {
 
         return args -> {
             Criteria criteria = new Criteria("criteria1");
+            Criteria criteria2 = new Criteria("criteria2");
 
-            NotationGroup notationGroup = new NotationGroup("group1");
-            Notation notation = new Notation(criteria, notationGroup, 5);
+            criteriaRepository.save(criteria);
+            criteriaRepository.save(criteria2);
+            /*Notation notation = new Notation(
+                    //criteria, notationGroupId,
+                    criteria,notationGroup, 5);
+            NotationGroup notationGroup = new NotationGroup("group1", notation);
 
-            notationGroup.addNotation(notation);
-            notationRepository.save(notation);
+            //notationGroup.addNotation(notation);
+            notationGroupRepository.save(notationGroup);*/
 
 
         };
