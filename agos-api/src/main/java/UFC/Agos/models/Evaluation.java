@@ -6,8 +6,7 @@ import javax.persistence.*;
 public class Evaluation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="evaluation_seq")
-    @SequenceGenerator(name="evaluation_seq",sequenceName="evaluation_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String remark;
     private Float thesisNote;

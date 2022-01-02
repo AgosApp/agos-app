@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="session_seq")
-    @SequenceGenerator(name="session_seq",sequenceName="session_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING)

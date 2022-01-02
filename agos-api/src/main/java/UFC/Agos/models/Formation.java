@@ -7,8 +7,7 @@ import javax.persistence.*;
 public class Formation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "formation_seq")
-    @SequenceGenerator(name = "formation_seq", sequenceName = "formation_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;

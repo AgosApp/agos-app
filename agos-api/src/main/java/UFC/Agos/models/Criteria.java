@@ -8,8 +8,7 @@ public class Criteria {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="criteria_seq")
-    @SequenceGenerator(name="criteria_seq",sequenceName="criteria_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
 
