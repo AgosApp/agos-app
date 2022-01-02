@@ -8,8 +8,7 @@ import java.util.Collection;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="student_seq")
-    @SequenceGenerator(name="student_seq",sequenceName="student_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
