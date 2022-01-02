@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,42 +21,49 @@ public class ThesisController {
     IThesisService thesisService;
 
     @ApiOperation(value = "Get Theses by Crenel")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @GetMapping(path="creneaux/{crenelId}/theses")
     public List<Thesis> getThesesByCrenel(@PathVariable Long crenelId){
         return thesisService.getThesesByCrenel(crenelId);
     }
 
     @ApiOperation(value = "Get Thesis by Crenel")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path="creneaux/{crenelId}/theses/{thesisId}")
     public Thesis getThesisByCrenel(@PathVariable Long thesisId,@PathVariable Long crenelId){
         return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 
     @ApiOperation(value = "Get Theses by Student")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('STUDENT_ROLE')" + "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path="students/{studentId}/theses")
     public List<Thesis> getThesesByStudent(@PathVariable Long studentId){
         return thesisService.getThesesByStudent(studentId);
     }
 
     @ApiOperation(value = "Get Thesis by Student")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('STUDENT_ROLE')" + "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path="students/{studentId}/theses/{thesisId}")
     public Thesis getThesisByStudent(@PathVariable Long thesisId,@PathVariable Long studentId){
         return thesisService.getThesisByStudent(thesisId, studentId);
     }
 
     @ApiOperation(value = "Get Theses by Professor")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')" + "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path="professors/{professorId}/theses")
     public List<Thesis> getThesesByProfessor(@PathVariable Long professorId){
         return thesisService.getThesesByProfessor(professorId);
     }
 
     @ApiOperation(value = "Get Thesis by Professor")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')" + "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path="professors/{professorId}/theses/{thesisId}")
     public Thesis getThesisByProfessor(@PathVariable Long thesisId,@PathVariable Long professorId){
         return thesisService.getThesisByProfessor(thesisId, professorId);
     }
 
     @ApiOperation(value = "Add Thesis")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PostMapping(path ="creneaux/{crenelId}/theses")
     public Thesis save(@PathVariable Long crenelId,
                      @RequestParam Long roomId,
@@ -67,12 +75,14 @@ public class ThesisController {
     }
 
     @ApiOperation(value = "Delete Thesis from a Crenel")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @DeleteMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
     public void delete(@PathVariable Long crenelId, @PathVariable Long thesisId) throws Exception {
         thesisService.deleteThesis(thesisId);
     }
 
     @ApiOperation(value = "Update Thesis")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PutMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
     public Thesis update(@PathVariable Long thesisId,
                        @PathVariable Long crenelId,
@@ -90,6 +100,7 @@ public class ThesisController {
     }
 
     @ApiOperation(value = "Update Thesis")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PatchMapping(path = "creneaux/{crenelId}/theses/{thesisId}")
     public Thesis update(@PathVariable Long thesisId,
                          @PathVariable Long crenelId,
@@ -100,5 +111,4 @@ public class ThesisController {
         thesisService.update(thesisId,  request, crenelId, roomId, professors, students);
         return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
-
 }

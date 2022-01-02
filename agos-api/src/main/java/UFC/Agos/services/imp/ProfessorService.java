@@ -3,7 +3,6 @@ package UFC.Agos.services.imp;
 import UFC.Agos.models.*;
 import UFC.Agos.repositories.*;
 import UFC.Agos.services.IProfessorService;
-import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
