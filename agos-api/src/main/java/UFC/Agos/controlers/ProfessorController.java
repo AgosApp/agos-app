@@ -9,12 +9,14 @@ import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @Api(tags = {"API for Professors CRUD operations."})
+@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="/api/departments/{departmentId}/professors")
 public class ProfessorController {
 
