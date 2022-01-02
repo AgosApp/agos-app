@@ -5,6 +5,7 @@ import UFC.Agos.repositories.*;
 import UFC.Agos.services.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,9 @@ public class StudentService implements IStudentService {
 
     @Autowired
     ProfessorRepository professorRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public Student findStudentByUsername(String username) {
@@ -54,6 +58,9 @@ public class StudentService implements IStudentService {
 
         //check if username already exists
         Professor professor = professorRepository.findByUsername(student.getUsername());
+
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
+
         if(professor == null)
             studentRepository.save(student);
         else throw new Exception("username taken");
@@ -98,8 +105,7 @@ public class StudentService implements IStudentService {
         }
 
         if( password != null && password.length()>0){
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            student.setUsername(bCryptPasswordEncoder.encode(password));
+            student.setUsername(passwordEncoder.encode(password));
         }
 
         if(formationId != null && formationId != student.getFormation().getId() ){
