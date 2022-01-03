@@ -14,10 +14,14 @@ import { StudentsComponent } from './components/students/students.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DepartmentComponent } from './components/department/department.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { LoginComponent } from './components/login/login.component';
+import {MatCard, MatCardModule} from "@angular/material/card";
+import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import {MatInputModule} from '@angular/material/input';
     StudentsComponent,
     ProfessorsComponent,
     FooterComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +47,10 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
