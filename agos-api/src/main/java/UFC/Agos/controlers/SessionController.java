@@ -7,6 +7,7 @@ import UFC.Agos.services.imp.SessionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,18 +27,21 @@ public class SessionController {
     FormationService formationService;
 
     @ApiOperation(value = "Get Sessions by Formation")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
     @GetMapping
     public List<Session> getAll(@PathVariable Long formationId){
         return sessionService.getSessionsByFormation(formationId);
     }
 
     @ApiOperation(value = "Get Session by Formation")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
     @GetMapping(path = "/{sessionId}")
     public Session getOne(@PathVariable Long sessionId,@PathVariable Long formationId){
         return sessionService.getSessionByFormation(sessionId, formationId);
     }
 
     @ApiOperation(value = "Add Session")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PostMapping
     public Session save(@PathVariable Long formationId,
                      @RequestParam(required = false) Long notationGroupId,
@@ -47,12 +51,14 @@ public class SessionController {
     }
 
     @ApiOperation(value = "Delete Session")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @DeleteMapping(path = "/{sessionId}")
     public void delete(@PathVariable Long sessionId, @PathVariable Long formationId) throws Exception {
         sessionService.deleteSession(sessionId);
     }
 
     @ApiOperation(value = "Update Session")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PutMapping(path = "/{sessionId}")
     public Session update(@PathVariable Long sessionId,
                           @PathVariable Long formationId,
@@ -68,6 +74,7 @@ public class SessionController {
     }
 
     @ApiOperation(value = "Update Session")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     @PatchMapping(path = "/{sessionId}")
     public Session update(@PathVariable Long sessionId,
                          @PathVariable Long formationId,
