@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"API for NotationGroup CRUD operations."})
 @RestController
-@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
 @RequestMapping(path="api/notationGroups")
 public class NotationGroupController {
 

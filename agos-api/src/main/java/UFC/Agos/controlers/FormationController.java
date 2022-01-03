@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = {"API for Formations CRUD operations."})
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="/api/departments/{departmentId}/formations")
 public class FormationController {
 

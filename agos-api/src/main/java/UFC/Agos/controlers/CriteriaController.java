@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = {"API for Criterias CRUD operations."})
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="api/criterias")
 public class CriteriaController {
 

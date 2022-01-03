@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = {"API for Students CRUD operations."})
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path = "api/formations/{formationId}/students")
 public class StudentController {
 

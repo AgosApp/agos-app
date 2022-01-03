@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="api/notations")
-@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
 public class NotationController {
 
     @Autowired

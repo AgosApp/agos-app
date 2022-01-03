@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = {"API for Professors CRUD operations."})
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="/api/departments/{departmentId}/professors")
 public class ProfessorController {
 

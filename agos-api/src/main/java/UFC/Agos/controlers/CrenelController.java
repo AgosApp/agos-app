@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @Api(tags = {"API for Crenaux CRUD operations."})
-@PreAuthorize("hasAuthority('ADMIN_ROLE')")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="api/sessions/{sessionId}/crenaux")
 public class CrenelController {
 
