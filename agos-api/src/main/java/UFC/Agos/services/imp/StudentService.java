@@ -1,11 +1,11 @@
 package UFC.Agos.services.imp;
 
 import UFC.Agos.models.*;
-import UFC.Agos.repositories.FormationRepository;
-import UFC.Agos.repositories.StudentRepository;
-import UFC.Agos.repositories.StudentThesisRepository;
+import UFC.Agos.repositories.*;
 import UFC.Agos.services.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +24,20 @@ public class StudentService implements IStudentService {
     @Autowired
     StudentThesisRepository studentThesisRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    ProfessorRepository professorRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Override
+    public Student findStudentByUsername(String username) {
+        return studentRepository.findByUsername(username);
+    }
+
     @Override
     public List<Student> getStudentsByFormation(Long formationId) {
         Formation formation = formationRepository.getById(formationId);
@@ -37,11 +51,19 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void addStudent(Student student, Long formationId) {
+    public void addStudent(Student student, Long formationId) throws Exception {
         Formation formation = formationRepository.getById(formationId);
         student.setFormation(formation);
-        studentRepository.save(student);
+        student.setRole(roleRepository.findByName("STUDENT_ROLE"));
 
+        //check if username already exists
+        Professor professor = professorRepository.findByUsername(student.getUsername());
+
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
+
+        if(professor == null)
+            studentRepository.save(student);
+        else throw new Exception("username taken");
     }
 
     @Override
@@ -60,7 +82,7 @@ public class StudentService implements IStudentService {
 
     @Override
     @Transactional
-    public void updateStudent(Long studentId, String firstName, String lastName,String login, Long formationId) {
+    public void updateStudent(Long studentId, String firstName, String lastName,String username, String password, Long formationId) throws Exception {
 
         Student student = studentRepository.findById(studentId).orElseThrow(
                 () -> new IllegalStateException("The student with id " + studentId + " does not exist")
@@ -74,8 +96,16 @@ public class StudentService implements IStudentService {
             student.setLastName(lastName);
         }
 
-        if( login != null && login.length()>0 && !Objects.equals(login, student.getLogin())){
-            student.setLogin(login);
+        if( username != null && username.length()>0 && !Objects.equals(username, student.getUsername())){
+            //check if username already exists
+            Professor professor = professorRepository.findByUsername(student.getUsername());
+            if(professor == null)
+                student.setUsername(username);
+            else throw new Exception("username taken");
+        }
+
+        if( password != null && password.length()>0){
+            student.setUsername(passwordEncoder.encode(password));
         }
 
         if(formationId != null && formationId != student.getFormation().getId() ){

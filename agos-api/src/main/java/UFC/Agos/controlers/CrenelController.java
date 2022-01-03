@@ -6,6 +6,7 @@ import UFC.Agos.services.ICrenelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @Api(tags = {"API for Crenaux CRUD operations."})
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path="api/sessions/{sessionId}/crenaux")
 public class CrenelController {
 
