@@ -40,7 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                            )
                 .hasAuthority("ADMIN_ROLE");*/
         //http.authorizeRequests().antMatchers("api/departments/**").hasAuthority("PROF_ROLE");
-        http.authorizeRequests().anyRequest().authenticated();
+
+        //*********** to change by the line below
+        http.authorizeRequests().anyRequest().permitAll();
+
+        //http.authorizeRequests().anyRequest().authenticated();
+
+
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
