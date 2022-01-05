@@ -40,6 +40,19 @@ public class RoleController {
     @Autowired
     StudentService studentService;
 
+    @ApiOperation(value = "Get Professor by Username")
+    @GetMapping(path = "/api/professors/findByUsername")
+    public Professor getProfessor(@RequestParam String username){
+        return professorService.findProfessorByUsername(username);
+
+    }
+
+    @ApiOperation(value = "Get Professor by Username")
+    @GetMapping(path = "/api/students/findByUsername")
+    public Student getStudent(@RequestParam String username){
+        return studentService.findStudentByUsername(username);
+    }
+
     @ApiOperation(value = "Add role to professor")
     @PostMapping(path = "/api/role/addToUser")
     public ResponseEntity<?> addRoleToProfessor(@RequestBody RoleToProfessorForm form)  {

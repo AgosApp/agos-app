@@ -36,8 +36,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         response.addHeader("Access-Control-Allow-Headers",
                 "Origin, Accept, X-Requested-With,Content-Type,Access-Control-Request-Method, "
                         + "Access-Control-RequestHeaders,authorization");
-        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,"
-                + "Access-Control-Allow-Credentials, authorization");
+        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,"+ "Access-Control-Allow-Credentials, authorization");
 
         /* this works for cors to accept delete method*/
         response.setHeader("Access-Control-Allow-Methods", "GET,POST,HEAD,OPTIONS,PUT,DELETE");

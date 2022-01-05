@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable, SkipSelf} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {LoginRequest} from "./models/LoginRequest";
 import {LoginResponse} from "./models/LoginResponse";
 import {Observable} from "rxjs";
-//import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
+import {environment} from "../../../environments/environment";
+import {Student} from "./models/Student";
+import {Professor} from "./models/professor";
 
 
 @Injectable({
@@ -22,7 +25,7 @@ export class AuthService {
       .set('username', loginRequest.username)
       .set('password', loginRequest.password);
 
-    return this.http.post<any>("http://localhost:8080/api/login",
+    return this.http.post<LoginResponse>(environment.apiBaseUrl + "login",
       body.toString(),
       {
         headers: new HttpHeaders()
@@ -32,16 +35,61 @@ export class AuthService {
 
   }
 
-  /*static getDecodedAccessToken(token: string): any {
+  static getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
     }
     catch (Error) {
-      return null;
+      return "Couldn't decode token";
     }
   }
 
-  static getUser(): User | null {
+  static getToken(): string {
+    return <string>localStorage.getItem('token');
+  }
+
+   isAuthenticated(){
+    let roles = localStorage.getItem("roles")
+     if(roles != null)  return true
+     else return false
+}
+
+  isAdmin() {
+    let roles = localStorage.getItem("roles")
+    if(roles != null)
+      return roles.includes("ADMIN_ROLE")
+    else return ;
+  }
+
+  isProf() {
+    let roles = localStorage.getItem("roles")
+    if(roles != null)
+      return roles.includes("PROF_ROLE")
+    else return ;
+  }
+
+  isStudent() {
+    let roles = localStorage.getItem("roles")
+    if(roles != null)
+      return roles.includes("STUDENT_ROLE")
+    else return ;
+  }
+
+  logout(){
+    localStorage.setItem("token","")
+    localStorage.clear()
+  }
+
+  getStudentByUsername(username : string): Observable<Student> {
+    return this.http.get<Student>(environment.apiBaseUrl+"students/findByUsername?username="+username);
+  }
+
+  getProfessorByUsername(username : string): Observable<Professor> {
+    return this.http.get<Professor>(environment.apiBaseUrl+"professors/findByUsername?username="+username);
+  }
+
+
+ /* static getUser(): User | null {
     const token = localStorage.getItem('token') ? localStorage.getItem('token').split(' ')[1] : null;
 
     let user :User={

@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:'students', component: StudentsComponent},
   {path:'professors', component: ProfessorsComponent},
   {path:'department', component: DepartmentComponent},
-  {path:'login', component: LoginComponent}
+  {path:'login', component: LoginComponent},
 
 ];
 

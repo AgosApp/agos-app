@@ -21,7 +21,9 @@ import {MatInputModule} from '@angular/material/input';
 import { LoginComponent } from './components/login/login.component';
 import {MatCard, MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {AuthorizationInterceptor} from "./components/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -50,9 +52,14 @@ import {HttpClientModule} from "@angular/common/http";
     MatCardModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSnackBarModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [/*{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthorizationInterceptor,
+    multi: true
+  }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
