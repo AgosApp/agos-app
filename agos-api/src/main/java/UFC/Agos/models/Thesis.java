@@ -1,37 +1,43 @@
 package UFC.Agos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Thesis {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="thesis_seq")
-    @SequenceGenerator(name="thesis_seq",sequenceName="thesis_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private LocalDate time;
+    private String type;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime time;
     private Float finalNote;
     private String summary;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "session_id")
-    private Session session;
+    @JoinColumn(name = "crenel_id")
+    private Crenel crenel;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "room_id")
     private Room room;
 
+
     public Thesis() {
     }
 
-    public Thesis(String title, LocalDate time, Float finalNote, String summary, Session session, Room room) {
+    public Thesis(String title, String type, LocalDateTime time, Float finalNote, String summary, Crenel crenel, Room room) {
         this.title = title;
+        this.type = type;
         this.time = time;
         this.finalNote = finalNote;
         this.summary = summary;
-        this.session = session;
+        this.crenel = crenel;
         this.room = room;
     }
 
@@ -51,11 +57,15 @@ public class Thesis {
         this.title = title;
     }
 
-    public LocalDate getTime() {
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -75,12 +85,12 @@ public class Thesis {
         this.summary = summary;
     }
 
-    public Session getSession() {
-        return session;
+    public Crenel getCrenel() {
+        return crenel;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public void setCrenel(Crenel crenel) {
+        this.crenel = crenel;
     }
 
     public Room getRoom() {
@@ -96,10 +106,11 @@ public class Thesis {
         return "Thesis{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", type='" + type + '\'' +
                 ", time=" + time +
                 ", finalNote=" + finalNote +
                 ", summary='" + summary + '\'' +
-                ", session=" + session +
+                ", crenel=" + crenel +
                 ", room=" + room +
                 '}';
     }

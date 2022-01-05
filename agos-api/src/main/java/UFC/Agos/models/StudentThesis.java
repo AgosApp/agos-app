@@ -6,15 +6,14 @@ import java.util.List;
 @Entity
 public class StudentThesis {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="studentThesis_seq")
-    @SequenceGenerator(name="studentThesis_seq",sequenceName="studentThesis_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "thesis_id")
     private Thesis thesis;
 

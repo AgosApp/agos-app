@@ -1,20 +1,25 @@
 package UFC.Agos.services.imp;
 
 import UFC.Agos.models.*;
-import UFC.Agos.repositories.CriteriaEvaluationRepository;
-import UFC.Agos.repositories.DepartmentRepository;
-import UFC.Agos.repositories.EvaluationRepository;
-import UFC.Agos.repositories.ProfessorRepository;
+import UFC.Agos.repositories.*;
 import UFC.Agos.services.IProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ProfessorService implements IProfessorService {
+public class ProfessorService implements IProfessorService, UserDetailsService {
 
     @Autowired
     ProfessorRepository professorRepository;
@@ -27,6 +32,54 @@ public class ProfessorService implements IProfessorService {
 
     @Autowired
     CriteriaEvaluationRepository criteriaEvaluationRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Professor professor = professorRepository.findByUsername(username);
+        Student student = studentRepository.findByUsername(username);
+
+        if(professor == null && student == null) {
+            throw new UsernameNotFoundException("username not found !");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        if(professor == null){
+            student.getRoles().forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            });
+            return new User(student.getUsername(), student.getPassword(), authorities);
+
+        } else if(student == null) {
+            professor.getRoles().forEach(role -> {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+            });
+            return new User(professor.getUsername(), professor.getPassword(), authorities);
+
+        } else return  null;
+    }
+
+    @Override
+    public void addRoleToProfessor(String username, String roleName) {
+        Professor professor = professorRepository.findByUsername(username);
+        Role role = roleRepository.findByName(roleName);
+        professor.getRoles().add(role);
+
+    }
+
+    @Override
+    public Professor findProfessorByUsername(String username) {
+        return professorRepository.findByUsername(username);
+    }
 
     @Override
     public List<Professor> getProfessorsByDepartment(Long departmentId) {
@@ -41,10 +94,19 @@ public class ProfessorService implements IProfessorService {
     }
 
     @Override
-    public void addProfessor(Professor professor, Long departmentId) {
+    public void addProfessor(Professor professor, Long departmentId) throws Exception {
         Department department = departmentRepository.getById(departmentId);
         professor.setDepartment(department);
+        professor.setRole(roleRepository.findByName("PROF_ROLE"));
+        if (professor.isAdmin()){
+            professor.setRole(roleRepository.findByName("ADMIN_ROLE"));
+        }
+        professor.setPassword(passwordEncoder.encode(professor.getPassword()));
+        //check if username already exists
+        Student student = studentRepository.findByUsername(professor.getUsername());
+        if(student == null)
         professorRepository.save(professor);
+        else throw new Exception("username taken");
     }
 
     @Override
@@ -64,7 +126,7 @@ public class ProfessorService implements IProfessorService {
 
     @Override
     @Transactional
-    public void updateProfessor(Long professorId, String firstName, String lastName, String login, String abbreviation, boolean isAdmin, Long departmentId) {
+    public void updateProfessor(Long professorId, String firstName, String lastName, String username, String password, boolean isAdmin, Long departmentId) throws Exception {
 
         Professor professor = professorRepository.findById(professorId).orElseThrow(
                 () -> new IllegalStateException("The professor with id " + professorId + " does not exist")
@@ -78,12 +140,12 @@ public class ProfessorService implements IProfessorService {
             professor.setFirstName(firstName);
         }
 
-        if(login != null && login.length()>0 && !Objects.equals(login, professor.getLogin())){
-            professor.setLogin(login);
-        }
-
-        if(abbreviation != null && abbreviation.length()>0 && !Objects.equals(abbreviation, professor.getAbbreviation())){
-            professor.setAbbreviation(abbreviation);
+        if(username != null && username.length()>0 && !Objects.equals(username, professor.getUsername())){
+            //check if username already exists
+            Student student = studentRepository.findByUsername(professor.getUsername());
+            if(student == null)
+                professor.setUsername(username);
+            else throw new Exception("username taken");
         }
 
         if(!Objects.equals(isAdmin, professor.isAdmin())){
@@ -95,4 +157,5 @@ public class ProfessorService implements IProfessorService {
             professor.setDepartment(department);
         }
     }
+
 }

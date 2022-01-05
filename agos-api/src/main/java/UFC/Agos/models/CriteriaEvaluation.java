@@ -6,8 +6,7 @@ import javax.persistence.*;
 public class CriteriaEvaluation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="criteriaEvaluation_seq")
-    @SequenceGenerator(name="criteriaEvaluation_seq",sequenceName="criteriaEvaluation_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

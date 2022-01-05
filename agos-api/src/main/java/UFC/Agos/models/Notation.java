@@ -1,38 +1,42 @@
 package UFC.Agos.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
 public class Notation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="notation_seq")
-    @SequenceGenerator(name="notation_seq",sequenceName="notation_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    private int bareme;
+
+    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "criteria_id")
     private Criteria criteria;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch =  FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "notationGroup_id")
     private NotationGroup notationGroup;
 
     public Notation() {
+
     }
 
-    public Notation(Criteria criteria, NotationGroup notationGroup) {
+    public Notation(Criteria criteria,
+                    NotationGroup notationGroup,
+                    int bareme) {
         this.criteria = criteria;
         this.notationGroup = notationGroup;
+        this.bareme = bareme;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Criteria getCriteria() {
@@ -51,12 +55,22 @@ public class Notation {
         this.notationGroup = notationGroup;
     }
 
+    public int getBareme() {
+        return bareme;
+    }
+
+    public void setBareme(int bareme) {
+        this.bareme = bareme;
+    }
+
     @Override
     public String toString() {
         return "Notation{" +
                 "id=" + id +
                 ", criterion=" + criteria +
                 ", notationGroup=" + notationGroup +
+                ", bareme=" + bareme +
                 '}';
     }
+
 }
