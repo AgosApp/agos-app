@@ -19,10 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MimeTypeUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +40,19 @@ public class RoleController {
 
     @Autowired
     StudentService studentService;
+
+    @ApiOperation(value = "Get Professor by Username")
+    @GetMapping(path = "/api/professors/findByUsername")
+    public Professor getProfessor(@RequestParam String username){
+        return professorService.findProfessorByUsername(username);
+
+    }
+
+    @ApiOperation(value = "Get Professor by Username")
+    @GetMapping(path = "/api/students/findByUsername")
+    public Student getStudent(@RequestParam String username){
+        return studentService.findStudentByUsername(username);
+    }
 
     @ApiOperation(value = "Add role to professor")
     @PostMapping(path = "/api/role/addToUser")

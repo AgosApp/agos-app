@@ -73,7 +73,6 @@ public class ProfessorService implements IProfessorService, UserDetailsService {
         Professor professor = professorRepository.findByUsername(username);
         Role role = roleRepository.findByName(roleName);
         professor.getRoles().add(role);
-
     }
 
     @Override
