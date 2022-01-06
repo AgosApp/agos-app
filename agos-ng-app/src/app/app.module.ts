@@ -55,11 +55,11 @@ import {AuthorizationInterceptor} from "./components/auth.interceptor";
     MatSnackBarModule,
     HttpClientModule
   ],
-  providers: [/*{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
-  }*/],
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
