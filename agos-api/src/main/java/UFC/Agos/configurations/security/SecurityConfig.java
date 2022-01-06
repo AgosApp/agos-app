@@ -27,7 +27,7 @@ import java.util.Arrays;
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService ;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
