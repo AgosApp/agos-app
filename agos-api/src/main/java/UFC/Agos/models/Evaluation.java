@@ -10,6 +10,7 @@ public class Evaluation {
     private Long id;
     private String remark;
     private Float thesisNote;
+    private String typeProfessor;
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "thesis_id")
@@ -63,6 +64,14 @@ public class Evaluation {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public String getTypeProfessor() {
+        return typeProfessor;
+    }
+
+    public void setTypeProfessor(String typeProfessor) {
+        this.typeProfessor = typeProfessor;
     }
 
     @Override
