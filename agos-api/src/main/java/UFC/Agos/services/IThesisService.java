@@ -21,7 +21,7 @@ public interface IThesisService {
 
     public Thesis getThesisByProfessor(Long thesisId, Long professorId);
 
-    public void addThesis(Thesis thesis, Long crenelId, Long roomId, List<Long> professorIds, List<Long> StudentIds) throws NotFoundException;
+    public void addThesis(Thesis thesis, Long crenelId, Long roomId, List<Long> professorIds, List<Long> StudentIds, List<String> typesProfessors) throws NotFoundException;
 
     public void deleteThesis(Long thesisId) throws Exception;
 
@@ -35,8 +35,8 @@ public interface IThesisService {
                                 Long studentThesisId
     );*/
 
-    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException;
+    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds, List<String> typesProfessors) throws NotFoundException;
 
-    public void update(Long thesisId, Map<String, Object> request, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException;
+    public void update(Long thesisId, Map<String, Object> request, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds, List<String> typesProfessors) throws NotFoundException;
 
     }

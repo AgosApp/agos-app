@@ -68,9 +68,9 @@ public class ThesisController {
     public Thesis save(@PathVariable Long crenelId,
                      @RequestParam Long roomId,
                      @RequestParam List<Long> professors,
-                     @RequestParam List<Long> students,
+                     @RequestParam List<Long> students, @RequestParam List<String> typesProfessors,
                      @RequestBody Thesis thesis) throws Exception {
-        thesisService.addThesis(thesis, crenelId, roomId, professors, students);
+        thesisService.addThesis(thesis, crenelId, roomId, professors, students, typesProfessors);
         return thesis;
     }
 
@@ -93,9 +93,10 @@ public class ThesisController {
                        @RequestParam(required = false) Float finalNote,
                        @RequestParam(required = false) Long roomId,
                        @RequestParam(required = false) List<Long> students,
-                       @RequestParam(required = false) List<Long> professors
-                       ) throws Exception {
-        thesisService.updateThesis(thesisId, title, type, time, finalNote, summary, crenelId, roomId, professors, students);
+                       @RequestParam(required = false) List<Long> professors,
+                         @RequestParam List<String> typesProfessors
+                         ) throws Exception {
+        thesisService.updateThesis(thesisId, title, type, time, finalNote, summary, crenelId, roomId, professors, students, typesProfessors);
         return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 
@@ -107,8 +108,9 @@ public class ThesisController {
                          @RequestParam(required = false) Long roomId,
                          @RequestParam(required = false) List<Long> professors,
                          @RequestParam(required = false) List<Long> students,
+                         @RequestParam List<String> typesProfessors,
                          @RequestBody Map<String, Object> request) throws Exception {
-        thesisService.update(thesisId,  request, crenelId, roomId, professors, students);
+        thesisService.update(thesisId,  request, crenelId, roomId, professors, students, typesProfessors);
         return thesisService.getThesisByCrenel(thesisId, crenelId);
     }
 }
