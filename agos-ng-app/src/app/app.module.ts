@@ -24,6 +24,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {AuthorizationInterceptor} from "./components/auth.interceptor";
+import {AuthGuardService} from "./services/auth_service/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,11 @@ import {AuthorizationInterceptor} from "./components/auth.interceptor";
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
-  }],
+  }/*,
+    {
+      provide: AuthGuardService,
+      multi : true
+    }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
