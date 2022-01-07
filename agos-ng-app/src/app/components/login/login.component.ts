@@ -23,10 +23,7 @@ export class LoginComponent implements OnInit {
   loginRequest : LoginRequest;
   loginResponse : LoginResponse;
   token : string;
-  isAthenticated = false;
-
-  @Input() navbar : NavbarComponent | undefined;
-
+  isAuthenticated = false;
 
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router:Router,private authService : AuthService,
               private matSnackBar: MatSnackBar
@@ -45,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.logout()
   }
 
   buildForm() {
@@ -65,8 +63,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginRequest).subscribe(
       loginResponse => {
-        this.isAthenticated = true;
-        localStorage.setItem("is_authenticated", String(this.isAthenticated))
+        this.isAuthenticated = true;
+        localStorage.setItem("is_authenticated", String(this.isAuthenticated))
         this.token = loginResponse.access_token;
         const bearerToken = `Bearer ${loginResponse.access_token}`;
         localStorage.setItem('token', this.token);
@@ -80,6 +78,7 @@ export class LoginComponent implements OnInit {
        console.log(decode_token.roles)
         localStorage.setItem('roles',decode_token.roles);
        if(decode_token.roles.includes("PROF_ROLE")) {
+         console.log(this.authService.isAuthenticated())
          this.router.navigateByUrl("department");
          this.authService.getProfessorByUsername(decode_token.sub).subscribe(
            professor => {console.log(professor)
@@ -126,6 +125,15 @@ export class LoginComponent implements OnInit {
         });
       }
     )
+  }
 
+  logout(){
+    this.authService.logout()
+    this.isAuthenticated = false
+    localStorage.setItem("is_authenticated", String(false))
+    this.router.navigateByUrl("login")
+    this.matSnackBar.open("Vous êtes déconnecté !", "Fermer", {
+      duration: 6000,
+    });
   }
 }

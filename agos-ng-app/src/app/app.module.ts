@@ -24,7 +24,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {AuthorizationInterceptor} from "./components/auth.interceptor";
+import {AuthGuardService} from "./services/auth_service/auth-guard.service";
+import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import {RoleGuardService} from "./services/auth_service/role-guard.service";
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,11 +59,19 @@ import {AuthorizationInterceptor} from "./components/auth.interceptor";
     MatSnackBarModule,
     HttpClientModule
   ],
-  providers: [/*{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
-  }*/],
+  },
+    {
+      provide: AuthGuardService,
+    },
+    {
+      provide: RoleGuardService,
+    },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
