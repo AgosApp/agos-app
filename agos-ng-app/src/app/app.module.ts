@@ -18,6 +18,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+
+import { FormationsComponent } from './components/formations/formations.component';
+import {RouterModule, Routes} from "@angular/router";
 import { LoginComponent } from './components/login/login.component';
 import {MatCard, MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -30,35 +33,42 @@ import {RoleGuardService} from "./services/auth_service/role-guard.service";
 
 // @ts-ignore
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    ClassroomsComponent,
-    NotationComponent,
-    SessionsComponent,
-    StudentsComponent,
-    ProfessorsComponent,
-    FooterComponent,
-    DepartmentComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatGridListModule,
-    FormsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    HttpClientModule
-  ],
+ declarations: [
+   AppComponent,
+   NavbarComponent,
+   ClassroomsComponent,
+   NotationComponent,
+   SessionsComponent,
+   StudentsComponent,
+   ProfessorsComponent,
+   FooterComponent,
+   FormationsComponent,
+   DepartmentComponent,
+   LoginComponent
+ ],
+ imports: [
+   BrowserModule,
+   AppRoutingModule,
+   BrowserAnimationsModule,
+   MatToolbarModule,
+   MatButtonModule,
+   MatGridListModule,
+   FormsModule,
+   MatIconModule,
+   MatFormFieldModule,
+   MatInputModule,
+   HttpClientModule,
+   //RouterModule.forRoot(appRoutes),
+   MatCardModule,
+   ReactiveFormsModule,
+   MatDialogModule,
+   MatSnackBarModule,
+   HttpClientModule
+
+],
+
+ bootstrap: [AppComponent],
+
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
@@ -72,6 +82,6 @@ import {RoleGuardService} from "./services/auth_service/role-guard.service";
     },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService],
-  bootstrap: [AppComponent]
+
 })
 export class AppModule { }
