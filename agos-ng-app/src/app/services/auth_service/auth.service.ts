@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
 import {environment} from "../../../environments/environment";
 import {Student} from "./models/Student";
 import {Professor} from "./models/professor";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 
 @Injectable({
@@ -14,7 +15,7 @@ import {Professor} from "./models/professor";
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
 
   }
 
@@ -49,10 +50,12 @@ export class AuthService {
   }
 
    isAuthenticated(){
-    let roles = localStorage.getItem("roles")
-     if(roles != null)  return true
-     else return false
-}
+    const token = localStorage.getItem("token")
+
+     // @ts-ignore
+     return !this.jwtHelper.isTokenExpired(token);
+    //return token != null ? true:false;
+   }
 
   isAdmin() {
     let roles = localStorage.getItem("roles")

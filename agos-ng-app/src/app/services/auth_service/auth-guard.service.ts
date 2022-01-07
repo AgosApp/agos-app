@@ -6,18 +6,13 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-
-  constructor(private router:Router, private authService : AuthService) {
-  }
+  constructor(public auth: AuthService, public router: Router) {}
 
   canActivate(): boolean {
-    let roles = localStorage.getItem('roles');
-    // @ts-ignore
-    if (!this.authService.isAuthenticated()) {
+    if (!this.auth.isAuthenticated()) {
       this.router.navigate(['login']);
       return false;
     }
     return true;
   }
-
 }
