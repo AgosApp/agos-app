@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -84,7 +85,7 @@ public class ThesisService implements IThesisService {
     }
 
     @Override
-    public void addThesis(Thesis thesis, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
+    public void addThesis(Thesis thesis, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds, List<String> typesProfessors) throws NotFoundException {
 
         for (Long id: professorIds
              ) {
@@ -92,6 +93,8 @@ public class ThesisService implements IThesisService {
                     () -> new IllegalStateException("The professor with id " + id + " does not exist")
             );
             Evaluation evaluation = new Evaluation(null, null, thesis, professor);
+            //set type of professor
+            evaluation.setTypeProfessor(typesProfessors.get(professorIds.indexOf(id)));
             evaluationRepository.save(evaluation);
         }
 
@@ -147,7 +150,7 @@ public class ThesisService implements IThesisService {
 
     @Override
     @Transactional
-    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
+    public void updateThesis(Long thesisId, String title, String type, String time, Float finalNote, String summary, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds, List<String> typesProfessors) throws NotFoundException {
         Thesis thesis = thesisRepository.findById(thesisId).orElseThrow(
                 () -> new IllegalStateException("The thesis with id " + thesisId + " does not exist")
         );
@@ -196,7 +199,10 @@ public class ThesisService implements IThesisService {
                     Professor professor = professorRepository.findById(id).orElseThrow(
                             () -> new IllegalStateException("The professor with id " + id + " does not exist")
                     );
-                    evaluationRepository.save(new Evaluation(null, null, thesis, professor));
+                    Evaluation evaluation = new Evaluation(null, null, thesis, professor);
+                    //set type of professor
+                    evaluation.setTypeProfessor(typesProfessors.get(professorIds.indexOf(id)));
+                    evaluationRepository.save(evaluation);
                     criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
 
                 }
@@ -217,7 +223,7 @@ public class ThesisService implements IThesisService {
 
     @Override
     @Transactional
-    public void update(Long thesisId, Map<String, Object> request, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds) throws NotFoundException {
+    public void update(Long thesisId, Map<String, Object> request, Long crenelId, Long roomId, List<Long> professorIds, List<Long> studentIds, List<String> typesProfessors) throws NotFoundException {
         Thesis thesis = thesisRepository.findById(thesisId).orElseThrow(
                 () -> { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "thesis not found");
                 }
@@ -260,7 +266,9 @@ public class ThesisService implements IThesisService {
                             () -> new IllegalStateException("The professor with id " + id + " does not exist")
                     );
                     criteriaEvaluationRepository.save(new CriteriaEvaluation(professor, thesis, criteria, null));
-                    evaluationRepository.save(new Evaluation(null, null, thesis, professor));
+                    Evaluation evaluation = new Evaluation(null, null, thesis, professor);
+                    evaluation.setTypeProfessor(typesProfessors.get(professorIds.indexOf(id)));
+                    evaluationRepository.save(evaluation);
                 }
             }
         }

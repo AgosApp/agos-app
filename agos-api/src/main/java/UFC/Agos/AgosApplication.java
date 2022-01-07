@@ -35,7 +35,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Arrays;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-
+//@SpringBootApplication(
 @EnableSwagger2
 public class AgosApplication {
 
@@ -60,7 +60,8 @@ public class AgosApplication {
 	}
 
     @Bean
-	PasswordEncoder passwordEncoder(){
+
+	BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 }
