@@ -1,7 +1,7 @@
 <div class="add-form">
   <form (ngSubmit)="addFormation()" class="example-form">
     <input class="form-control" type="text"  placeholder="Nouvelle formation"  name="addFormation" id="addFormation" [(ngModel)]="formation.name" >
-    <input class="form-control" type="text"  placeholder="Nouvelle formation"  name="addFormation"  [(ngModel)]="formation.description" >
+    <input class="form-control" type="text"  placeholder="Description"  name="addFormation"  [(ngModel)]="formation.description" >
     <button mat-stroked-button color="primary" class="button-add" type="submit">+</button>
   </form>
 </div>

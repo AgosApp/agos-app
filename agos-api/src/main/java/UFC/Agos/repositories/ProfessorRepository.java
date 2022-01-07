@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
-    public List<Professor> getProfessorsByDepartment(Department department);
-    public Professor getProfessorByIdAndDepartment(Long professorId, Department department);
+     List<Professor> getProfessorsByDepartment(Department department);
+     Professor getProfessorByIdAndDepartment(Long professorId, Department department);
+     Professor findByUsername(String username);
 
 }

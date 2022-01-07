@@ -9,8 +9,7 @@ import javax.persistence.*;
 public class Notation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="notation_seq")
-    @SequenceGenerator(name="notation_seq",sequenceName="notation_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int bareme;

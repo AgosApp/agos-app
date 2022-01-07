@@ -9,17 +9,18 @@ export class FormationsService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getFormations(){
-    return this.httpClient.get('http://127.0.0.1:8080/api/departments/1/formations');
+  getFormations(department_id:any){
+    return this.httpClient.get('http://127.0.0.1:8080/api/departments/'+department_id+'/formations');
+    console.log('i am in service, this is the department' +department_id);
   }
 
-  addFormation(data: any){
-    return this.httpClient.post('http://127.0.0.1:8080/api/departments/1/formations', data);
+  addFormation(department_id:any, data: any){
+    return this.httpClient.post('http://127.0.0.1:8080/api/departments/'+department_id+'/formations', data);
 
   }
 
-  deleteFormation(id:any){
-    return this.httpClient.delete('http://127.0.0.1:8080/api/departments/1/formations/'+id);
+  deleteFormation(department_id:any, id:any){
+    return this.httpClient.delete('http://127.0.0.1:8080/api/departments/'+department_id+'/formations/'+id);
   }
 
 

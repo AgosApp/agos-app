@@ -9,6 +9,7 @@ import UFC.Agos.services.INotationGroupService;
 import UFC.Agos.services.INotationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"API for NotationGroup CRUD operations."})
 @RestController
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
 @RequestMapping(path="api/notationGroups")
 public class NotationGroupController {
 

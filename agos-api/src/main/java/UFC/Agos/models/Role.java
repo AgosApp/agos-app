@@ -1,21 +1,21 @@
 package UFC.Agos.models;
 
+
 import javax.persistence.*;
 
 @Entity
-public class Department {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
 
-    public Department() {
+
+    public Role() {
     }
 
-    public Department(String name, String description) {
+    public Role(String name) {
         this.name = name;
-        this.description = description;
     }
 
     public Long getId() {
@@ -26,25 +26,15 @@ public class Department {
         return name;
     }
 
-    public void setName(String name) {
+    public void setRole(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "Department{" +
+        return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
-
 }

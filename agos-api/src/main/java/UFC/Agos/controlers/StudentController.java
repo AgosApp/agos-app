@@ -5,12 +5,14 @@ import UFC.Agos.services.imp.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @Api(tags = {"API for Students CRUD operations."})
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')")
 @RequestMapping(path = "api/formations/{formationId}/students")
 public class StudentController {
 
@@ -32,7 +34,7 @@ public class StudentController {
     @ApiOperation(value = "Add Student in a Formation")
     @PostMapping
     public void save(@PathVariable(required = false) Long formationId,
-                     @RequestBody Student student){
+                     @RequestBody Student student) throws Exception {
         studentService.addStudent(student, formationId);
     }
 
@@ -48,9 +50,10 @@ public class StudentController {
                        @PathVariable(required = false) Long formationId,
                        @RequestParam(required = false) String lastName,
                        @RequestParam(required = false) String firstName,
-                       @RequestParam(required = false) String login
+                       @RequestParam(required = false) String username,
+                       @RequestParam(required = false) String password
 
-                       ){
-        studentService.updateStudent(studentId, firstName, lastName, login, formationId);
+                       ) throws Exception {
+        studentService.updateStudent(studentId, firstName, lastName, username, password, formationId);
     }
 }

@@ -29,6 +29,8 @@ public class CrenelConfiguration {
         Session session = new Session(
                 "Projets PAM",
                 Duration.ofMinutes(20),
+                Duration.ofMinutes(15),
+                Duration.ofMinutes(5),
                 LocalDate.of(2022, 01, 21),
                 formation,
                 notationGroup
@@ -37,6 +39,8 @@ public class CrenelConfiguration {
         Session sessionM2 = new Session(
                 "Soutenances M2 ISL",
                 Duration.ofMinutes(20),
+                Duration.ofMinutes(15),
+                Duration.ofMinutes(5),
                 LocalDate.of(2022, 07, 25),
                 formation,
                 notationGroup

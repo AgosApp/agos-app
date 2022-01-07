@@ -1,31 +1,47 @@
 package UFC.Agos.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Professor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="professor_seq")
-    @SequenceGenerator(name="professor_seq",sequenceName="professor_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
-    private String login;
+    @Column(unique=true)
+    private String username;
+    private String password;
     private boolean isAdmin;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "department_id")
     private Department department;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Collection<Role> roles = new ArrayList<>();
 
     public Professor() {
     }
 
-    public Professor(String firstName, String lastName, String login, boolean isAdmin, Department department) {
+    public Professor(String firstName, String lastName, String username, String password, boolean isAdmin, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.login = login;
+        this.username = username;
+        this.password = password;
         this.isAdmin = isAdmin;
         this.department = department;
+    }
+
+    public Professor(String firstName, String lastName, String username, String password, boolean isAdmin, Department department,Collection<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.department = department;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -52,13 +68,17 @@ public class Professor {
         this.lastName = lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 
     public boolean isAdmin() {
         return isAdmin;
@@ -76,13 +96,22 @@ public class Professor {
         this.department = department;
     }
 
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRole(Role role) {
+        this.roles.add(role);
+    }
+
     @Override
     public String toString() {
         return "Professor{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
+                ", password=" + password +
                 ", isAdmin=" + isAdmin +
                 ", department=" + department +
                 '}';

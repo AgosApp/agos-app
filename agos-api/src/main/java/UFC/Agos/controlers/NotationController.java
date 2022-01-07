@@ -5,12 +5,14 @@ import UFC.Agos.models.NotationGroup;
 import UFC.Agos.services.INotationGroupService;
 import UFC.Agos.services.INotationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path="api/notations")
+//@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
 public class NotationController {
 
     @Autowired
