@@ -27,7 +27,10 @@ import {AuthorizationInterceptor} from "./components/auth.interceptor";
 import {AuthGuardService} from "./services/auth_service/auth-guard.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {RoleGuardService} from "./services/auth_service/role-guard.service";
+import { StudentThesesComponent } from './components/student-theses/student-theses.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
+// @ts-ignore
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import {RoleGuardService} from "./services/auth_service/role-guard.service";
     ProfessorsComponent,
     FooterComponent,
     DepartmentComponent,
-    LoginComponent
+    LoginComponent,
+    StudentThesesComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,9 @@ import {RoleGuardService} from "./services/auth_service/role-guard.service";
     ReactiveFormsModule,
     MatDialogModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    FontAwesomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
