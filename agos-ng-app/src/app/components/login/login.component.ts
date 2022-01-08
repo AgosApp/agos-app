@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth_service/auth.service";
-import {LoginRequest} from "../../services/auth_service/models/LoginRequest";
-import {LoginResponse} from "../../services/auth_service/models/LoginResponse";
+import {LoginRequest} from "../../models/LoginRequest";
+import {LoginResponse} from "../../models/LoginResponse";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {NavbarComponent} from "../navbar/navbar.component";
@@ -79,7 +79,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('roles',decode_token.roles);
        if(decode_token.roles.includes("PROF_ROLE")) {
          console.log(this.authService.isAuthenticated())
-         this.router.navigateByUrl("department");
          this.authService.getProfessorByUsername(decode_token.sub).subscribe(
            professor => {console.log(professor)
              localStorage.setItem('user_id',String(professor.id));
@@ -88,6 +87,7 @@ export class LoginComponent implements OnInit {
              localStorage.setItem('lastname',professor.lastName);
              localStorage.setItem('department_id',String(professor.department.id));
              localStorage.setItem('department_name',professor.department.name);
+             this.router.navigateByUrl("department");
            },
            error => {
              this.matSnackBar.open("Echec lors de la récupération de vos données", "Fermer", {
@@ -99,24 +99,28 @@ export class LoginComponent implements OnInit {
          )
        }
         if(decode_token.roles.includes("STUDENT_ROLE")) {
-          this.router.navigateByUrl("");
           console.log(decode_token.sub);
-
+          let studentId: string;
          this.authService.getStudentByUsername(decode_token.sub).subscribe(
            student => {console.log(student);
+             studentId = String(student.id)
              localStorage.setItem('user_id',String(student.id));
              localStorage.setItem('username',student.username);
              localStorage.setItem('firstname',student.firstName);
              localStorage.setItem('lastname',student.lastName);
              localStorage.setItem('formation_id',String(student.formation.id));
              localStorage.setItem('department_name',String(student.formation.name));
+             this.router.navigateByUrl("student/theses");
            },
            error => {
              this.matSnackBar.open("Echec lors de la récupération de vos données", "Fermer", {
                duration: 6000,
              })
            },
-           ()=> {}
+           ()=> {
+             localStorage.setItem('user_id',studentId);
+
+           }
          )
         }
 
