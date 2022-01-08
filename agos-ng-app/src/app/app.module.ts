@@ -18,6 +18,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+
+import { FormationsComponent } from './components/formations/formations.component';
+import {RouterModule, Routes} from "@angular/router";
 import { LoginComponent } from './components/login/login.component';
 import {MatCard, MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -42,6 +45,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     StudentsComponent,
     ProfessorsComponent,
     FooterComponent,
+    FormationsComponent,
     DepartmentComponent,
     LoginComponent,
     StudentThesesComponent
@@ -62,9 +66,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MatDialogModule,
     MatSnackBarModule,
     HttpClientModule,
-    BrowserModule,
     FontAwesomeModule
   ],
+  bootstrap: [AppComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
@@ -78,6 +82,6 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService],
-  bootstrap: [AppComponent]
+
 })
 export class AppModule { }

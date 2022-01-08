@@ -5,13 +5,27 @@ import { NotationComponent } from './components/notation/notation.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { StudentsComponent } from './components/students/students.component';
+
+import { FormationsComponent } from './components/formations/formations.component';
+
 import { DepartmentComponent } from './components/department/department.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuardService as AuthGuard}  from "./services/auth_service/auth-guard.service";
 import {RoleGuardService as RoleGuard} from "./services/auth_service/role-guard.service";
 import {StudentThesesComponent} from "./components/student-theses/student-theses.component";
 
+
 const routes: Routes = [
+
+  {path:'classrooms', component: ClassroomsComponent},
+  {path:'notation', component: NotationComponent},
+  {path:'sessions', component: SessionsComponent},
+  {path:'students', component: StudentsComponent},
+  {path:'professors', component: ProfessorsComponent},
+  {path:'department/:department_id/formations', component: FormationsComponent},
+
+  {path:'department', component: DepartmentComponent},
+
   {path:'', component: LoginComponent},
   {path:'classrooms', component: ClassroomsComponent,canActivate : [AuthGuard, RoleGuard],
     data: {
