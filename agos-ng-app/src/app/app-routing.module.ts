@@ -12,6 +12,7 @@ import { DepartmentComponent } from './components/department/department.componen
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuardService as AuthGuard}  from "./services/auth_service/auth-guard.service";
 import {RoleGuardService as RoleGuard} from "./services/auth_service/role-guard.service";
+import {StudentThesesComponent} from "./components/student-theses/student-theses.component";
 
 
 const routes: Routes = [
@@ -49,6 +50,10 @@ const routes: Routes = [
   {path:'department', component: DepartmentComponent,    canActivate : [AuthGuard , RoleGuard],
     data: {
       expectedRole: 'ADMIN_ROLE'
+    } },
+  {path:'student/theses', component: StudentThesesComponent, canActivate : [AuthGuard , RoleGuard],
+    data: {
+      expectedRole: 'STUDENT_ROLE'
     } },
   {path:'login', component: LoginComponent,},
   { path: '**', redirectTo: '' }

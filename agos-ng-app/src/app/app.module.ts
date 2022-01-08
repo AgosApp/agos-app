@@ -30,45 +30,45 @@ import {AuthorizationInterceptor} from "./components/auth.interceptor";
 import {AuthGuardService} from "./services/auth_service/auth-guard.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {RoleGuardService} from "./services/auth_service/role-guard.service";
+import { StudentThesesComponent } from './components/student-theses/student-theses.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 // @ts-ignore
+// @ts-ignore
 @NgModule({
- declarations: [
-   AppComponent,
-   NavbarComponent,
-   ClassroomsComponent,
-   NotationComponent,
-   SessionsComponent,
-   StudentsComponent,
-   ProfessorsComponent,
-   FooterComponent,
-   FormationsComponent,
-   DepartmentComponent,
-   LoginComponent
- ],
- imports: [
-   BrowserModule,
-   AppRoutingModule,
-   BrowserAnimationsModule,
-   MatToolbarModule,
-   MatButtonModule,
-   MatGridListModule,
-   FormsModule,
-   MatIconModule,
-   MatFormFieldModule,
-   MatInputModule,
-   HttpClientModule,
-   //RouterModule.forRoot(appRoutes),
-   MatCardModule,
-   ReactiveFormsModule,
-   MatDialogModule,
-   MatSnackBarModule,
-   HttpClientModule
-
-],
-
- bootstrap: [AppComponent],
-
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    ClassroomsComponent,
+    NotationComponent,
+    SessionsComponent,
+    StudentsComponent,
+    ProfessorsComponent,
+    FooterComponent,
+    FormationsComponent,
+    DepartmentComponent,
+    LoginComponent,
+    StudentThesesComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatGridListModule,
+    FormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    FontAwesomeModule
+  ],
+  bootstrap: [AppComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,

@@ -1,12 +1,12 @@
 import {Injectable, SkipSelf} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {LoginRequest} from "./models/LoginRequest";
-import {LoginResponse} from "./models/LoginResponse";
+import {LoginRequest} from "../../models/LoginRequest";
+import {LoginResponse} from "../../models/LoginResponse";
 import {Observable} from "rxjs";
 import jwt_decode from 'jwt-decode';
 import {environment} from "../../../environments/environment";
-import {Student} from "./models/Student";
-import {Professor} from "./models/professor";
+import {Student} from "../../models/Student";
+import {Professor} from "../../models/professor";
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 
