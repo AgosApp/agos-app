@@ -1,6 +1,8 @@
 package UFC.Agos.configurations;
 
 import UFC.Agos.models.*;
+import UFC.Agos.repositories.StudentRepository;
+import UFC.Agos.repositories.StudentThesisRepository;
 import UFC.Agos.repositories.ThesisRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,7 @@ public class ThesisConfiguration {
 
 
     @Bean
-    CommandLineRunner thesisCommandLineRunner(ThesisRepository thesisRepository){
+    CommandLineRunner thesisCommandLineRunner(ThesisRepository thesisRepository, StudentThesisRepository studentThesisRepository, StudentRepository studentRepository){
         Department ufrST = new Department("Arts", "Département en UFR Culture");
 
         Formation formation = new Formation(
@@ -72,6 +74,11 @@ public class ThesisConfiguration {
                     room1
             );
             thesisRepository.saveAll(List.of(thesis,thesisL2));
+
+            StudentThesis studentThesis = new StudentThesis(studentRepository.getById(1L),thesis);
+            StudentThesis studentThesis2 = new StudentThesis(studentRepository.getById(1L),thesisL2);
+            studentThesisRepository.saveAll(List.of(studentThesis, studentThesis2));
+
         };
     }
 }
