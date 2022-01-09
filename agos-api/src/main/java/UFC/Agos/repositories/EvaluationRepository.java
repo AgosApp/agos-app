@@ -23,4 +23,6 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 
     Evaluation getEvaluationByProfessorAndThesis(Professor professor, Thesis thesis);
 
+    List<Evaluation> getEvaluationsByProfessor(Professor professor);
+
 }

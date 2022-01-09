@@ -10,4 +10,9 @@ public interface IEvaluationService {
 
     List<Evaluation> getEvaluationsByThesis(Long thesisId);
 
+    List<Evaluation> getEvaluationsByProfessor(Long professorId);
+
+
+
+
 }

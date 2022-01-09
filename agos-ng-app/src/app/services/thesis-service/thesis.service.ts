@@ -11,8 +11,7 @@ export class ThesisService {
 
   constructor(private http: HttpClient) { }
 
-  getThesesByStudent(){
-    let studentId = localStorage.getItem('user_id')
-    return this.http.get<Thesis[]>(environment.apiBaseUrl+`students/${studentId}/theses`);
+  getThesesByStudent(userId: any){
+    return this.http.get<Thesis[]>(environment.apiBaseUrl+`students/${userId}/theses`);
   }
 }

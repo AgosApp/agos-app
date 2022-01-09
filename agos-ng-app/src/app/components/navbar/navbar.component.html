@@ -6,8 +6,8 @@
       <a mat-button routerLink='sessions' *ngIf="this.authService.isAdmin()">Sessions</a>
       <a mat-button routerLink='students' *ngIf="this.authService.isAdmin()">Etudiants</a>
       <a mat-button routerLink='professors' *ngIf="this.authService.isAdmin()">Professeurs</a>
-      <a mat-button routerLink='' *ngIf="this.authService.isProf()">Mes soutenances</a>
-      <a mat-button routerLink='' *ngIf="this.authService.isStudent()">Mes soutenances</a>
+      <a mat-button [routerLink] = "['professors', this.userId, 'theses']" *ngIf="this.authService.isProf()">Mes soutenances</a>
+      <a mat-button [routerLink] = "['students', this.userId, 'theses']" *ngIf="this.authService.isStudent()">Mes soutenances</a>
     </span>
 
   <span class="navbar-right" *ngIf="authService.isAuthenticated()">

@@ -32,6 +32,7 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {RoleGuardService} from "./services/auth_service/role-guard.service";
 import { StudentThesesComponent } from './components/student-theses/student-theses.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { ProfessorThesesComponent } from './components/professor-theses/professor-theses.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -48,7 +49,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     FormationsComponent,
     DepartmentComponent,
     LoginComponent,
-    StudentThesesComponent
+    StudentThesesComponent,
+    ProfessorThesesComponent
   ],
   imports: [
     BrowserModule,
