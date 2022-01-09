@@ -13,19 +13,10 @@ import {LoginComponent} from "./components/login/login.component";
 import {AuthGuardService as AuthGuard}  from "./services/auth_service/auth-guard.service";
 import {RoleGuardService as RoleGuard} from "./services/auth_service/role-guard.service";
 import {StudentThesesComponent} from "./components/student-theses/student-theses.component";
+import {ProfessorThesesComponent} from "./components/professor-theses/professor-theses.component";
 
 
 const routes: Routes = [
-
-  {path:'classrooms', component: ClassroomsComponent},
-  {path:'notation', component: NotationComponent},
-  {path:'sessions', component: SessionsComponent},
-  {path:'students', component: StudentsComponent},
-  {path:'professors', component: ProfessorsComponent},
-  {path:'department/:department_id/formations', component: FormationsComponent},
-
-  {path:'department', component: DepartmentComponent},
-
   {path:'', component: LoginComponent},
   {path:'classrooms', component: ClassroomsComponent,canActivate : [AuthGuard, RoleGuard],
     data: {
@@ -47,14 +38,22 @@ const routes: Routes = [
     data: {
       expectedRole: 'ADMIN_ROLE'
     } },
-  {path:'department', component: DepartmentComponent,    canActivate : [AuthGuard , RoleGuard],
+  {path:'departments', component: DepartmentComponent, canActivate : [AuthGuard , RoleGuard],
     data: {
       expectedRole: 'ADMIN_ROLE'
     } },
-  {path:'student/theses', component: StudentThesesComponent, canActivate : [AuthGuard , RoleGuard],
+  {path:'students/:userId/theses', component: StudentThesesComponent, canActivate : [AuthGuard , RoleGuard],
     data: {
       expectedRole: 'STUDENT_ROLE'
     } },
+  {path:'professors/:userId/theses', component: ProfessorThesesComponent, canActivate : [AuthGuard , RoleGuard],
+    data: {
+      expectedRole: 'PROF_ROLE'
+    } },
+  {path:'departments/:department_id/formations', component: FormationsComponent, canActivate : [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: 'ADMIN_ROLE'
+    }},
   {path:'login', component: LoginComponent,},
   { path: '**', redirectTo: '' }
 

@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   isAuthenticated : boolean | undefined;
   firstname : string | null;
   lastname : string | null;
+  userId : any
 
   public _reload = true;
 
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('user_id')
     this.firstname = localStorage.getItem("firstname")
     this.lastname = localStorage.getItem("lastname")
     this.cdr.detectChanges();

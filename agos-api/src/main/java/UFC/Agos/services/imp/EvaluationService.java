@@ -37,4 +37,10 @@ public class EvaluationService implements IEvaluationService {
         Thesis thesis = thesisRepository.getById(thesisId);
         return evaluationRepository.getEvaluationsByThesis(thesis);
     }
+
+    @Override
+    public List<Evaluation> getEvaluationsByProfessor(Long professorId) {
+        Professor professor = professorRepository.getById(professorId);
+        return evaluationRepository.getEvaluationsByProfessor(professor);
+    }
 }

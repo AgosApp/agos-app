@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
              localStorage.setItem('lastname',professor.lastName);
              localStorage.setItem('department_id',String(professor.department.id));
              localStorage.setItem('department_name',professor.department.name);
-             this.router.navigateByUrl("department");
+             this.router.navigateByUrl(`professors/${professor.id}/theses`);
            },
            error => {
              this.matSnackBar.open("Echec lors de la récupération de vos données", "Fermer", {
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
              localStorage.setItem('lastname',student.lastName);
              localStorage.setItem('formation_id',String(student.formation.id));
              localStorage.setItem('department_name',String(student.formation.name));
-             this.router.navigateByUrl("student/theses");
+             this.router.navigateByUrl(`students/${student.id}/theses`);
            },
            error => {
              this.matSnackBar.open("Echec lors de la récupération de vos données", "Fermer", {

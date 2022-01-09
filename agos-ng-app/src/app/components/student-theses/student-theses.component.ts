@@ -31,7 +31,7 @@ export class StudentThesesComponent implements OnInit {
 
 
   getTheses(){
-    this.thesisService.getThesesByStudent().subscribe(theses =>{
+    this.thesisService.getThesesByStudent(localStorage.getItem('user_id')).subscribe(theses =>{
 
       this.incomingTheses = theses.filter(thesis =>{ // @ts-ignore
         new Date(thesis.time) > Date.now() })
