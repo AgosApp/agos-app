@@ -1,6 +1,7 @@
 package UFC.Agos.repositories;
 
 import UFC.Agos.models.Crenel;
+import UFC.Agos.models.Room;
 import UFC.Agos.models.Session;
 import UFC.Agos.models.Thesis;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,8 @@ public interface ThesisRepository extends JpaRepository<Thesis, Long> {
 
     @Query(value = "SELECT * FROM Thesis t WHERE id = ?1 AND id  IN  (SELECT thesis_id FROM evaluation  WHERE professor_id  =?2)", nativeQuery = true)
     Thesis findThesisByIdAndProfessor(Long thesisId,Long professorId);
+
+    List<Thesis> getThesesByRoom(Long roomId);
 
 
 }
