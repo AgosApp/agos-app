@@ -1,0 +1,42 @@
+<div class="parent_container" *ngIf="this.countPast > 0">
+  <h4>Soutenances passées</h4>
+<div class="container" >
+  <mat-grid-list  cols = "3"  rowHeight = "2:1" >
+    <mat-card *ngFor="let thesis of pastTheses" class="mat-card">
+          <mat-card-title class="thesis-name"> {{ thesis.type }}: {{ thesis.title }}</mat-card-title>
+          <mat-card-subtitle class="room">{{ thesis.summary }}</mat-card-subtitle>
+          <mat-card-content>
+            <p class="thesis-description">
+              <fa-icon [icon]="faClock"></fa-icon>  {{ thesis.time }}
+              <fa-icon [icon]="faLocation"></fa-icon>  {{ thesis.room.name }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      <button mat-button routerLink='/' class="thesisItem"> </button>
+  </mat-grid-list >
+</div>
+</div>
+
+<div class="parent_container" *ngIf="this.countIncoming > 0">
+<h4 class="incoming-theses">Soutenances à venir</h4>
+<div class="container" *ngIf="true">
+  <mat-grid-list  cols = "3"  rowHeight = "2:1" >
+    <mat-card *ngFor="let thesis of incomingTheses" class="mat-card">
+      <mat-card-title class="thesis-name">
+        {{ thesis.type }}: {{ thesis.title}}</mat-card-title>
+      <mat-card-subtitle class="room">{{ thesis.summary }}</mat-card-subtitle>
+      <mat-card-content>
+        <p class="thesis-description">
+          <fa-icon [icon]="faClock"></fa-icon> {{ thesis.time }}
+          <fa-icon [icon]="faLocation"></fa-icon>     {{ thesis.room.name }}</p>
+      </mat-card-content>
+    </mat-card>
+    <button mat-button routerLink='/' class="thesisItem"> </button>
+  </mat-grid-list >
+</div>
+</div>
+
+<div class="container" *ngIf="this.countIncoming == 0 && this.countPast == 0"> Vous n'avez aucune soutenance pour le moment.</div>
+
+
+

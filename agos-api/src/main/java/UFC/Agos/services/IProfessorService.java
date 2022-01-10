@@ -1,6 +1,7 @@
 package UFC.Agos.services;
 
 import UFC.Agos.models.Professor;
+import UFC.Agos.models.Student;
 
 import java.util.List;
 

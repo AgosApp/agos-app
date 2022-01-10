@@ -21,4 +21,8 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
     @Query(value = "DELETE FROM evaluation  WHERE thesis_id = ?", nativeQuery = true)
     void deleteByThesis(Long thesisId);
 
+    Evaluation getEvaluationByProfessorAndThesis(Professor professor, Thesis thesis);
+
+    List<Evaluation> getEvaluationsByProfessor(Professor professor);
+
 }

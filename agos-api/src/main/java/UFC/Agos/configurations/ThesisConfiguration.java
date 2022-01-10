@@ -1,7 +1,7 @@
 package UFC.Agos.configurations;
 
 import UFC.Agos.models.*;
-import UFC.Agos.repositories.ThesisRepository;
+import UFC.Agos.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,11 @@ public class ThesisConfiguration {
 
 
     @Bean
-    CommandLineRunner thesisCommandLineRunner(ThesisRepository thesisRepository){
+    CommandLineRunner thesisCommandLineRunner(ThesisRepository thesisRepository,
+                                              StudentThesisRepository studentThesisRepository,
+                                              StudentRepository studentRepository,
+                                              EvaluationRepository evaluationRepository,
+                                              ProfessorRepository professorRepository){
         Department ufrST = new Department("Arts", "Département en UFR Culture");
 
         Formation formation = new Formation(
@@ -72,6 +76,19 @@ public class ThesisConfiguration {
                     room1
             );
             thesisRepository.saveAll(List.of(thesis,thesisL2));
+
+            Professor p = professorRepository.getById(1L);
+            StudentThesis studentThesis = new StudentThesis(studentRepository.getById(1L),thesis);
+            StudentThesis studentThesis2 = new StudentThesis(studentRepository.getById(1L),thesisL2);
+            studentThesisRepository.saveAll(List.of(studentThesis, studentThesis2));
+
+            Evaluation evaluation = new Evaluation(null, null, null, null);
+            evaluation.setTypeProfessor("Tuteur");
+            Evaluation evaluation2 = new Evaluation(null, null, null, null);
+            evaluation2.setTypeProfessor("Témoin");
+
+            evaluationRepository.saveAll(List.of(evaluation, evaluation2));
+
         };
     }
 }
