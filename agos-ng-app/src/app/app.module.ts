@@ -34,6 +34,7 @@ import { StudentThesesComponent } from './components/student-theses/student-thes
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { ProfessorThesesComponent } from './components/professor-theses/professor-theses.component';
 import { StudentThesisDetailComponent } from './components/student-thesis-detail/student-thesis-detail.component';
+import { ProfessorThesisDetailComponent } from './components/professor-thesis-detail/professor-thesis-detail.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -52,7 +53,8 @@ import { StudentThesisDetailComponent } from './components/student-thesis-detail
     LoginComponent,
     StudentThesesComponent,
     ProfessorThesesComponent,
-    StudentThesisDetailComponent
+    StudentThesisDetailComponent,
+    ProfessorThesisDetailComponent
   ],
   imports: [
     BrowserModule,
