@@ -33,6 +33,7 @@ import {RoleGuardService} from "./services/auth_service/role-guard.service";
 import { StudentThesesComponent } from './components/student-theses/student-theses.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { ProfessorThesesComponent } from './components/professor-theses/professor-theses.component';
+import { StudentThesisDetailComponent } from './components/student-thesis-detail/student-thesis-detail.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -50,7 +51,8 @@ import { ProfessorThesesComponent } from './components/professor-theses/professo
     DepartmentComponent,
     LoginComponent,
     StudentThesesComponent,
-    ProfessorThesesComponent
+    ProfessorThesesComponent,
+    StudentThesisDetailComponent
   ],
   imports: [
     BrowserModule,
