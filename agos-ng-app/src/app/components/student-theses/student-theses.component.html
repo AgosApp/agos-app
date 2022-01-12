@@ -3,7 +3,8 @@
 <div class="container" >
   <mat-grid-list  cols = "3"  rowHeight = "2:1" >
     <mat-card *ngFor="let thesis of pastTheses" class="mat-card">
-          <mat-card-title class="thesis-name"> {{ thesis.type }}: {{ thesis.title }}</mat-card-title>
+      <a [routerLink] = "[thesis.id]">
+      <mat-card-title class="thesis-name"> {{ thesis.type }}: {{ thesis.title }}</mat-card-title>
           <mat-card-subtitle class="room">{{ thesis.summary }}</mat-card-subtitle>
           <mat-card-content>
             <p class="thesis-description">
@@ -11,8 +12,8 @@
               <fa-icon [icon]="faLocation"></fa-icon>  {{ thesis.room.name }}
             </p>
           </mat-card-content>
-        </mat-card>
-      <button mat-button routerLink='/' class="thesisItem"> </button>
+      </a>
+    </mat-card>
   </mat-grid-list >
 </div>
 </div>
@@ -22,6 +23,7 @@
 <div class="container" *ngIf="true">
   <mat-grid-list  cols = "3"  rowHeight = "2:1" >
     <mat-card *ngFor="let thesis of incomingTheses" class="mat-card">
+      <a [routerLink] = "[thesis.id]">
       <mat-card-title class="thesis-name">
         {{ thesis.type }}: {{ thesis.title}}</mat-card-title>
       <mat-card-subtitle class="room">{{ thesis.summary }}</mat-card-subtitle>
@@ -30,8 +32,8 @@
           <fa-icon [icon]="faClock"></fa-icon> {{ thesis.time }}
           <fa-icon [icon]="faLocation"></fa-icon>     {{ thesis.room.name }}</p>
       </mat-card-content>
+      </a>
     </mat-card>
-    <button mat-button routerLink='/' class="thesisItem"> </button>
   </mat-grid-list >
 </div>
 </div>

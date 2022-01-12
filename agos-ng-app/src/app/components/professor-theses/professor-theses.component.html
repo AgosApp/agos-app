@@ -6,9 +6,9 @@ Soutenances passées
   <div class="container" *ngIf="true">
     <mat-grid-list  cols = "3"  rowHeight = "2:1" >
       <h5>Tuteur</h5>
+      <div class="thesis-type">
       <div *ngFor="let evaluation of pastEvaluations">
-        <mat-card class="thesis-type"  *ngIf="evaluation.typeProfessor == 'Tuteur'">
-          <mat-card  class="mat-card" >
+        <mat-card *ngIf="evaluation.typeProfessor == 'Tuteur'">
             <mat-card-title class="thesis-name">
               {{ evaluation.thesis.type }}: {{ evaluation.thesis.title}}</mat-card-title>
             <mat-card-subtitle class="room">{{ evaluation.thesis.summary }}</mat-card-subtitle>
@@ -18,13 +18,14 @@ Soutenances passées
                 <fa-icon [icon]="faLocation"></fa-icon> {{ evaluation.thesis.room.name }}</p>
             </mat-card-content>
           </mat-card>
-        </mat-card>
+      </div>
       </div>
 
-      <h5>Témoin</h5>
-      <div *ngFor="let evaluation of pastEvaluations">
-        <mat-card class="thesis-type"  *ngIf="evaluation.typeProfessor == 'Témoin'">
-          <mat-card  class="mat-card" >
+
+        <h5>Témoin</h5>
+      <div class="thesis-type">
+      <div *ngFor="let evaluation of pastEvaluations" >
+        <mat-card  *ngIf="evaluation.typeProfessor == 'Témoin'">
             <mat-card-title class="thesis-name">
               {{ evaluation.thesis.type }}: {{ evaluation.thesis.title}}</mat-card-title>
             <mat-card-subtitle class="room">{{ evaluation.thesis.summary }}</mat-card-subtitle>
@@ -33,8 +34,8 @@ Soutenances passées
                 <fa-icon [icon]="faClock"></fa-icon> {{ evaluation.thesis.time }}
                 <fa-icon [icon]="faLocation"></fa-icon>     {{ evaluation.thesis.room.name }}</p>
             </mat-card-content>
-          </mat-card>
         </mat-card>
+      </div>
       </div>
 
       <button mat-button routerLink='/' class="thesisItem"> </button>
@@ -50,9 +51,9 @@ Soutenances à venir
   <div class="container" *ngIf="true">
     <mat-grid-list  cols = "3"  rowHeight = "2:1" >
       <h5>Tuteur</h5>
+      <div  class="thesis-type">
       <div *ngFor="let evaluation of incomingEvaluations">
-      <mat-card class="thesis-type"  *ngIf="evaluation.typeProfessor == 'Tuteur'">
-        <mat-card  class="mat-card" >
+      <mat-card  *ngIf="evaluation.typeProfessor == 'Tuteur'">
         <mat-card-title class="thesis-name">
           {{ evaluation.thesis.type }}: {{ evaluation.thesis.title}}</mat-card-title>
         <mat-card-subtitle class="room">{{ evaluation.thesis.summary }}</mat-card-subtitle>
@@ -62,13 +63,13 @@ Soutenances à venir
             <fa-icon [icon]="faLocation"></fa-icon>     {{ evaluation.thesis.room.name }}</p>
         </mat-card-content>
       </mat-card>
-      </mat-card>
+      </div>
       </div>
 
       <h5>Témoin</h5>
-      <div *ngFor="let evaluation of incomingEvaluations">
-        <mat-card class="thesis-type"  *ngIf="evaluation.typeProfessor == 'Témoin'">
-          <mat-card  class="mat-card" >
+      <div class="thesis-type" >
+      <div *ngFor="let evaluation of incomingEvaluations" >
+        <mat-card *ngIf="evaluation.typeProfessor == 'Témoin'">
             <mat-card-title class="thesis-name">
               {{ evaluation.thesis.type }}: {{ evaluation.thesis.title}}</mat-card-title>
             <mat-card-subtitle class="room">{{ evaluation.thesis.summary }}</mat-card-subtitle>
@@ -78,9 +79,8 @@ Soutenances à venir
                 <fa-icon [icon]="faLocation"></fa-icon>     {{ evaluation.thesis.room.name }}</p>
             </mat-card-content>
           </mat-card>
-        </mat-card>
       </div>
-
+      </div>
       <button mat-button routerLink='/' class="thesisItem"> </button>
     </mat-grid-list >
   </div>
