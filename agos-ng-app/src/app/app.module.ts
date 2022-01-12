@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
@@ -9,6 +10,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +23,8 @@ import { SessionsComponent } from './components/sessions/sessions.component';
 import { StudentsComponent } from './components/students/students.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EditFormComponent } from './components/notation/components/edit-form/edit-form.component';
+import { CreateFormComponent } from './components/notation/components/create-form/create-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { FooterComponent } from './components/footer/footer.component';
     SessionsComponent,
     StudentsComponent,
     ProfessorsComponent,
-    FooterComponent
+    FooterComponent,
+    EditFormComponent,
+    CreateFormComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,9 @@ import { FooterComponent } from './components/footer/footer.component';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

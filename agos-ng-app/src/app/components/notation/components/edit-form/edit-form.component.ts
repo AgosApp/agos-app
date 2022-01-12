@@ -1,21 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
-
 @Component({
-  selector: 'app-notation',
-  templateUrl: './notation.component.html',
-  styleUrls: ['./notation.component.sass']
+  selector: 'app-edit-form',
+  templateUrl: './edit-form.component.html',
+  styleUrls: ['./edit-form.component.sass']
 })
-export class NotationComponent implements OnInit {
+export class EditFormComponent implements OnInit {
 
-  currentItem = 0;
+  @Input() item:number ;
 
   criterias = [  
     { title: 'Forme'},  
@@ -25,32 +18,6 @@ export class NotationComponent implements OnInit {
     { title: 'Justification des méthodes et outils'},
   ];
 
-  notation_groups = [  
-    { id: 1,title: 'Projets Tuteurés'},  
-    { id: 2,title: 'PFE Informatique' },
-    { id: 3,title: 'Projets PAM' },
-    { id: 4,title: 'PFE Mécanique' },
-    { id: 5,title: 'PFE IA' },
-    { id: 6,title: 'PFE IA' },
-    { id: 7, title: 'PFE IA' },
-  ];
-
-  CreateShowing = true;
-  EditShowing = false;
-
-toggleEditShow(id: number) {
-
-this.CreateShowing = false;
-this.EditShowing = true;
-this.currentItem= id;
-
-}
-toggleCreateShow() {
-
-  this.CreateShowing = true;
-  this.EditShowing = false;
-  
-  }
 
   createNotation(): FormGroup {
     return this.formBuilder.group({
@@ -81,30 +48,9 @@ toggleCreateShow() {
   get itemsArrayControl() {
     return (this.orderForm.get('items') as FormArray).controls;
   }
-  
-  // notations() : FormArray {
-  //   return this.productForm.get("notations") as FormArray
-  // }
-   
-  // newQuantity(): FormGroup {
-  //   return this.fb.group({
-  //     critere: '',
-  //     bareme: '',
-  //   })
-  // }
-   
-  // addQuantity() {
-  //   this.notations().push(this.newQuantity());
-  // }
-   
   removeNotation(i:number) {
     this.items.removeAt(i);
   }
-   
-  // onSubmit() {
-  //   console.log(this.productForm.value);
-  // }
-
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
@@ -117,8 +63,4 @@ toggleCreateShow() {
     console.log(this.orderForm.value);
   }
 
-
-
 }
-
-

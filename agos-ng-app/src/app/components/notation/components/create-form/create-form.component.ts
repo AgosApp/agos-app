@@ -1,21 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
-
 @Component({
-  selector: 'app-notation',
-  templateUrl: './notation.component.html',
-  styleUrls: ['./notation.component.sass']
+  selector: 'app-create-form',
+  templateUrl: './create-form.component.html',
+  styleUrls: ['./create-form.component.sass']
 })
-export class NotationComponent implements OnInit {
-
-  currentItem = 0;
+export class CreateFormComponent implements OnInit {
 
   criterias = [  
     { title: 'Forme'},  
@@ -24,33 +15,6 @@ export class NotationComponent implements OnInit {
     { title: 'Justification des méthodes et outils'},
     { title: 'Justification des méthodes et outils'},
   ];
-
-  notation_groups = [  
-    { id: 1,title: 'Projets Tuteurés'},  
-    { id: 2,title: 'PFE Informatique' },
-    { id: 3,title: 'Projets PAM' },
-    { id: 4,title: 'PFE Mécanique' },
-    { id: 5,title: 'PFE IA' },
-    { id: 6,title: 'PFE IA' },
-    { id: 7, title: 'PFE IA' },
-  ];
-
-  CreateShowing = true;
-  EditShowing = false;
-
-toggleEditShow(id: number) {
-
-this.CreateShowing = false;
-this.EditShowing = true;
-this.currentItem= id;
-
-}
-toggleCreateShow() {
-
-  this.CreateShowing = true;
-  this.EditShowing = false;
-  
-  }
 
   createNotation(): FormGroup {
     return this.formBuilder.group({
@@ -118,7 +82,4 @@ toggleCreateShow() {
   }
 
 
-
 }
-
-

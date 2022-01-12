@@ -8,58 +8,100 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
     <!--Criteria List  -->
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title style="color: '#066D80'"> Critères </mat-card-title>
+        <mat-card-header class="card-header">
+          <mat-card-title class="mat-title"> Critères </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div style="flex: 1">
-            <div style="float: left; width: 80%">
-              <form class="example-form">
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Créer un nouveau critère</mat-label>
-                  <input matInput #message />
-                </mat-form-field>
-              </form>
-            </div>
-            <div style="float: right; width: 10%">
-              <button mat-mini-fab color="#066D80">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
+          <div>
+            <input
+              placeholder="Nouvelle Critère"
+              class="form-control"
+              type="text"
+            />
+            <button mat-mini-fab class="add-button">+</button>
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Nouvelle Critère</mat-label>
+              <input matInput />
+            </mat-form-field> -->
           </div>
           <div>
             <ul>
-              <li *ngFor="let data of criterias">{{ data.title }}</li>
+              <li *ngFor="let data of criterias">
+                {{ data.title }}
+                <button mat-mini-fab color="warn" class="button-delete">
+                  —
+                </button>
+              </li>
             </ul>
           </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
     <!-- Notation Group Creation -->
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <div *ngIf="CreateShowing">
+          <app-create-form></app-create-form>
+        </div>
+        <div>
+          <app-edit-form
+            *ngIf="EditShowing"
+            [item]="currentItem"
+          ></app-edit-form>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <!-- <mat-grid-tile class="container" [colspan]="1" [rowspan]="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title style="color: '#066D80'">
-            Créer Groupe de Notation
+          <mat-card-title class="mat-title">
+            Modifier Groupe de Notation
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>Card Content Here</div>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
     <!-- Notation Groups List -->
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title style="color: '#066D80'">
+        <mat-card-header class="card-header">
+          <mat-card-title class="mat-title">
             Groupes de Notation
           </mat-card-title>
+          <div>
+            <button
+              mat-raised-button
+              class="add"
+              *ngIf="EditShowing"
+              (click)="toggleCreateShow()"
+            >
+              Ajouter
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+          <div>
+            <ul>
+              <li *ngFor="let data of notation_groups">
+                {{ data.title }}
+                <div class="groups">
+                  <button mat-icon-button>
+                    <mat-icon class="icon" (click)="toggleEditShow(data.id)"
+                      >edit</mat-icon
+                    >
+                  </button>
+                  <button mat-icon-button>
+                    <mat-icon class="icon">delete</mat-icon>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
