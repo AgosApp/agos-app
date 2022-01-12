@@ -17,6 +17,7 @@ public class Thesis {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
     private Float finalNote;
+    @Column(columnDefinition="LONGTEXT")
     private String summary;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})

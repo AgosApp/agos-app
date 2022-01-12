@@ -14,4 +14,8 @@ export class EvaluationService {
   getEvaluationsByProfessor(userId : any){
     return this.http.get<Evaluation[]>(environment.apiBaseUrl+`professors/${userId}/evaluations`);
   }
+
+  getEvaluationsByThesis(thesisId: any){
+    return this.http.get<Evaluation[]>(environment.apiBaseUrl+`theses/${thesisId}/evaluations`);
+  }
 }
