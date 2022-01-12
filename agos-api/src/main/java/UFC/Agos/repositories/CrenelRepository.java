@@ -21,4 +21,6 @@ public interface CrenelRepository extends JpaRepository<Crenel, Long> {
     void removeSessionfromCrenel(Long crenelId);
 
     List<Crenel> getCrenelsBySession(Session session);
+    @Query(value = "select crenel_id from crenel_rooms WHERE rooms_id =?",nativeQuery = true)
+    List<Long> getCrenelsByRoom(Long roomId);
 }

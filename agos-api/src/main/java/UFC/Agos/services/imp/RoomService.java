@@ -2,6 +2,7 @@ package UFC.Agos.services.imp;
 
 import UFC.Agos.models.Department;
 import UFC.Agos.models.Room;
+import UFC.Agos.repositories.CrenelRepository;
 import UFC.Agos.repositories.RoomRepository;
 import UFC.Agos.repositories.ThesisRepository;
 import UFC.Agos.services.IRoomService;
@@ -16,7 +17,7 @@ public class RoomService implements IRoomService {
     @Autowired
     RoomRepository roomRepository;
     @Autowired
-    ThesisRepository thesisRepository;
+    CrenelRepository crenelRepository;
     @Override
     public List<Room> getRooms() {
         return roomRepository.findAll();
@@ -35,11 +36,11 @@ public class RoomService implements IRoomService {
     @Override
     public void deleteRoom(Long roomId) throws Exception {
         boolean exists = roomRepository.existsById(roomId);
-        boolean thesisExist = thesisRepository.getThesesByRoom(roomId).isEmpty();
+        boolean crenelExist = crenelRepository.getCrenelsByRoom(roomId).isEmpty();
         if(!exists){
             throw new IllegalStateException("The room with id "+ roomId + " does not exist");
         }
-        if(!thesisExist){
+        if(!crenelExist){
             throw new IllegalStateException("the room with id "+ roomId +" can't be removed because it contains thesis");
         }
         //should add something here !!!
