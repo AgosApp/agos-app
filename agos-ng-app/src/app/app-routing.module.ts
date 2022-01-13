@@ -16,6 +16,7 @@ import {StudentThesesComponent} from "./components/student-theses/student-theses
 // @ts-ignore
 import {ProfessorThesesComponent} from "./components/professor-theses/professor-theses.component";
 import {StudentThesisDetailComponent} from "./components/student-thesis-detail/student-thesis-detail.component";
+import {ProfessorThesisDetailComponent} from "./components/professor-thesis-detail/professor-thesis-detail.component";
 
 
 const routes: Routes = [
@@ -53,6 +54,10 @@ const routes: Routes = [
       expectedRole: 'STUDENT_ROLE'
     } },
   {path:'professors/:userId/theses', component: ProfessorThesesComponent, canActivate : [AuthGuard , RoleGuard],
+    data: {
+      expectedRole: 'PROF_ROLE'
+    } },
+  {path:'professors/:userId/theses/:thesisId', component: ProfessorThesisDetailComponent, canActivate : [AuthGuard , RoleGuard],
     data: {
       expectedRole: 'PROF_ROLE'
     } },
