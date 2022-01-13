@@ -9,10 +9,15 @@
       appearance="fill"
     >
       <mat-label>Titre</mat-label>
-      <input required formControlName="name" matInput placeholder="Ex. Forme" />
+      <input
+        required
+        formControlName="notationGroupTitle"
+        matInput
+        placeholder="Ex. Forme"
+      />
     </mat-form-field>
     <div
-      formArrayName="items"
+      formArrayName="notations"
       *ngFor="let item of itemsArrayControl; let i = index"
     >
       <div [formGroupName]="i">
@@ -22,9 +27,9 @@
           [hideRequiredMarker]="hideRequiredControl.value"
           [floatLabel]="floatLabelControl.value"
         >
-          <mat-select formControlName="critere" required>
+          <mat-select formControlName="criteria" required>
             <mat-option
-              *ngFor="let critere of criterias"
+              *ngFor="let critere of Criterias"
               [value]="critere.title"
             >
               {{ critere.title }}
@@ -70,9 +75,15 @@
       </button>
     </div>
     <div class="centered">
-      <button class="submit_button" mat-raised-button type="submit">
+      <button
+        class="submit_button"
+        (click)="onCreateGroup(orderForm.value)"
+        mat-raised-button
+        type="submit"
+      >
         Créer Groupe de Notations
       </button>
     </div>
+    {{ this.orderForm.value | json }}
   </form>
 </mat-card-content>

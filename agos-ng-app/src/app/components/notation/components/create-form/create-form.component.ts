@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NotationGroup } from 'src/app/models/notationGroup';
+import { NotationService } from 'src/app/services/notation-service/notation.service';
+import {Criteria} from 'src/app/models/criteria'
 
 @Component({
   selector: 'app-create-form',
@@ -8,34 +11,30 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class CreateFormComponent implements OnInit {
 
-  criterias = [  
-    { title: 'Forme'},  
-    { title: 'Mise en avant des principales fonctionnalités '},  
-    { title: "Qualité de l'expression orale" },
-    { title: 'Justification des méthodes et outils'},
-    { title: 'Justification des méthodes et outils'},
-  ];
+  Criterias: any;
+  Criteria :Criteria;
 
   createNotation(): FormGroup {
     return this.formBuilder.group({
-      critere: '',
-      bareme: '',
+      id:0,
+      criteria: this.Criteria,
+      bareme: 0,
     });
   }
 
   addNotation(): void {
-    this.items = this.orderForm.get('items') as FormArray;
-    this.items.push(this.createNotation());
+    this.notations = this.orderForm.get('notations') as FormArray;
+    this.notations.push(this.createNotation());
   }
 
-  items: FormArray;
+  notations: FormArray;
   orderForm: FormGroup;
 
   options: FormGroup;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
-  constructor(private formBuilder: FormBuilder,fb: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,fb: FormBuilder,private notationService:NotationService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -43,7 +42,7 @@ export class CreateFormComponent implements OnInit {
   }
 
   get itemsArrayControl() {
-    return (this.orderForm.get('items') as FormArray).controls;
+    return (this.orderForm.get('notations') as FormArray).controls;
   }
   
   // notations() : FormArray {
@@ -62,7 +61,7 @@ export class CreateFormComponent implements OnInit {
   // }
    
   removeNotation(i:number) {
-    this.items.removeAt(i);
+    this.notations.removeAt(i);
   }
    
   // onSubmit() {
@@ -70,10 +69,22 @@ export class CreateFormComponent implements OnInit {
   // }
 
 
+  getCriterias() {
+    this.notationService.getCriterias().subscribe(res =>{
+
+      this.Criterias = res;
+    });  }
+
+onCreateGroup(group: NotationGroup){
+      this.notationService.createGroup(group).subscribe(() =>{
+      });
+      }
+
   ngOnInit() {
+    this.getCriterias();
     this.orderForm = this.formBuilder.group({
-      name: '',
-      items: this.formBuilder.array([ this.createNotation() ])
+      notationGroupTitle: '',
+      notations: this.formBuilder.array([ this.createNotation() ])
     });
   }
 

@@ -19,8 +19,11 @@
               placeholder="Nouvelle Critère"
               class="form-control"
               type="text"
+              [(ngModel)]="CriteriaName"
             />
-            <button mat-mini-fab class="add-button">+</button>
+            <button mat-mini-fab class="add-button" (click)="onAddCriteria()">
+              +
+            </button>
             <!-- <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Nouvelle Critère</mat-label>
               <input matInput />
@@ -28,9 +31,14 @@
           </div>
           <div>
             <ul>
-              <li *ngFor="let data of criterias">
+              <li *ngFor="let data of Criterias">
                 {{ data.title }}
-                <button mat-mini-fab color="warn" class="button-delete">
+                <button
+                  mat-mini-fab
+                  color="warn"
+                  (click)="onDeleteCriteria(data)"
+                  class="button-delete"
+                >
                   —
                 </button>
               </li>
@@ -87,16 +95,13 @@
         <mat-card-content class="dashboard-card-content">
           <div>
             <ul>
-              <li *ngFor="let data of notation_groups">
-                {{ data.title }}
+              <li *ngFor="let group of Groups">
+                {{ group.notationGroupTitle }}
                 <div class="groups">
                   <button mat-icon-button>
-                    <mat-icon class="icon" (click)="toggleEditShow(data.id)"
+                    <mat-icon class="icon" (click)="toggleEditShow(group.id)"
                       >edit</mat-icon
                     >
-                  </button>
-                  <button mat-icon-button>
-                    <mat-icon class="icon">delete</mat-icon>
                   </button>
                 </div>
               </li>

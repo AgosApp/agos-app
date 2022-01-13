@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Professor } from 'src/app/models/professor';
 import { ProfessorsListService } from 'src/app/services/professorsList-service/professors-list.service';
+import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
+
 
 
 @Component({
@@ -11,7 +13,9 @@ import { ProfessorsListService } from 'src/app/services/professorsList-service/p
 })
 export class ProfessorsComponent implements OnInit {
 
-  displayedColumns: string[] = ['lastName', 'firstName', 'username','is_admin'];
+  faCheck = faCheckCircle;
+
+  displayedColumns: string[] = ['lastName', 'firstName', 'username','admin'];
   dataSource = new MatTableDataSource<Professor>();
 
   applyFilter(event: Event) {
