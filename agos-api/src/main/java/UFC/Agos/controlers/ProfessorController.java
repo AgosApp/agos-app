@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @Api(tags = {"API for Professors CRUD operations."})
 //@PreAuthorize("hasAuthority('ADMIN_ROLE')")
-@RequestMapping(path="/api/departments/{departmentId}/professors")
+@RequestMapping(path="/api/")
 public class ProfessorController {
 
     @Autowired
@@ -26,33 +26,39 @@ public class ProfessorController {
     @Autowired
     IDepartmentService departmentService;
 
+    @ApiOperation(value = "Get All Professors")
+    @GetMapping(path ="professors")
+    public List<Professor> getAll(){
+        return professorService.getAllProfessors();
+    }
+
     @ApiOperation(value = "Get Professors by Department")
-    @GetMapping
+    @GetMapping(path ="departments/{departmentId}/professors")
     public List<Professor> getAll(@PathVariable Long departmentId){
         return professorService.getProfessorsByDepartment(departmentId);
     }
 
     @ApiOperation(value = "Get Professor by Department")
-    @GetMapping(path = "/{professorId}")
+    @GetMapping(path = "departments/{departmentId}/professors/{professorId}")
     public Professor getOne(@PathVariable Long professorId,@PathVariable Long departmentId){
         return professorService.getProfessorByDepartment(professorId, departmentId);
     }
 
     @ApiOperation(value = "Add Professors in a Department")
-    @PostMapping
+    @PostMapping(path = "departments/{departmentId}/professors")
     public void save(@PathVariable(required = false) Long departmentId,
                      @RequestBody Professor professor) throws Exception {
         professorService.addProfessor(professor, departmentId);
     }
 
     @ApiOperation(value = "Delete Professor")
-    @DeleteMapping(path = "/{professorId}")
+    @DeleteMapping(path = "departments/{departmentId}/professors/{professorId}")
     public void delete(@PathVariable Long professorId, @PathVariable Long departmentId) throws Exception {
         professorService.deleteProfessor(professorId);
     }
 
     @ApiOperation(value = "Update Professor")
-    @PutMapping(path = "/{professorId}")
+    @PutMapping(path = "departments/{departmentId}/professors/{professorId}")
     public void update(@PathVariable Long departmentId,
                        @PathVariable Long professorId,
                        @RequestParam(required = false) String firstName,

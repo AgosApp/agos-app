@@ -13,7 +13,10 @@ import {LoginComponent} from "./components/login/login.component";
 import {AuthGuardService as AuthGuard}  from "./services/auth_service/auth-guard.service";
 import {RoleGuardService as RoleGuard} from "./services/auth_service/role-guard.service";
 import {StudentThesesComponent} from "./components/student-theses/student-theses.component";
+// @ts-ignore
 import {ProfessorThesesComponent} from "./components/professor-theses/professor-theses.component";
+import {StudentThesisDetailComponent} from "./components/student-thesis-detail/student-thesis-detail.component";
+import {ProfessorThesisDetailComponent} from "./components/professor-thesis-detail/professor-thesis-detail.component";
 
 
 const routes: Routes = [
@@ -26,7 +29,8 @@ const routes: Routes = [
     data: {
       expectedRole: 'ADMIN_ROLE'
     }},
-  {path:'sessions', component: DepartmentComponent  , canActivate : [AuthGuard, RoleGuard],
+
+  {path:'sessions', component: DepartmentComponent, canActivate : [AuthGuard, RoleGuard],
     data: {
       expectedRole: 'ADMIN_ROLE'
     }},
@@ -46,7 +50,15 @@ const routes: Routes = [
     data: {
       expectedRole: 'STUDENT_ROLE'
     } },
+  {path:'students/:userId/theses/:thesisId', component: StudentThesisDetailComponent, canActivate : [AuthGuard , RoleGuard],
+    data: {
+      expectedRole: 'STUDENT_ROLE'
+    } },
   {path:'professors/:userId/theses', component: ProfessorThesesComponent, canActivate : [AuthGuard , RoleGuard],
+    data: {
+      expectedRole: 'PROF_ROLE'
+    } },
+  {path:'professors/:userId/theses/:thesisId', component: ProfessorThesisDetailComponent, canActivate : [AuthGuard , RoleGuard],
     data: {
       expectedRole: 'PROF_ROLE'
     } },

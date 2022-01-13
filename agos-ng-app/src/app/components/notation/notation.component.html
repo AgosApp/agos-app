@@ -1,1 +1,114 @@
-<p>notation works!</p>
+<!-- <mat-card>
+<mat-form-field appearance="outline">
+    <mat-label>Outline form field</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+</mat-card> -->
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <!--Criteria List  -->
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header class="card-header">
+          <mat-card-title class="mat-title"> Critères </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+            <input
+              placeholder="Nouvelle Critère"
+              class="form-control"
+              type="text"
+              [(ngModel)]="CriteriaName"
+            />
+            <button mat-mini-fab class="add-button" (click)="onAddCriteria()">
+              +
+            </button>
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Nouvelle Critère</mat-label>
+              <input matInput />
+            </mat-form-field> -->
+          </div>
+          <div>
+            <ul>
+              <li *ngFor="let data of Criterias">
+                {{ data.title }}
+                <button
+                  mat-mini-fab
+                  color="warn"
+                  (click)="onDeleteCriteria(data)"
+                  class="button-delete"
+                >
+                  —
+                </button>
+              </li>
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <!-- Notation Group Creation -->
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <div *ngIf="CreateShowing">
+          <app-create-form></app-create-form>
+        </div>
+        <div>
+          <app-edit-form
+            *ngIf="EditShowing"
+            [item]="currentItem"
+          ></app-edit-form>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <!-- <mat-grid-tile class="container" [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="mat-title">
+            Modifier Groupe de Notation
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile> -->
+    <!-- Notation Groups List -->
+    <mat-grid-tile class="container" [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header class="card-header">
+          <mat-card-title class="mat-title">
+            Groupes de Notation
+          </mat-card-title>
+          <div>
+            <button
+              mat-raised-button
+              class="add"
+              *ngIf="EditShowing"
+              (click)="toggleCreateShow()"
+            >
+              Ajouter
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+            <ul>
+              <li *ngFor="let group of Groups">
+                {{ group.notationGroupTitle }}
+                <div class="groups">
+                  <button mat-icon-button>
+                    <mat-icon class="icon" (click)="toggleEditShow(group.id)"
+                      >edit</mat-icon
+                    >
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

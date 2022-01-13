@@ -39,6 +39,11 @@ public class StudentService implements IStudentService {
     }
 
     @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    @Override
     public List<Student> getStudentsByFormation(Long formationId) {
         Formation formation = formationRepository.getById(formationId);
         return studentRepository.getStudentsByFormation(formation);

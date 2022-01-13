@@ -75,10 +75,8 @@ export class LoginComponent implements OnInit {
       }),
       () => {
        const decode_token = AuthService.getDecodedAccessToken(this.token);
-       console.log(decode_token.roles)
         localStorage.setItem('roles',decode_token.roles);
        if(decode_token.roles.includes("PROF_ROLE")) {
-         console.log(this.authService.isAuthenticated())
          this.authService.getProfessorByUsername(decode_token.sub).subscribe(
            professor => {console.log(professor)
              localStorage.setItem('user_id',String(professor.id));
@@ -99,7 +97,6 @@ export class LoginComponent implements OnInit {
          )
        }
         if(decode_token.roles.includes("STUDENT_ROLE")) {
-          console.log(decode_token.sub);
           let studentId: string;
          this.authService.getStudentByUsername(decode_token.sub).subscribe(
            student => {console.log(student);

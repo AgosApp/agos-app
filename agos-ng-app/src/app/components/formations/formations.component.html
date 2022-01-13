@@ -11,23 +11,23 @@
   <div class="container" *ngFor="let formation of forms" >
 
     <div>
-    <div   >
-      <h3 id="formation_id" name="formation_id" >{{formation.name}}</h3>
-    <button mat-mini-fab color="basic"(click)="deleteFormation(formation.id)" class="button-delete" >X</button>
+      <div   >
+        <h3 id="formation_id" name="formation_id" >{{formation.name}}</h3>
+        <button mat-mini-fab color="basic"(click)="deleteFormation(formation.id)" class="button-delete" >X</button>
 
-    </div>
+      </div>
       <app-sessions [formation_id]="formation.id" ></app-sessions>
-  </div>
+    </div>
   </div>
   <div class="containerSession"  >
 
     <form (ngSubmit)="addSession()">
 
-    <h4>Ajouter une session</h4>
+      <h4>Ajouter une session</h4>
 
       <div class="col-md-12" >
-      <label>Titre</label>
-      <input class="input-control" type="text"   name="addSession" [(ngModel)]="session.title"  >
+        <label>Titre</label>
+        <input class="input-control" type="text"   name="addSession" [(ngModel)]="session.title"  >
       </div>
 
       <div class="col-md-12" >
@@ -48,13 +48,13 @@
       </div>
 
       <div class="col-md-12" >
-      <label>Durée des soutenances</label>
-      <input class="input-control" type="number"  name="addSession" [(ngModel)]="session.thesisDuration">
+        <label>Durée des soutenances</label>
+        <input class="input-control" type="number"  name="addSession" [(ngModel)]="session.thesisDuration">
       </div>
 
       <div class="col-md-12" >
-      <label>Durée des déliberations</label>
-      <input class="input-control" type="number"   name="addSession" [(ngModel)]="session.deliberationDuration">
+        <label>Durée des déliberations</label>
+        <input class="input-control" type="number"   name="addSession" [(ngModel)]="session.deliberationDuration">
       </div>
 
       <button mat-stroked-button color="primary" class="button-add" type="submit">+</button>

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IStudentService {
 
+    public List<Student> getAllStudents();
+
     public List<Student> getStudentsByFormation(Long formationId);
 
     public Student getStudentByFormation(Long studentId, Long formationId);

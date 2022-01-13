@@ -1,0 +1,31 @@
+<div class="parent_container">
+
+  <div class="container">
+    <div class="play"><h2 class="color"> {{ this.thesis?.title}}</h2>
+      <button mat-raised-button color="primary" [routerLink]="['login']">
+        <fa-icon [icon]="faPlayCircle"></fa-icon>
+        Lancer l'évaluation
+      </button>
+    </div>
+    <mat-card class="mat-card">
+      <mat-card-title class="thesis-name">
+      </mat-card-title>
+      <mat-card-subtitle class="room">
+        <p class="thesis-description">
+          <fa-icon [icon]="faClock" class="color"></fa-icon>
+          {{ thesis?.time }}
+          <fa-icon [icon]="faLocation" class="color"></fa-icon>
+          {{ thesis?.room?.name }}
+        </p>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <label class="color">Description</label>
+        <p>{{ thesis?.summary }}</p>
+        <div class="jurys" *ngFor="let evaluation of evaluations">
+          <label class="color"> Enseignant {{ evaluation.typeProfessor}}
+            :</label> {{ evaluation.professor.firstName}} {{ evaluation.professor.lastName}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

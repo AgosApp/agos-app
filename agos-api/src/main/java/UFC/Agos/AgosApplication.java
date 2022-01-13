@@ -34,8 +34,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-//@SpringBootApplication(
+@SpringBootApplication()
 @EnableSwagger2
 public class AgosApplication {
 

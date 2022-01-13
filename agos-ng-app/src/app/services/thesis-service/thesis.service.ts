@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Student} from "../../models/Student";
 import {environment} from "../../../environments/environment";
 import {Thesis} from "../../models/thesis";
 
@@ -13,5 +12,13 @@ export class ThesisService {
 
   getThesesByStudent(userId: any){
     return this.http.get<Thesis[]>(environment.apiBaseUrl+`students/${userId}/theses`);
+  }
+
+  getThesisByStudent(userId: any, thesisId: any){
+    return this.http.get<Thesis>(environment.apiBaseUrl+`students/${userId}/theses/${thesisId}`)
+  }
+
+  getThesisByProfessor(userId: any, thesisId: any){
+    return this.http.get<Thesis>(environment.apiBaseUrl+`professors/${userId}/theses/${thesisId}`)
   }
 }

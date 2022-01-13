@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Department } from 'src/app/models/department';
+import { DepartmentService } from 'src/app/services/department-service/department.service';
 
 interface IModal {
-  nom: string;
+  name: string;
   description: string;
 }
 @Component({
@@ -16,21 +18,29 @@ export class DepartmentComponent implements OnInit {
 
   DepartmentName="";
   DepartmentDescription="";
-  Departments :IModal[]=[];
-  constructor() { }
+  Departments! : Department[];
+  constructor(private departmentService : DepartmentService) { }
 
   ngOnInit(): void {
+    this.getDepartments();
+  }
+  getDepartments(){
+    this.departmentService.getDepartments().subscribe(res =>{
+  
+      this.Departments = res;
+    });
   }
   onAdd(){
-   var model : IModal= {nom:this.DepartmentName,description:this.DepartmentDescription};
-    this.Departments.push(model);
-    console.log(this.Departments[1].nom);
+   var model : IModal= {name:this.DepartmentName,description:this.DepartmentDescription};
+    this.departmentService.addDepartments(model).subscribe(res =>{
+      this.getDepartments()
+    })
   }
-  onDelete(room:object){
+ /* onDelete(room:object){
    let index= this.Departments.findIndex((r) =>{
       return r===room 
     });
     this.Departments.splice(index,1)
-  }
+  }*/
 
 }

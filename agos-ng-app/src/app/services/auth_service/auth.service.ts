@@ -21,7 +21,6 @@ export class AuthService {
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
 
-    console.log("hello");
     const body = new HttpParams()
       .set('username', loginRequest.username)
       .set('password', loginRequest.password);

@@ -1,0 +1,37 @@
+<div class="parent_container">
+  <div class="container" *ngIf="true">
+    <h2 class="color"> {{ this.thesis?.title}}</h2>
+    <mat-card class="mat-card">
+      <mat-card-title class="thesis-name">
+      </mat-card-title>
+      <mat-card-subtitle class="room">
+        <p class="thesis-description">
+          <fa-icon [icon]="faClock" class="color" ></fa-icon>
+          {{ thesis?.time }}
+          <fa-icon [icon]="faLocation" class="color" ></fa-icon>
+          {{ thesis?.room?.name }}
+        </p>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p>{{ thesis?.summary }}</p>
+        <div class="jurys" *ngFor="let evaluation of evaluations">
+          <label class="color"> Enseignant {{ evaluation.typeProfessor}}
+            :</label> {{ evaluation.professor.firstName}} {{ evaluation.professor.lastName}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="note" *ngIf="this.thesisNoted">
+  <div class="detail-note">
+    <div class="criteria-note">
+      <p *ngFor="let c of this.critters">{{c}} </p>
+    </div>
+    <div class="criteria-note">
+      <p class="criteria-mark" *ngFor="let criteriaNote of this.criteriaEvaluationsNotes">{{criteriaNote}}</p>
+    </div>
+  </div>
+  <div class="final-note"><p>note globale</p>{{ this.noteFinale }}</div>
+</div>
+
