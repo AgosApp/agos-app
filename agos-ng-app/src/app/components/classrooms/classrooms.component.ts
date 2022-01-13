@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoomServiceService } from 'src/app/services/rooms-service/room-service.service';
 
 
 @Component({
@@ -8,20 +9,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassroomsComponent implements OnInit {
   RoomName="";
-  Rooms: string[] = [];
-  constructor() { }
+  Rooms: any;
+  constructor(private roomservice: RoomServiceService) { }
 
   ngOnInit(): void {
+    this.getRooms();
   }
-  onAdd(){
-this.Rooms.push(this.RoomName);
-    console.log(this.Rooms);
-  }
-  onDelete(room:string){
-   let index= this.Rooms.findIndex((r) =>{
-      return r===room 
+  getRooms(){
+    this.roomservice.getRooms().subscribe(res =>{
+  
+      this.Rooms = res;
     });
-    this.Rooms.splice(index,1)
+  }
+
+  onAdd(){
+
+    this.addRooms();
+  }
+  addRooms(){
+    this.roomservice.addRooms({id:0,name:this.RoomName,description:""}).subscribe(res =>{
+      //console.log(res);
+
+      //to display the new formation on card instantly
+      this.getRooms();
+
+      //successAlert
+      //this.successAlertNotification();
+    });
+  }
+  onDelete(room:any){
+  this.roomservice.deleteRooms(room.id).subscribe(res =>{
+    //console.log(res);
+
+    //to display the new formation on card instantly
+    this.getRooms();
+
+    //successAlert
+    //this.successAlertNotification();
+  });
   }
 
 }
