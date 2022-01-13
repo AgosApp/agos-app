@@ -29,6 +29,7 @@ const routes: Routes = [
     data: {
       expectedRole: 'ADMIN_ROLE'
     }},
+
   {path:'sessions', component: DepartmentComponent, canActivate : [AuthGuard, RoleGuard],
     data: {
       expectedRole: 'ADMIN_ROLE'

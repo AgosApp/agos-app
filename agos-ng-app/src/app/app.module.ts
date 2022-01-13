@@ -62,7 +62,8 @@ import { ProfessorThesisDetailComponent } from './components/professor-thesis-de
     StudentThesesComponent,
     ProfessorThesesComponent,
     StudentThesisDetailComponent,
-    ProfessorThesisDetailComponent
+    ProfessorThesisDetailComponent,
+    FormationsComponent
   ],
   imports: [
     BrowserModule,
