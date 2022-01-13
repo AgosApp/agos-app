@@ -23,5 +23,8 @@ public interface CriteriaEvaluationRepository extends JpaRepository<CriteriaEval
      @Query(value = "DELETE from criteria_evaluation WHERE thesis_id = ?", nativeQuery = true)
      void deleteByThesis(Long thesisId);
 
+     @Modifying
+     @Query(value = "UPDATE criteria_evaluation AS ce SET note =?1  WHERE ce.thesis_id =?2 AND ce.professor_id =?3 AND ce.criteria_id =?4", nativeQuery = true)
+     void updateNote(Float note, Long thesisId, Long professorId, Long criteriaId);
 
 }
