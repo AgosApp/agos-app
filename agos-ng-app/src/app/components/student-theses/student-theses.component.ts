@@ -18,6 +18,7 @@ export class StudentThesesComponent implements OnInit {
    faLocation = faMapMarkerAlt
     countIncoming! : number
     countPast! : number
+  userId : any
 
 
 
@@ -26,6 +27,7 @@ export class StudentThesesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTheses()
+    this.userId = localStorage.getItem('user_id')
 
   }
 
