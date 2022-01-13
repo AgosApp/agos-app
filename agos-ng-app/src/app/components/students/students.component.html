@@ -14,21 +14,21 @@
 <div>
   <table mat-table [dataSource]="dataSource">
     <!-- Last Name Column -->
-    <ng-container matColumnDef="nom">
+    <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
-      <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
     </ng-container>
 
     <!-- First Name Column -->
-    <ng-container matColumnDef="prenom">
+    <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef>Prénom</th>
-      <td mat-cell *matCellDef="let element">{{ element.prenom }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
     </ng-container>
 
     <!-- Formation Column -->
     <ng-container matColumnDef="formation">
       <th mat-header-cell *matHeaderCellDef>Formation</th>
-      <td mat-cell *matCellDef="let element">{{ element.formation }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.formation.name }}</td>
     </ng-container>
 
     <!-- Symbol Column -->

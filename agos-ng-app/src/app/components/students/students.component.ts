@@ -1,23 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Student } from 'src/app/models/Student';
+import { StudentsListService } from 'src/app/services/studentsList-service/students-list.service';
 
-export interface Student {
-  nom: string;
-  prenom: string;
-  formation: string;
-}
-
-
-const students: Student[] = [  
-  { nom: 'Jhon', prenom:"Doe", formation:"ISL"},  
-  { nom: 'Weaver', prenom:"Jayme", formation:"ISL"},  
-  { nom: 'Elric', prenom:"Alphonse", formation:"ISL"},  
-  { nom: 'Rousseau', prenom:"Theodore", formation:"ISL"},  
-  { nom: 'Diedrot', prenom:"Simon", formation:"ISL"},  
-  { nom: 'Sartre', prenom:"Jean-Paul", formation:"ISL"},  
-  { nom: 'Perez', prenom:"Ricardo", formation:"ISL"},
-];
 
 @Component({
   selector: 'app-students',
@@ -26,8 +12,13 @@ const students: Student[] = [
 })
 export class StudentsComponent implements OnInit {
 
-  displayedColumns: string[] = ['nom', 'prenom', 'formation'];
-  dataSource = new MatTableDataSource(students);
+  // Students : Student[];
+  // Students: Student[];
+
+  displayedColumns: string[] = ['firstName', 'lastName', 'formation'];
+  dataSource = new MatTableDataSource<Student>();
+
+  // dataSource = new MatTableDataSource(this.StudentsListService.getStudents());
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -35,16 +26,16 @@ export class StudentsComponent implements OnInit {
   }
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
 
-  constructor() { }
+  constructor(private studentslistservice: StudentsListService) { }
 
   ngOnInit(): void {
+    this.getStudents();
+
+  }
+  getStudents() {
+    this.studentslistservice.getStudents().subscribe(data => this.dataSource.data = data);
   }
 
 }
