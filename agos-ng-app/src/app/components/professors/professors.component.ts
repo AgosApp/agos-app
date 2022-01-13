@@ -1,24 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-
-
-
-export interface Professor {
-  nom: string;
-  prenom: string;
-  login: string;
-  is_admin: boolean;
-}
-
-
-const professors: Professor[] = [  
-  { nom: 'Jounaid', prenom:'Youssef',login:'YJO', is_admin: false},
-  { nom: 'Boufelja', prenom:'Mourtada',login:'MBF', is_admin: false},
-  { nom: 'Sbaibi', prenom:'Nossair',login:'NSB', is_admin: true},
-  { nom: 'Boutahir', prenom:'Mounia',login:'MBT', is_admin: false},
-];
+import { Professor } from 'src/app/models/professor';
+import { ProfessorsListService } from 'src/app/services/professorsList-service/professors-list.service';
 
 
 @Component({
@@ -28,21 +11,21 @@ const professors: Professor[] = [
 })
 export class ProfessorsComponent implements OnInit {
 
-  professors = [
-
-  ];
-
-  displayedColumns: string[] = ['nom', 'prenom', 'login','is_admin'];
-  dataSource = new MatTableDataSource(professors);
+  displayedColumns: string[] = ['lastName', 'firstName', 'username','is_admin'];
+  dataSource = new MatTableDataSource<Professor>();
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor() { }
+  constructor(private professorslistservice: ProfessorsListService) { }
 
   ngOnInit(): void {
+    this.getProfessors();
   }
 
+  getProfessors() {
+    this.professorslistservice.getProfessors().subscribe(data => this.dataSource.data = data);
+  }
 }
