@@ -1,10 +1,16 @@
 <h3>Département</h3>
 
-<div class="container" *ngIf="Departments.length >0">
+<div class="container" >
     <mat-grid-list  cols = "3"  rowHeight = "3:1" >
-       <mat-grid-tile *ngFor="let department of Departments"><button mat-button routerLink= '../department/1/formations' class="departmentItem">{{department.nom}} </button>
-         </mat-grid-tile >
-
+ 
+       <mat-grid-tile *ngFor="let department of Departments">
+        <div class="departmentItem" >
+         <button mat-button routerLink= '../departments/{{department.id}}/formations' >{{department.name}} </button>
+         <button mat-icon-button>
+          <mat-icon>clear</mat-icon>
+      </button>
+      </div>
+        </mat-grid-tile >
   </mat-grid-list >
 
 
