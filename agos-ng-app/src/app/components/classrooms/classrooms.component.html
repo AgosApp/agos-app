@@ -9,7 +9,7 @@
     
    
         <div *ngFor="let room of Rooms">
-        <li class="list-room">{{room}} </li>
+        <li class="list-room">{{room.name}} </li>
     <button mat-mini-fab color="warn"(click)="onDelete(room)" class="button-delete" >-</button>
        </div>
 
