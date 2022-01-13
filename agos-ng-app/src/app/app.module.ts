@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,11 +22,9 @@ import { SessionsComponent } from './components/sessions/sessions.component';
 import { StudentsComponent } from './components/students/students.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EditFormComponent } from './components/notation/components/edit-form/edit-form.component';
+import { CreateFormComponent } from './components/notation/components/create-form/create-form.component';
 import { DepartmentComponent } from './components/department/department.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
 
 import { FormationsComponent } from './components/formations/formations.component';
 import {RouterModule, Routes} from "@angular/router";
@@ -48,7 +55,8 @@ import { ProfessorThesisDetailComponent } from './components/professor-thesis-de
     StudentsComponent,
     ProfessorsComponent,
     FooterComponent,
-    FormationsComponent,
+    EditFormComponent,
+    CreateFormComponent,
     DepartmentComponent,
     LoginComponent,
     StudentThesesComponent,
@@ -62,6 +70,17 @@ import { ProfessorThesisDetailComponent } from './components/professor-thesis-de
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatCardModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     MatGridListModule,
     FormsModule,
     MatIconModule,

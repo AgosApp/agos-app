@@ -1,25 +1,30 @@
 <div class="container">
-  <mat-card class="w-1/5 m-auto  z-10 relative ring-4 ring-crossdock-primary-500 ring-opacity-50">
+  <mat-card
+    class="w-1/5 m-auto z-10 relative ring-4 ring-crossdock-primary-500 ring-opacity-50"
+  >
     <mat-card-header>
-      <mat-card-title >
-        Authentification
-      </mat-card-title>
+      <mat-card-title> Authentification </mat-card-title>
     </mat-card-header>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-card-content class="mx-4">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Pseudo</mat-label>
-          <input matInput  formControlName="username">
-        </mat-form-field><br/>
+          <input matInput formControlName="username" /> </mat-form-field
+        ><br />
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label >Mot de passe</mat-label>
-          <input matInput type="password"
-                 formControlName="password">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" formControlName="password" />
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions class="flex justify-center">
-        <button mat-raised-button type="submit" color="primary"
-                class="text-white px-10 text-lg py-2">Se connecter</button>
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          class="text-white px-10 text-lg py-2"
+        >
+          Se connecter
+        </button>
       </mat-card-actions>
     </form>
   </mat-card>

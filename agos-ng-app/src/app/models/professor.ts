@@ -1,4 +1,3 @@
-import {Formation} from "./formation";
 import {Department} from "./department";
 
 export interface Professor{
@@ -9,4 +8,5 @@ export interface Professor{
   username: string,
   password: string,
   department : Department
+  admin:boolean
 }

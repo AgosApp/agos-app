@@ -1,0 +1,88 @@
+<div>
+  <mat-card-header>
+    <mat-card-title class="mat-title">
+      Modifier Groupe de Notation
+      <p>{{ item }}</p>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <mat-form-field
+        [hideRequiredMarker]="hideRequiredControl.value"
+        [floatLabel]="floatLabelControl.value"
+        appearance="fill"
+      >
+        <mat-label>Titre</mat-label>
+        <input
+          required
+          formControlName="name"
+          matInput
+          placeholder="Ex. Forme"
+        />
+      </mat-form-field>
+      <div
+        formArrayName="items"
+        *ngFor="let item of itemsArrayControl; let i = index"
+      >
+        <div [formGroupName]="i">
+          <mat-form-field
+            class="criteria-field"
+            appearance="fill"
+            [hideRequiredMarker]="hideRequiredControl.value"
+            [floatLabel]="floatLabelControl.value"
+          >
+            <mat-select formControlName="critere" required>
+              <mat-option
+                *ngFor="let critere of criterias"
+                [value]="critere.title"
+              >
+                {{ critere.title }}
+              </mat-option>
+            </mat-select>
+            <mat-label>Selectionnez Critère</mat-label>
+          </mat-form-field>
+
+          <mat-form-field
+            class="bareme-field"
+            appearance="fill"
+            [hideRequiredMarker]="hideRequiredControl.value"
+            [floatLabel]="floatLabelControl.value"
+          >
+            <input
+              formControlName="bareme"
+              matInput
+              type="number"
+              min="0"
+              placeholder="Barème"
+              required
+            />
+          </mat-form-field>
+          <button
+            mat-mini-fab
+            color="warn"
+            class="button-delete"
+            *ngIf="itemsArrayControl.length > 3"
+            (click)="removeNotation(i)"
+          >
+            —
+          </button>
+        </div>
+      </div>
+      <div class="add-button-container">
+        <button
+          mat-mini-fab
+          *ngIf="itemsArrayControl.length < 6"
+          class="add-button"
+          (click)="addNotation()"
+        >
+          +
+        </button>
+      </div>
+      <div class="centered">
+        <button class="submit_button" mat-raised-button type="submit">
+          Créer Groupe de Notations
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</div>
