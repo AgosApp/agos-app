@@ -5,8 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="department_seq")
-    @SequenceGenerator(name="department_seq",sequenceName="department_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;

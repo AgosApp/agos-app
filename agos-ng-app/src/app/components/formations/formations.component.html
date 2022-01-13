@@ -1,0 +1,16 @@
+<div class="add-form">
+  <form (ngSubmit)="addFormation()" class="example-form">
+    <input class="form-control" type="text"  placeholder="Nouvelle formation"  name="addFormation" id="addFormation" [(ngModel)]="formation.name" >
+    <input class="form-control" type="text"  placeholder="Description"  name="addFormation"  [(ngModel)]="formation.description" >
+    <button mat-stroked-button color="primary" class="button-add" type="submit">+</button>
+  </form>
+</div>
+
+<div class="content">
+  <div class="container" *ngFor="let formation of forms" >
+    <div  >
+    <h3>{{formation.name}}</h3>
+    <button mat-mini-fab color="basic"(click)="deleteFormation(formation.id)" class="button-delete" >X</button>
+    </div>
+  </div>
+</div>

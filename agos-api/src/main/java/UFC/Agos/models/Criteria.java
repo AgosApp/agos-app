@@ -6,9 +6,9 @@ import java.util.Set;
 @Entity
 public class Criteria {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="criteria_seq")
-    @SequenceGenerator(name="criteria_seq",sequenceName="criteria_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
 
@@ -20,6 +20,9 @@ public class Criteria {
         this.title = title;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

@@ -1,70 +1,68 @@
-<div *ngFor="let data of roles" [ngSwitch]="data.type">
-  <div *ngSwitchCase="'admin'">
-    <mat-toolbar class="navbar">
-      <span class="title">AGOS</span>
-      <span class="title">
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="classrooms"
-          >Salles</a
-        >
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="notation"
-          >Notation</a
-        >
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="sessions"
-          >Sessions</a
-        >
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="students"
-          >Etudiants</a
-        >
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="professors"
-          >Professeurs</a
-        >
-      </span>
-      <span class="navbar-right">
-        <a mat-button>Se déconnecter</a>
-      </span>
-    </mat-toolbar>
-  </div>
-  <div *ngSwitchCase="'professor'">
-    <mat-toolbar class="navbar">
-      <span class="title">AGOS</span>
-      <span class="title">
-        <a
-          routerLink="/user/bob"
-          routerLinkActive="active-link"
-          class="navbar-item"
-          mat-button
-          routerLink="notation"
-          >Mes Soutenances</a
-        >
-      </span>
-      <span class="navbar-right">
-        <a mat-button>Se déconnecter</a>
-      </span>
-    </mat-toolbar>
-  </div>
-</div>
+<mat-toolbar class="navbar" *ngIf="_reload">
+  <span class="title">AGOS</span>
+  <span class="title">
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      routerLink="classrooms"
+      *ngIf="this.authService.isAdmin()"
+      >Salles</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      routerLink="notation"
+      *ngIf="this.authService.isAdmin()"
+      >Notation</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      routerLink="sessions"
+      *ngIf="this.authService.isAdmin()"
+      >Sessions</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      routerLink="students"
+      *ngIf="this.authService.isAdmin()"
+      >Etudiants</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      routerLink="professors"
+      *ngIf="this.authService.isAdmin()"
+      >Professeurs</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      [routerLink]="['professors', this.userId, 'theses']"
+      *ngIf="this.authService.isProf()"
+      >Mes soutenances</a
+    >
+    <a
+      mat-button
+      routerLinkActive="active-link"
+      class="navbar-item"
+      [routerLink]="['students', this.userId, 'theses']"
+      *ngIf="this.authService.isStudent()"
+      >Mes soutenances</a
+    >
+  </span>
+
+  <span class="navbar-right" *ngIf="authService.isAuthenticated()">
+    {{ firstname }} {{ lastname }}
+  </span>
+  <span class="navbar-right" *ngIf="authService.isAuthenticated()">
+    <a mat-button (click)="logout()">Se déconnecter</a>
+  </span>
+</mat-toolbar>

@@ -1,17 +1,24 @@
 package UFC.Agos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 
 @Entity
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="session_seq")
-    @SequenceGenerator(name="session_seq",sequenceName="session_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Integer duration;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Duration duration;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Duration thesisDuration;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Duration deliberationDuration;
     private LocalDate alertDelay;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
@@ -22,11 +29,22 @@ public class Session {
     @JoinColumn(name="notationGroup_id")
     private NotationGroup notationGroup;
 
-    public Session() {}
+    public Session() {
+    }
 
-    public Session(String title, Integer duration, LocalDate alertDelay, Formation formation, NotationGroup notationGroup) {
+    public Session(String title, Duration duration, LocalDate alertDelay, Formation formation, NotationGroup notationGroup) {
         this.title = title;
         this.duration = duration;
+        this.alertDelay = alertDelay;
+        this.formation = formation;
+        this.notationGroup = notationGroup;
+    }
+
+    public Session(String title, Duration duration, Duration thesisDuration, Duration deliberationDuration, LocalDate alertDelay, Formation formation, NotationGroup notationGroup) {
+        this.title = title;
+        this.duration = duration;
+        this.thesisDuration = thesisDuration;
+        this.deliberationDuration = deliberationDuration;
         this.alertDelay = alertDelay;
         this.formation = formation;
         this.notationGroup = notationGroup;
@@ -44,12 +62,28 @@ public class Session {
         this.title = title;
     }
 
-    public Integer getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
+    }
+
+    public Duration getThesisDuration() {
+        return thesisDuration;
+    }
+
+    public void setThesisDuration(Duration thesisDuration) {
+        this.thesisDuration = thesisDuration;
+    }
+
+    public Duration getDeliberationDuration() {
+        return deliberationDuration;
+    }
+
+    public void setDeliberationDuration(Duration deliberationDuration) {
+        this.deliberationDuration = deliberationDuration;
     }
 
     public LocalDate getAlertDelay() {
@@ -82,6 +116,8 @@ public class Session {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", duration=" + duration +
+                ", thesisDuration=" + thesisDuration +
+                ", deliberationDuration=" + deliberationDuration +
                 ", alertDelay=" + alertDelay +
                 ", formation=" + formation +
                 ", notationGroup=" + notationGroup +
