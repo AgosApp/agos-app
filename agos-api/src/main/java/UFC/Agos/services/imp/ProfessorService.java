@@ -81,6 +81,11 @@ public class ProfessorService implements IProfessorService, UserDetailsService {
     }
 
     @Override
+    public List<Professor> getAllProfessors() {
+        return professorRepository.findAll();
+    }
+
+    @Override
     public List<Professor> getProfessorsByDepartment(Long departmentId) {
         Department department = departmentRepository.getById(departmentId);
         return professorRepository.getProfessorsByDepartment(department);

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IProfessorService {
 
+    public List<Professor> getAllProfessors();
+
     public List<Professor> getProfessorsByDepartment(Long departmentId);
 
     public Professor getProfessorByDepartment(Long professorId, Long departmentId);
