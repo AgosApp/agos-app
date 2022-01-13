@@ -11,4 +11,6 @@ public interface ICriteriaEvaluationService {
 
     List<CriteriaEvaluation> getCriteriaEvaluationsByThesis(Long thesisId);
 
+    void updateNote(List<Float> notes, Long thesisId, Long professorId, List<Long> criteriaIds);
+
 }

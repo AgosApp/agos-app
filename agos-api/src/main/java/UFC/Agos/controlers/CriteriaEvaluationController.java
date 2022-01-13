@@ -26,4 +26,14 @@ public class CriteriaEvaluationController {
         return criteriaEvaluationService.getCriteriaEvaluationsByThesis(thesisId);
     }
 
+    @ApiOperation(value = "")
+    @GetMapping(path="theses/{thesisId}/professors/{professorId}/note")
+    public void setNoteByCriteria(
+            @PathVariable Long thesisId,
+            @PathVariable Long professorId,
+            @RequestParam List<Float> notes,
+            @RequestParam List<Long> criterias){
+        criteriaEvaluationService.updateNote(notes,thesisId, professorId, criterias);
+    }
+
 }

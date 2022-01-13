@@ -17,4 +17,8 @@ export class ThesisService {
   getThesisByStudent(userId: any, thesisId: any){
     return this.http.get<Thesis>(environment.apiBaseUrl+`students/${userId}/theses/${thesisId}`)
   }
+
+  getThesisByProfessor(userId: any, thesisId: any){
+    return this.http.get<Thesis>(environment.apiBaseUrl+`professors/${userId}/theses/${thesisId}`)
+  }
 }
