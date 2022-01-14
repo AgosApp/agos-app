@@ -45,7 +45,7 @@
       mat-button
       routerLinkActive="active-link"
       class="navbar-item"
-      [routerLink]="['professors', this.userId, 'theses']"
+      [routerLink]="['professors', userId, 'theses']"
       *ngIf="this.authService.isProf()"
       >Mes soutenances</a
     >

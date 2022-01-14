@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('user_id')
+    console.log(this.userId)
     this.firstname = localStorage.getItem("firstname")
     this.lastname = localStorage.getItem("lastname")
     this.cdr.detectChanges();
