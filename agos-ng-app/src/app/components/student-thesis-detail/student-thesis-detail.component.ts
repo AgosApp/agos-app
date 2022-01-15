@@ -65,6 +65,7 @@ export class StudentThesisDetailComponent implements OnInit {
         let duplicataCriteriaEvaluations : number[] = []
         this.criteriaEvaluations.forEach(ce =>duplicataCriteriaEvaluations.push(ce.note))
         this.criteriaEvaluationsNotes = [...new Set(duplicataCriteriaEvaluations)]
+        console.log(this.criteriaEvaluationsNotes)
 
 
         //calculate the final mark

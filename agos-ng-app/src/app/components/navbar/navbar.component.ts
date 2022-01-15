@@ -9,6 +9,8 @@ import {AuthService} from "../../services/auth_service/auth.service";
 })
 export class NavbarComponent implements OnInit {
 
+  panelOpenState = false;
+
   isAuthenticated : boolean | undefined;
   firstname : string | null;
   lastname : string | null;
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('user_id')
+    console.log(this.userId)
     this.firstname = localStorage.getItem("firstname")
     this.lastname = localStorage.getItem("lastname")
     this.cdr.detectChanges();

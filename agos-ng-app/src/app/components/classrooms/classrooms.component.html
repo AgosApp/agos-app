@@ -1,18 +1,25 @@
+<div class="container">
+  <h3>Salles</h3>
+  <form action="" class="example-form">
+    <input
+      class="form-control"
+      type="text"
+      name="addRoom"
+      id="addRoom"
+      [(ngModel)]="RoomName"
+    />
+    <button mat-mini-fab class="add" (click)="onAdd()">+</button>
+  </form>
 
-<div class="container" >
-    <h3 >Salles</h3>
-    <form action="" class = "example-form">
-     
-        <input class="form-control" type="text"  name="addRoom" id="addRoom" [(ngModel)]="RoomName" >
-        <button mat-mini-fab color="primary" (click)="onAdd()">+</button><br/>
-        <p class ="msg-error" *ngIf="roomNameEmpty">*Merci de ne laisser pas ce camps vide</p>
-    </form>
-    
-   
-        <div *ngFor="let room of Rooms">
-        <li class="list-room">{{room.name}} </li>
-    <button mat-mini-fab color="warn"(click)="onDelete(room)" class="button-delete" >-</button>
-       </div>
-
-    
+  <div *ngFor="let room of Rooms">
+    <li class="list-room">{{ room.name }}</li>
+    <button
+      mat-mini-fab
+      color="warn"
+      (click)="onDelete(room)"
+      class="button-delete"
+    >
+      -
+    </button>
+  </div>
 </div>
