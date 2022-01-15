@@ -4,7 +4,8 @@
     <form action="" class = "example-form">
      
         <input class="form-control" type="text"  name="addRoom" id="addRoom" [(ngModel)]="RoomName" >
-        <button mat-mini-fab color="primary" (click)="onAdd()">+</button>
+        <button mat-mini-fab color="primary" (click)="onAdd()">+</button><br/>
+        <p class ="msg-error" *ngIf="roomNameEmpty">*Merci de ne laisser pas ce camps vide</p>
     </form>
     
    

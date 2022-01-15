@@ -10,6 +10,7 @@ import { RoomServiceService } from 'src/app/services/rooms-service/room-service.
 export class ClassroomsComponent implements OnInit {
   RoomName="";
   Rooms: any;
+  roomNameEmpty : Boolean;
   constructor(private roomservice: RoomServiceService) { }
 
   ngOnInit(): void {
@@ -23,8 +24,14 @@ export class ClassroomsComponent implements OnInit {
   }
 
   onAdd(){
-
-    this.addRooms();
+    if(this.RoomName == ""){
+      this.roomNameEmpty = true;
+    }else{
+      this.roomNameEmpty = false;
+      this.addRooms();
+    }
+    
+    
   }
   addRooms(){
     this.roomservice.addRooms({id:0,name:this.RoomName,description:""}).subscribe(res =>{
