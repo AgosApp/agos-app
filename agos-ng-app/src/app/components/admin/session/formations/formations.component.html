@@ -1,0 +1,121 @@
+<!-- <script src="formations.component.ts"></script> -->
+<div class="add-form">
+  <form (ngSubmit)="addFormation()" class="example-form">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Nouvelle formation"
+      name="addFormation"
+      id="addFormation"
+      [(ngModel)]="formation.name"
+    />
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Description"
+      name="addFormation"
+      [(ngModel)]="formation.description"
+    />
+    <button mat-stroked-button color="primary" class="button-add" type="submit">
+      +
+    </button>
+  </form>
+</div>
+
+<div class="content">
+  <div class="container" *ngFor="let formation of forms">
+    <div>
+      <div>
+        <h3 id="formation_id" name="formation_id">{{ formation.name }}</h3>
+        <button
+          mat-mini-fab
+          color="basic"
+          (click)="deleteFormation(formation.id)"
+          class="button-delete"
+        >
+          X
+        </button>
+      </div>
+      <app-sessions [formation_id]="formation.id"></app-sessions>
+    </div>
+  </div>
+  <div class="containerSession">
+    <form (ngSubmit)="addSession()">
+      <h4>Ajouter une session</h4>
+
+      <div class="col-md-12">
+        <label>Titre</label>
+        <input
+          class="input-control"
+          type="text"
+          name="addSession"
+          [(ngModel)]="session.title"
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label>Formation</label>
+        <select
+          id="select"
+          name="addFormation"
+          class="input-control"
+          [(ngModel)]="session.formation_id"
+        >
+          <option value="" selected disabled hidden>
+            Selectionnez une formation
+          </option>
+          <option *ngFor="let formationn of forms" value="{{ formationn.id }}">
+            {{ formationn.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-12">
+        <label>Groupe de notation</label>
+        <select
+          name="addFormation"
+          class="input-control"
+          [(ngModel)]="session.notationGroupId"
+        >
+          <option value="" selected disabled hidden>
+            Selectionnez un groupe de notation
+          </option>
+          <option *ngFor="let group of groups" value="{{ group.id }}">
+            {{ group.notationGroupTitle }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-12">
+        <label>Durée des soutenances</label>
+        <input
+          class="input-control"
+          type="number"
+          name="addSession"
+          [(ngModel)]="session.thesisDuration"
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label>Durée des déliberations</label>
+        <input
+          class="input-control"
+          type="number"
+          name="addSession"
+          [(ngModel)]="session.deliberationDuration"
+        />
+      </div>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        class="button-add"
+        type="submit"
+      >
+        +
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="contentSession"></div>

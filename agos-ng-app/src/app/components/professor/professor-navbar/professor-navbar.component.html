@@ -1,0 +1,34 @@
+<div>
+  <mat-toolbar class="enavbar" *ngIf="_reload">
+    <span class="title">AGOS</span>
+    <span class="title">
+      <a mat-button class="navbar-item" *ngIf="this.authService.isProf()"
+        >Mes soutenances</a
+      >
+    </span>
+    <span class="dropdownUser">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <span class="fontsettings12" *ngIf="authService.isAuthenticated()">
+          {{ firstname }} {{ lastname }}
+        </span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="authService.isAuthenticated()">
+          <span>
+            <a class="fontsettings12" mat-button0 (click)="logout()"
+              >Se déconnecter</a
+            >
+          </span>
+        </button>
+        <button mat-menu-item *ngIf="authService.isAdmin()">
+          <span>
+            <a class="fontsettings12" mat-button0 (click)="go()"
+              >Espace Administrateur</a
+            >
+          </span>
+        </button>
+      </mat-menu>
+    </span>
+  </mat-toolbar>
+</div>
