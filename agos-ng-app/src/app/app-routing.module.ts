@@ -28,15 +28,18 @@ const routes: Routes = [
   {path:'', component: LoginComponent},
 
   {path:'admin', component: AdminComponent,children: [
-    // { path: '', component:  AComponent },
+     //{ path: '', component:  DepartmentComponent },
     { path: 'classrooms', component:  ClassroomsComponent,pathMatch: 'full' },
     { path: 'notation', component:  NotationComponent,pathMatch: 'full' },
-    { path: 'session', component:  SessionComponent,pathMatch: 'full',children:[
+    /*{ path: 'session', component:  SessionComponent,pathMatch: 'full',children:[
       { path: 'departments', component:  DepartmentComponent,pathMatch: 'full'},
       { path: ':departmentId/formations', component:  FormationsComponent,pathMatch: 'full' }
     ]}
-      ,
-    { path: 'students', component:  StudentsComponent,pathMatch: 'full' },
+      ,*/
+      { path: 'session', component:  DepartmentComponent,pathMatch: 'full' },
+      { path: 'session/:departmentId/formations', component:  FormationsComponent,pathMatch: 'full' },
+
+      { path: 'students', component:  StudentsComponent,pathMatch: 'full' },
     { path: 'professors', component:  ProfessorsComponent,pathMatch: 'full' },
     ], canActivate : [AuthGuard , RoleGuard],
     data: {
@@ -90,8 +93,6 @@ const routes: Routes = [
 
 
 
-
-
   {path:'students/:userId/theses', component: StudentComponent,children: [
     // { path: '', component:  AComponent },
     { path: ':thesisId', component:  StudentThesisDetailComponent,pathMatch: 'full' },
@@ -122,6 +123,7 @@ const routes: Routes = [
   //   } },
 
   {path:'login', component: LoginComponent,},
+  //{ path : '**', component : FormationsComponent}
   { path: '**', redirectTo: '' }
 
 ];

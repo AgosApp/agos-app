@@ -44,26 +44,26 @@ export class CreateFormComponent implements OnInit {
   get itemsArrayControl() {
     return (this.orderForm.get('notations') as FormArray).controls;
   }
-  
+
   // notations() : FormArray {
   //   return this.productForm.get("notations") as FormArray
   // }
-   
+
   // newQuantity(): FormGroup {
   //   return this.fb.group({
   //     critere: '',
   //     bareme: '',
   //   })
   // }
-   
+
   // addQuantity() {
   //   this.notations().push(this.newQuantity());
   // }
-   
+
   removeNotation(i:number) {
     this.notations.removeAt(i);
   }
-   
+
   // onSubmit() {
   //   console.log(this.productForm.value);
   // }
@@ -77,6 +77,7 @@ export class CreateFormComponent implements OnInit {
 
 onCreateGroup(group: NotationGroup){
       this.notationService.createGroup(group).subscribe(() =>{
+        
       });
       }
 

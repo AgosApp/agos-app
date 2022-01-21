@@ -16,26 +16,27 @@ export class FormationsComponent implements OnInit {
 
   Formations: string[] = [];
   forms:any;
-  departmentId:any;
+  department_id:any;
   sessions:any;
   format:any;
   formation_id:any;
   groups:any;
   formation = new Formation();
   session = new Session();
-  activatedRoute: any;
 
   constructor(private route:ActivatedRoute, private formationService:FormationsService, private sessionsService:SessionsService) { }
 
   ngOnInit(): void {
-    this.departmentId = this.activatedRoute.snapshot.params['departmentId'];
+
+    this.department_id = this.route.snapshot.params['departmentId'];
     this.getFormations();
     this.getNotationGroups();
 
   }
 
   getFormations(){
-    this.formationService.getFormations(this.departmentId).subscribe(res =>{
+    console.log("ok",this.department_id)
+    this.formationService.getFormations(this.department_id).subscribe(res =>{
 
       this.forms = res;
 
@@ -43,7 +44,7 @@ export class FormationsComponent implements OnInit {
   }
 
   addFormation(){
-    this.formationService.addFormation(this.departmentId, this.formation).subscribe(res =>{
+    this.formationService.addFormation(this.department_id, this.formation).subscribe(res =>{
       //console.log(res);
 
       //to display the new formation on card instantly
@@ -56,7 +57,7 @@ export class FormationsComponent implements OnInit {
 
   deleteFormation(id:any) {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
-      this.formationService.deleteFormation(this.departmentId, id).subscribe(res => {
+      this.formationService.deleteFormation(this.department_id, id).subscribe(res => {
         this.getFormations();
       });
     }
@@ -76,7 +77,8 @@ export class FormationsComponent implements OnInit {
 
       //to display the new formation on card instantly
       this.getNotationGroups();
-    console.log("session is : "+this.session);
+      this.getFormations();
+      console.log("session is : "+this.session);
       //successAlert
       //this.successAlertNotification();
     });
