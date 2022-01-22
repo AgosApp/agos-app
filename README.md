@@ -1,5 +1,17 @@
 # agos-Front
 
+
+Prerequisites:
+-Node js
+-Angular
+
+Usage
+- Open agos-app directory
+-Open agos-ng-app directory in a text editor 
+-Run the command: npm install
+-Run the command: ng serve
+-The frontend application is running on http://localhost:4200
+
 # agos-Back
 
 About the project : 

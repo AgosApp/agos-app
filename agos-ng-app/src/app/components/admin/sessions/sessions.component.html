@@ -1,0 +1,11 @@
+<mat-grid-list *ngFor="let session of sessions" cols="1.8" rowHeight="6:1">
+  <mat-grid-tile
+    ><button
+      mat-button
+      routerLink="../formations/:formation.id"
+      class="departmentItem"
+    >
+      {{ session.title }}
+    </button></mat-grid-tile
+  >
+</mat-grid-list>
