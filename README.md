@@ -8,7 +8,7 @@ git clone https://github.com/AgosApp/agos-app.git
 ```
 
 
-# agos-Front
+# Angular Application (frontend)
 
 ## Prerequisites 
 - NodeJS
@@ -20,7 +20,7 @@ git clone https://github.com/AgosApp/agos-app.git
 1. Access Angular project :
 
 ```
-# angular folder
+# angular application folder
 cd agos-ng-app
 ```
 
@@ -41,7 +41,7 @@ ng serve --open
 
 The project will run by default on http://localhost:4200/
 
-# agos-Back
+# Spring Application (backend)
 
 About the project : 
 It's a REST API developed using Spring Boot 2.5.6 Framework and Spring MVC Core.
