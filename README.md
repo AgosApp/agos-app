@@ -1,4 +1,45 @@
+AGOS(Aide à la Gestion et à l'Organisation des Soutenances) is a Web Application that offers centralised tool for managing theses defences,a new simplified and clear evaluation system and a smooth allocation of time slots.
+
+
+###clone the project :
+
+```
+git clone https://github.com/AgosApp/agos-app.git
+```
+
+
 # agos-Front
+
+##Prerequisites 
+- NodeJS
+- npm package manager (installed by default with NodeJS)
+- AngularCLI 13.0.3
+
+##Run the Project :
+
+1. Access Angular project :
+
+```
+# angular folder
+cd agos-ng-app
+```
+
+
+2. Install Dependencies :
+
+```
+# javascript dependencies
+npm install
+```
+
+3. Run the Project :
+
+```
+# run project
+ng serve --open
+```
+
+The project will run by default on http://localhost:4200/
 
 # agos-Back
 
