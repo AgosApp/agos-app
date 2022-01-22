@@ -7,7 +7,7 @@ import {LoginRequest} from "../../models/LoginRequest";
 import {LoginResponse} from "../../models/LoginResponse";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import {NavbarComponent} from "../navbar/navbar.component";
+import {NavbarComponent} from "../admin/navbar/navbar.component";
 
 
 

@@ -1,0 +1,20 @@
+<mat-toolbar class="enavbar" *ngIf="_reload">
+  <span class="etitle">AGOS</span>
+  <span class="edropdownUser">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <span class="efontsettings12" *ngIf="authService.isAuthenticated()">
+        {{ firstname }} {{ lastname }}
+      </span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span *ngIf="authService.isAuthenticated()">
+          <a class="efontsettings12" mat-button (click)="logout()"
+            >Mon Espace</a
+          >
+        </span>
+      </button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
