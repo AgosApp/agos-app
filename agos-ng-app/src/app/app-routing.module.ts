@@ -17,6 +17,7 @@ import {StudentThesesComponent} from "./components/student-theses/student-theses
 import {ProfessorThesesComponent} from "./components/professor-theses/professor-theses.component";
 import {StudentThesisDetailComponent} from "./components/student-thesis-detail/student-thesis-detail.component";
 import {ProfessorThesisDetailComponent} from "./components/professor-thesis-detail/professor-thesis-detail.component";
+import { CrenelComponent } from './components/crenel/crenel.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,10 @@ const routes: Routes = [
     data: {
       expectedRole: 'ADMIN_ROLE'
     }},
-
+    {path:'crenel', component: CrenelComponent, canActivate : [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: 'ADMIN_ROLE'
+    }},
   {path:'sessions', component: DepartmentComponent, canActivate : [AuthGuard, RoleGuard],
     data: {
       expectedRole: 'ADMIN_ROLE'

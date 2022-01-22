@@ -1,0 +1,89 @@
+<div class="test">
+    <div class="FormContainer">
+      <form class="example-form">
+        <br />
+        <mat-form-field appearance="fill" class="example-chip-list">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange) = "datechanged($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="example-chip-list">
+
+          <input type="time" matInput name="week" min="09:00" max="18:00" [(ngModel)] = "datechangedDebut" ng-change="timeChange($event)" >
+       </mat-form-field>
+<br/>
+    
+<mat-form-field appearance="fill" class = "example-chip-list">
+  <mat-label>Date Fin</mat-label>
+  <mat-select  name="food">
+    <mat-option >
+
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+      
+     <mat-form-field class="example-chip-list" appearance="fill">
+      <mat-label>Salles</mat-label>
+      <mat-chip-list #chipList aria-label="salle selection">
+        <mat-chip
+          *ngFor="let salle of salles"
+          (removed)="remove(salle)">
+          {{salle}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="New salle..."
+          #salleInput
+          [formControl]="salleCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let salle of filteredSalles | async" [value]="salle">
+          {{salle}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+        <button mat-button class="AddButtonDept" (click)="onAdd()" >
+          Ajouter un Crénau
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+  <div class="center">
+    <div class="container">
+      <mat-grid-list cols={{salles.length}} rowHeight="3:1" >
+      <mat-grid-tile *ngFor="let salle of salles" >
+        {{salle}}
+  </mat-grid-tile>
+</mat-grid-list>
+      <mat-grid-list cols={{salles.length}} rowHeight="3:1" *ngFor="let salle of salles">
+        
+        <mat-grid-tile *ngFor="let salle of salles" >
+        
+          <div class="departmentItem">
+            
+            <button
+              class="large-button "
+              mat-button
+
+            >
+             
+            </button>
+            
+          </div>
+        </mat-grid-tile>
+
+
+      </mat-grid-list>
+    </div>

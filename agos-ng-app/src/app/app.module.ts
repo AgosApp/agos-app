@@ -26,7 +26,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EditFormComponent } from './components/notation/components/edit-form/edit-form.component';
 import { CreateFormComponent } from './components/notation/components/create-form/create-form.component';
 import { DepartmentComponent } from './components/department/department.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormationsComponent } from './components/formations/formations.component';
 import {RouterModule, Routes} from "@angular/router";
 import { LoginComponent } from './components/login/login.component';
@@ -43,6 +43,16 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { ProfessorThesesComponent } from './components/professor-theses/professor-theses.component';
 import { StudentThesisDetailComponent } from './components/student-thesis-detail/student-thesis-detail.component';
 import { ProfessorThesisDetailComponent } from './components/professor-thesis-detail/professor-thesis-detail.component';
+import { CrenelComponent } from './components/crenel/crenel.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 // @ts-ignore
 // @ts-ignore
@@ -64,7 +74,9 @@ import { ProfessorThesisDetailComponent } from './components/professor-thesis-de
     ProfessorThesesComponent,
     StudentThesisDetailComponent,
     ProfessorThesisDetailComponent,
-    FormationsComponent
+    FormationsComponent,
+    CrenelComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -94,7 +106,16 @@ import { ProfessorThesisDetailComponent } from './components/professor-thesis-de
     MatSnackBarModule,
     HttpClientModule,
     FontAwesomeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
+
   ],
   bootstrap: [AppComponent],
   providers: [{
