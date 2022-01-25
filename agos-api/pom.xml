@@ -103,6 +103,7 @@
                 </configuration>
             </plugin>
         </plugins>
+		<finalName>docker-image-agos</finalName>
 	</build>
 
 </project>

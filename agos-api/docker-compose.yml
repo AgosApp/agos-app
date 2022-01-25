@@ -1,0 +1,86 @@
+#version: '3.1'
+#
+#services:
+#
+#  db:
+#    image: mariadb:latest
+#    restart: always
+#    container_name: 'agos'
+#    #env_file: ./.env
+#    ports:
+#      - "3306"
+#    volumes:
+#      - /containers/mysql-standalone/data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 'root'
+#
+#  phpmyadmin:
+#    depends_on:
+#      - db
+#    image: phpmyadmin/phpmyadmin
+#    restart: always
+#    container_name: dbContainer
+#    #env_file: ./src/main/resources/application.properties
+#    ports:
+#      - "3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 'root'
+#
+#  spring-api:
+#    container_name: spring-api
+#    build: .
+#    image: java:9-b115-jdk
+#    restart: on-failure
+#    ports:
+#      - "8189:8189"
+#    links:
+#      - db
+#
+
+version: '2.1'
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: db
+    environment:
+      MYSQL_DATABASE: agos
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - mysql:db
+    ports:
+      - "8081:80"
+
+  backend-spring-boot-app:
+    container_name: spring-boot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker-image-spring-api:latest
+    restart: on-failure
+    links:
+      - db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8090:8090
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=
+      - DATABASE_NAME=agos
+      - DATABASE_PORT=3306
