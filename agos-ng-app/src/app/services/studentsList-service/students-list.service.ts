@@ -13,6 +13,8 @@ export class StudentsListService {
   getStudents(){
     return this.http.get<Student[]>(environment.apiBaseUrl+`students`);
   }
-
+  getStudentsByFormation(formationId : any){
+    return this.http.get<Student[]>(environment.apiBaseUrl+`formations/`+formationId+`/students`);
+  }
 
 }
