@@ -21,4 +21,10 @@ export class ThesisService {
   getThesisByProfessor(userId: any, thesisId: any){
     return this.http.get<Thesis>(environment.apiBaseUrl+`professors/${userId}/theses/${thesisId}`)
   }
+  getThesisByCrenal(crenalId: any){
+    return this.http.get<Thesis>(environment.apiBaseUrl+`creneaux/${crenalId}/theses`)
+  }
+  addThesis(crenalId: any,roomId : any,student : any,professor : any,data: Thesis){
+    return this.http.post(environment.apiBaseUrl+`creneaux/${crenalId}/theses?roomId=`+roomId+`&students=`+student+`&professors=`+professor+`&typesProfessors=Tuteur,Temoin`,data)
+  }
 }

@@ -1,0 +1,224 @@
+<div class="test">
+    <div class="FormContainer">
+      <form class="example-form">
+        <br />
+        <mat-form-field appearance="fill" class="example-chip-list">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange) = "datechanged($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" class="example-chip-list">
+
+          <input type="time" matInput name="week" min="09:00" max="18:00" [(ngModel)] = "datechangedDebut" (change)="timeChange()"  >
+       </mat-form-field>
+<br/>
+    
+<mat-form-field appearance="fill" class = "example-chip-list">
+  <mat-label>Date Fin</mat-label>
+  <mat-select  name="food" (selectionChange)="select($event)">
+    <mat-option *ngFor='let hours of hoursPossible' value={{hours}} >
+      {{hours}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+      
+     <mat-form-field class="example-chip-list" appearance="fill">
+      <mat-label>Salles</mat-label>
+      <mat-chip-list #chipList aria-label="salle selection">
+        <mat-chip
+          *ngFor="let salle of salles"
+          (removed)="remove(salle)">
+          {{salle}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="New salle..."
+          #salleInput
+          [formControl]="salleCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let salle of filteredSalles | async" [value]="salle">
+          {{salle}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+        <button mat-button class="AddButtonDept" (click)='onAdd()' >
+          Ajouter un Crénau
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+  <div class="center" *ngFor="let crenal of crenals">
+    <p>{{crenal.day}}</p>
+    <div class="container">
+      <mat-grid-list cols={{crenal.rooms.length+1}} rowHeight="4:1" >
+        
+        <mat-grid-tile  >
+       
+    </mat-grid-tile>
+      <mat-grid-tile *ngFor="let salle of crenal.rooms" >
+        {{salle.name}}
+  </mat-grid-tile>
+</mat-grid-list>
+      <mat-grid-list cols={{crenal.rooms.length+1}} rowHeight="4:1" *ngFor="let hours of crenal.hoursPossible">
+        <mat-grid-tile  >
+          {{hours}}
+          
+    </mat-grid-tile>
+
+
+
+        <mat-grid-tile *ngFor="let salle of crenal.rooms" >
+      
+          <div class="departmentItem" *ngFor="let thesis of thesisByCrenal"  >
+            
+            <button
+              *ngIf="salle.name == thesis.room.name && hours == thesis.time"
+              class="large-button "
+              mat-button
+
+            >
+            {{thesis.title}}
+            
+            </button>
+            <button
+              *ngIf="salle.name != thesis.room.name || hours != thesis.time "
+              class="large-button "
+              mat-button
+              
+              (click)='teleportToform("idForm",salle,hours,crenal.day,crenal)'
+            >
+            +
+            
+            </button>
+            
+          </div>
+          
+          <div class="departmentItem"  *ngIf="0>=thesisByCrenal.length" >
+          <button
+             
+              class="large-button "
+              mat-button
+              (click)='teleportToform("idForm",salle,hours,crenal.day,crenal)'
+            >
+            +
+            
+            </button>
+          </div>
+        </mat-grid-tile>
+ 
+
+      </mat-grid-list>
+    </div>
+  </div>
+
+
+
+  <form  class="container" id='idForm' >
+
+    <h4>Ajouter une soutenance</h4>
+
+    <div class="col-lg-12 line" >
+      <b>Titre</b><br/>
+      <input class="input-control" type="text"  name="title" [(ngModel)] = "titleSoutenance" >
+    </div>
+
+    <div class="col-lg-12 line" >
+      <b>Date soutenance</b><br/>
+      <input class="input-control " [(ngModel)] = "DateSoutenace"  name="addSessionn" disabled >
+    </div>
+
+    <div class="col-lg-12 line" >
+      <b >Heure de départ</b><br/>
+      <input class="input-control "  [(ngModel)] = "hourdepart"   name="addSession" disabled >
+    </div>
+
+    <div class="col-lg-12 line" >
+      <b >Professeur tuteur</b><br/>
+      <select  name="addFormation"  class="input-control " [(ngModel)]="selectedProfTuteur"  (change)="selectProftuteur()" >
+        <option *ngFor="let prof of professors"  value={{prof.id}}>{{prof.firstName}} {{prof.lastName}}</option>
+      </select>
+    </div>
+
+    <div class="col-lg-12 line" *ngFor="let prof of ProfsTuteurSelected" >
+      
+      <input class="input-control "   name="addSession" value="{{prof.firstName}} {{prof.lastName}}" disabled/>
+      <button
+      mat-mini-fab
+      color="warn"
+      (click) = "removeProfTuteur(prof)"
+      class="button-delete"
+    >
+      -
+    </button>
+
+    </div>
+
+    <div class="col-lg-12 line" >
+      <b >Professeur témoin</b><br/>
+      <select  name="addFormation"  class="input-control " [(ngModel)]="selectedProfTemoin"  (change)="selectProftemoin()" >
+        <option *ngFor="let prof of professors"  value={{prof.id}}>{{prof.firstName}} {{prof.lastName}}</option>
+      </select>
+    </div>
+
+    <div class="col-lg-12 line" *ngFor="let prof of ProfsTemoinSelected" >
+      
+      <input class="input-control "   name="addSession" value="{{prof.firstName}} {{prof.lastName}}" disabled/>
+      <button
+      mat-mini-fab
+      color="warn"
+      (click) = "removeProfTemoin(prof)"
+      class="button-delete"
+    >
+      -
+    </button>
+
+    </div>
+
+    <div class="col-lg-12 line" >
+      <b >Etudiant</b><br/>
+      <select  name="addFormation"  class="input-control " [(ngModel)]="selectedStudent"  (change)="selectStudent()" >
+        <option *ngFor="let student of students"  value={{student.id}}>{{student.firstName}} {{student.lastName}}</option>
+      </select>
+    </div>
+
+   
+    <div class="col-lg-12 line" *ngFor="let student of StudentsSelected" >
+      
+      <input class="input-control "   name="addSession" value="{{student.firstName}} {{student.lastName}}" disabled/>
+      <button
+      mat-mini-fab
+      color="warn"
+      (click) = "removeStudent(student)"
+      class="button-delete"
+    >
+      -
+    </button>
+
+    </div>
+
+  <div class="col-lg-12 line">
+    <button
+     mat-button 
+     class="AddButtonDept "  
+     (click)='addSoutenance()'>
+      Ajouter un soutenance
+    </button>
+  </div>
+  </form>
+
+
+
+    
