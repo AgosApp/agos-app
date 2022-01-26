@@ -165,12 +165,12 @@ timeChange(){
   this.target = new Date("1970-01-01 "+this.datechangedDebut)
  
   for(let i = 0;i<4;i++){ 
-    if((this.target.getMinutes()+parse(this.crenals[0].session.duration,'m')>60)){
-      this.target = new Date("1970-01-01 "+(this.target.getHours()+1+":0"+(this.target.getMinutes()-parse(this.crenals[0].session.duration,'m'))));
+    if((this.target.getMinutes()+30>60)){
+      this.target = new Date("1970-01-01 "+(this.target.getHours()+1+":0"+(this.target.getMinutes()-30)));
 
         this.hoursPossible.push((this.target.getHours()<9?"0"+this.target.getHours():this.target.getHours())+":"+(this.target.getMinutes()<9?"0"+this.target.getMinutes():this.target.getMinutes()))
-    }else if((this.target.getMinutes()+parse(this.crenals[0].session.duration,'m')<60)){
-      this.target = new Date("1970-01-01 "+(this.target.getHours()+":0"+(this.target.getMinutes()+parse(this.crenals[0].session.duration,'m'))));
+    }else if((this.target.getMinutes()+30<60)){
+      this.target = new Date("1970-01-01 "+(this.target.getHours()+":0"+(this.target.getMinutes()+30)));
 
       this.hoursPossible.push((this.target.getHours()<9?"0"+this.target.getHours():this.target.getHours())+":"+(this.target.getMinutes()<9?"0"+this.target.getMinutes():this.target.getMinutes()))
     }
@@ -190,7 +190,8 @@ this.crenalservice.getCrenals(this.session_id).subscribe(res =>{
   this.crenals.map((crenal : any)=>{
     crenal.hoursPossible=[]
     const tmpDate= new Date(crenal.day)
-    crenal.day=tmpDate.toLocaleDateString("fr", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    console.log(crenal.day)
+   // crenal.day=tmpDate.toLocaleDateString("fr", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   this.target = new Date("1970-01-01 "+crenal.startTime)
   this.targetEnd = new Date("1970-01-01 "+crenal.endTime)
   const nbrSout =((this.target.getMinutes()-this.targetEnd.getMinutes())!=0)?(this.targetEnd.getHours()-this.target.getHours())*2 : ((this.targetEnd.getHours()-this.target.getHours())*2)-1
@@ -214,7 +215,7 @@ this.crenalservice.getCrenals(this.session_id).subscribe(res =>{
   this.getThesisByCrenal(crenal.id)
   })
   
-console.log(this.crenals[1].hoursPossible)
+
 
 })
 
@@ -306,9 +307,10 @@ teleportToform(section : any, salle : any, hour: any , day :any , crenal: any) :
     this.hourdepart = hour;
     this.roomThesis = salle;
     const days = new Date(crenal.day+" "+this.hourdepart)
+    
    this.crenalThesis = crenal
-   this.crenalThesis.day = days.getFullYear()+"-"+days.getMonth()+1+"-"+days.getDate()
-
+   this.crenalThesis.day = days.getFullYear()+"-"+((days.getMonth()+1)<=9?"0"+(days.getMonth()+1):(days.getMonth()+1))+"-"+days.getDate()
+console.log(days.getFullYear());
     window.location.hash = '';
     window.location.hash = section;
 
@@ -327,8 +329,8 @@ addSoutenance() : void {
   this.professorIdToSend.push(this.ProfsTemoinSelected[0].id)
   const time = new Date(this.crenalThesis.day+" "+this.hourdepart)
 
-  this.SoutenanceToSend.time=time.getFullYear()+"-"+time.getMonth()+1+"-"+time.getDate()+" "+(time.getHours()<=9?"0"+time.getHours():time.getHours())+":"+(time.getMinutes()<=9?"0"+time.getMinutes():time.getMinutes());
-  console.log(this.SoutenanceToSend)
+  this.SoutenanceToSend.time=time.getFullYear()+"-"+((time.getMonth()+1)<=9?"0"+(time.getMonth()+1):(time.getMonth()+1))+"-"+(time.getDate()<=9?"0"+time.getDate():time.getDate())+" "+(time.getHours()<=9?"0"+time.getHours():time.getHours())+":"+(time.getMinutes()<=9?"0"+time.getMinutes():time.getMinutes());
+  console.log (this.SoutenanceToSend.time)
   
   
  this.thesisservice.addThesis(this.crenalThesis.id,this.roomThesis.id,this.studentIdToSend.toString(),this.professorIdToSend.toString(),this.SoutenanceToSend).subscribe(res =>{
