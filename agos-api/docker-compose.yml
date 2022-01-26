@@ -62,7 +62,31 @@ services:
     links:
       - mysql:db
     ports:
-      - "8081:80"
+      - 8081:81
+
+  httpd:
+    container_name: agos_httpd
+    restart: unless-stopped
+    #env_file: .env
+    build:
+      context: ../agos-api
+      dockerfile: docker/httpd/dockerfile
+      #target: AGOS_APP_HTTPD
+      args:
+        - WEB_USER=www-data
+        - WEB_GROUP=www-data
+        - APACHE_ROOT_DIR=/usr/local/apache2
+        - APACHE_VERSION=2.4
+    volumes:
+      - ../../api/docker/httpd/logs:/usr/local/apache2/logs
+      - ../../api/public:/usr/local/apache2/htdocs/public
+      #- java_socket:/var/run/java
+    ports:
+      - 9000:80
+#    networks:
+#      agos-app:
+#        ipv4_address: 192.168.0.111
+
 
   backend-spring-boot-app:
     container_name: spring-boot-app
@@ -73,14 +97,44 @@ services:
     restart: on-failure
     links:
       - db
+      - phpmyadmin
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - 8090:8090
+      - 8080:8080
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=
-      - DATABASE_NAME=agos
-      - DATABASE_PORT=3306
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/agos?autoReconnect=true&useSSL=false
+
+  node_frontend:
+    container_name: agos_node_frontend
+    restart: unless-stopped
+    #env_file: ../agos-api/application-local.properties
+    working_dir: /usr/src/app
+    build:
+      context: ../agos-ng-app
+      dockerfile: dockerfile
+      args:
+        - NODE_FRONT_DIR=/usr/src/app
+    volumes:
+      - ../../frontend/docker/node_frontend/logs:/root/.npm/_logs
+      - ../../frontend:/usr/src/app:rw
+    ports:
+      - 4200:4200
+    links:
+      - httpd
+    depends_on:
+      - db
+      - backend-spring-boot-app
+      - httpd
+#    networks:
+#      agos-app:
+#        ipv4_address: 192.168.0.115
+
+#networks:
+#  agos-app:
+#    driver: overlay
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 192.168.0.0/24
