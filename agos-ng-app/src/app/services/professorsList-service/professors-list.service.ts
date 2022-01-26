@@ -14,4 +14,7 @@ export class ProfessorsListService {
   getProfessors(){
     return this.http.get<Professor[]>(environment.apiBaseUrl+`professors`);
   }
+  getProfessorsByDepartment(departementId : any){
+    return this.http.get<Professor[]>(environment.apiBaseUrl+`departments/`+departementId+`/professors`);
+  }
 }

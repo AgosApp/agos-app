@@ -23,6 +23,9 @@ import { SessionsComponent } from './components/admin/session/formations/session
 import { StudentsComponent } from './components/admin/students/students.component';
 import { ProfessorsComponent } from './components/admin/professors/professors.component';
 import { FooterComponent } from './components/footer/footer.component';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 import { EditFormComponent } from './components/admin/notation/edit-form/edit-form.component';
 import { CreateFormComponent } from './components/admin/notation/create-form/create-form.component';
 import { DepartmentComponent } from './components/admin/session/department/department.component';
@@ -40,6 +43,17 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {RoleGuardService} from "./services/auth_service/role-guard.service";
 import { StudentThesesComponent } from './components/student/student-theses/student-theses.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+
+import { CrenelComponent } from './components/crenel/crenel.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import { ProfessorThesesComponent } from './components/professor/professor-theses/professor-theses.component';
 import { StudentThesisDetailComponent } from './components/student/student-thesis-detail/student-thesis-detail.component';
 import { ProfessorThesisDetailComponent } from './components/professor/professor-thesis-detail/professor-thesis-detail.component';
@@ -74,6 +88,8 @@ import { SessionComponent } from './components/admin/session/session.component';
     StudentThesisDetailComponent,
     ProfessorThesisDetailComponent,
     FormationsComponent,
+    CrenelComponent,
+    
     EvaluationComponent,
     EvaluationBodyComponent,
     EvaluationNavbarComponent,
@@ -113,6 +129,15 @@ import { SessionComponent } from './components/admin/session/session.component';
     HttpClientModule,
     FontAwesomeModule,
     MatExpansionModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
+
     MatSliderModule
   ],
   bootstrap: [AppComponent],

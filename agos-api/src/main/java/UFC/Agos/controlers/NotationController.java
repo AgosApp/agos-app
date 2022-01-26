@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="api/notations")
+@RequestMapping(path="api/")
 //@PreAuthorize("hasAuthority('ADMIN_ROLE')"+ "|| hasAuthority('PROF_ROLE')")
 public class NotationController {
 
@@ -21,17 +21,22 @@ public class NotationController {
     @Autowired
     INotationService notationService;
 
-    @GetMapping
+    @GetMapping(path="notations")
     public List<Notation> getNotations() {
         return notationService.getNotations();
     }
 
-    @GetMapping(path="/{notationId}")
+    @GetMapping(path="notationGroups/{notationGroupId}/notations")
+    public List<Notation> getNotationsByNotationGroup(@PathVariable Long notationGroupId) {
+        return notationService.getNotationsByNotationGroup(notationGroupId);
+    }
+
+    @GetMapping(path="notations/{notationId}")
     public Notation getNotation(@PathVariable Long notationId){
         return notationService.getNotation(notationId);
     }
 
-    @PostMapping
+    @PostMapping(path="notations")
     public void saveNotation(@RequestBody Notation notation
             //, @PathVariable(required = false) Long criteriaId, @PathVariable(required = false) Long notationGroupId
                              ){
@@ -40,7 +45,7 @@ public class NotationController {
         );
     }
 
-    @DeleteMapping(path = "/{notationId}")
+    @DeleteMapping(path = "notations/{notationId}")
     public  void deleteNotation(@PathVariable("notationId") Long notationId) throws Exception {
         notationService.deleteNotation(notationId);
     }

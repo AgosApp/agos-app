@@ -22,6 +22,7 @@ import { StudentComponent } from './components/student/student.component';
 import { ProfessorComponent } from './components/professor/professor.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { SessionComponent } from './components/admin/session/session.component';
+import { CrenelComponent } from './components/crenel/crenel.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'session/:departmentId/formations', component:  FormationsComponent,pathMatch: 'full' },
 
       { path: 'students', component:  StudentsComponent,pathMatch: 'full' },
+      { path: ':sessionId/crenal', component:  CrenelComponent,pathMatch: 'full' },
     { path: 'professors', component:  ProfessorsComponent,pathMatch: 'full' },
     ], canActivate : [AuthGuard , RoleGuard],
     data: {
