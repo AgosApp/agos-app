@@ -1,0 +1,101 @@
+version: '2.1'
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: db
+    environment:
+      MYSQL_DATABASE: agos
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - mysql:db
+    ports:
+      - 8081:81
+
+  httpd:
+    container_name: agos_httpd
+    restart: unless-stopped
+    #env_file: .env
+    build:
+      context: ../agos-api
+      dockerfile: docker/httpd/dockerfile
+      #target: AGOS_APP_HTTPD
+      args:
+        - WEB_USER=www-data
+        - WEB_GROUP=www-data
+        - APACHE_ROOT_DIR=/usr/local/apache2
+        - APACHE_VERSION=2.4
+    volumes:
+      - ../../api/docker/httpd/logs:/usr/local/apache2/logs
+      - ../../api/public:/usr/local/apache2/htdocs/public
+      #- java_socket:/var/run/java
+    ports:
+      - 9000:80
+#    networks:
+#      agos-app:
+#        ipv4_address: 192.168.0.111
+
+
+  backend-spring-boot-app:
+    container_name: spring-boot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker-image-spring-api:latest
+    restart: on-failure
+    links:
+      - db
+      - phpmyadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/agos?autoReconnect=true&useSSL=false
+
+  node_frontend:
+    container_name: agos_node_frontend
+    restart: unless-stopped
+    #env_file: ../agos-api/application-local.properties
+    working_dir: /usr/src/app
+    build:
+      context: ../agos-ng-app
+      dockerfile: dockerfile
+      args:
+        - NODE_FRONT_DIR=/usr/src/app
+    volumes:
+      - ../../frontend/docker/node_frontend/logs:/root/.npm/_logs
+      - ../../frontend:/usr/src/app:rw
+    ports:
+      - 4200:4200
+    links:
+      - httpd
+    depends_on:
+      - db
+      - backend-spring-boot-app
+      - httpd
+#    networks:
+#      agos-app:
+#        ipv4_address: 192.168.0.115
+
+#networks:
+#  agos-app:
+#    driver: overlay
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 192.168.0.0/24

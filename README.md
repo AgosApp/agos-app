@@ -1,5 +1,5 @@
 # agos-Front
-
+N.B: begin with agos-Back instructions for good testing 
 
 Prerequisites:
 -Node js
@@ -11,6 +11,10 @@ Usage
 -Run the command: npm install
 -Run the command: ng serve
 -The frontend application is running on http://localhost:4200
+- To authenticate as a professor : username : fcouchot 
+- To authenticate as a student : username : mboufelj
+N.B : the password for all users is : 1234
+ 
 
 # agos-Back
 
@@ -22,6 +26,7 @@ Prerequisites
 - Java 15.0.2
 - Maven
 - XXAMP 
+
 
 Usage
 - Open agos-app directory in a text editor (Intellij IDEA is recommended)
@@ -47,8 +52,20 @@ N.B : When committing, please respect the messages : (feat(api): the-title-of-th
 6.Open a Pull Request in th develop branch
 5. Merge with develop after the approval of all contributors
 
+#AGOS Docker
 
-Contact
+Prerequisites
+-Docker
+-Docker Desktop ( To visualize the running containers)
+
+To run docker containers
+Follow the steps bellow:
+1-Open agos-app directory
+2-Open agos-api directory
+3-Run the command: docker-compose up
+N.B: Be sure that all necessary ports are available
+
+#Contact
 AGOS Team - @Agos - agos@gmail.com
 
 Project Link: https://github.com/AgosApp/agos-app

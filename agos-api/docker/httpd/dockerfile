@@ -1,0 +1,23 @@
+ARG agos-app
+ARG 2.4
+
+FROM httpd:2.4-alpine AS AGOS_APP_HTTPD
+
+ARG www-data
+ARG www-data
+ARG /usr/local/apache2
+
+RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /usr/local/apache2/conf/httpd.conf;
+
+COPY docker/httpd/conf/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
+COPY docker/httpd/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
+
+RUN chgrp -R www-data /usr/local/apache2/conf/httpd.conf \
+ && chgrp -R www-data /usr/local/apache2/conf/extra/httpd-vhosts.conf \
+ && chgrp -R -v www-data /usr/local/apache2/htdocs
+
+RUN apk --no-cache add shadow
+
+RUN usermod -u 1000 www-data \
+ && groupmod -g 1000 www-data \
+ && chgrp -R www-data /usr/local/apache2
